@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('role_id')->default(3)->constrained('roles')->cascadeOnDelete();
+            $table->foreignId('role_id')->default(3)->constrained()->restrictOnDelete();
             // $table->string('user_name')->nullable()->unique();
             $table->string('first_name');
             $table->string('last_name');
