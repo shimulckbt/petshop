@@ -38,7 +38,7 @@ class LoginController extends Controller
         } elseif (Auth()->user()->role_id == 2) {
             return route('seller.dasboard');
         } elseif (Auth()->user()->role_id == 3) {
-            return route('user.dasboard');
+            return route('client.dasboard');
         }
     }
 
@@ -63,14 +63,21 @@ class LoginController extends Controller
 
         if (auth()->attempt(array('email' => $input['email'], 'password' => $input['password']))) {
             if (auth()->user()->role_id == 1) {
+                // dd($request->all());
                 return redirect()->route('admin.dashboard');
             } elseif (auth()->user()->role_id == 2) {
+                // dd($request->all());
                 return redirect()->route('seller.dashboard');
             } elseif (auth()->user()->role_id == 3) {
-                return redirect()->route('user.dashboard');
+                // dd($request->all());
+                return redirect()->route('client.dashboard');
             } else {
-                return redirect()->route('login')->with('error', 'Email and password are wrong');
+                // dd($request->all());
+                return redirect()->back()->with('error', 'Email and password are wrong');
             }
+        } else {
+            // dd($request->all());
+            return redirect()->back()->with('error', 'Email and password are wrong');
         }
     }
 }

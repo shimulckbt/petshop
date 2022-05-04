@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
@@ -47,23 +48,11 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
-    protected function validator(array $data)
-    {
-        return Validator::make(
-            $data,
-            [
-                // 'role_id' => ['required,1'],
-                'role_id' => ['required, 1'],
-                'first_name' => ['required', 'string', 'max:255'],
-                'last_name' => ['required', 'string', 'max:255'],
-                'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-                'password' => ['required', 'string', 'min:8', 'confirmed'],
-            ],
-            [
-                'role_id.required' => 'Registration type is required',
-            ]
-        );
-    }
+    // protected function validator(array $data)
+    // {
+    //     return Validator::make()
+    //        
+    // }
 
     /**
      * Create a new user instance after a valid registration.
@@ -71,14 +60,43 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\Models\User
      */
-    protected function create(array $data)
+    // protected function create(array $data)
+    // {
+    //     return User::create([
+    //         'name' => $data['name'],
+    //         'email' => $data['email'],
+    //         'password' => Hash::make($data['password']),
+    //     ]);
+    // }
+
+    function register(Request $request)
     {
-        return User::create([
-            'role_id' => $data['role_id'],
-            'first_name' => $data['first_name'],
-            'last_name' => $data['last_name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+
+        $request->validate(
+            [
+                'role_id' => ['required', 'not_in:1'],
+                'first_name' => ['required', 'string', 'max:255'],
+                'last_name' => ['required', 'string', 'max:255'],
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+                'password' => ['required', 'string', 'min:8', 'confirmed'],
+            ],
+            [
+                'role_id.required' => 'Registration type is required',
+                'role_id.not_in' => 'Registration type is ivalid',
+            ]
+        );
+
+        $user = new User();
+        $user->role_id = $request->role_id;
+        $user->first_name = $request->first_name;
+        $user->last_name = $request->last_name;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+
+        if ($user->save()) {
+            return redirect()->route('login')->with('success', 'You are now successfully registerd please login');
+        } else {
+            return redirect()->back()->with('error', 'Failed to register');
+        }
     }
 }

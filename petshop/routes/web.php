@@ -22,27 +22,29 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+Route::middleware(['middleware' => 'prevent.back.history'])->group(function () {
+    Auth::routes();
+});
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::group(['prefix' => 'admin', 'middleware' => ['admin', 'auth']], function () {
+Route::group(['prefix' => 'admin', 'middleware' => ['admin', 'auth', 'prevent.back.history']], function () {
     // Route::get('dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
     Route::controller(AdminController::class)->group(function () {
         Route::get('dashboard', 'index')->name('admin.dashboard');
     });
 });
 
-Route::group(['prefix' => 'seller', 'middleware' => ['seller', 'auth']], function () {
+Route::group(['prefix' => 'seller', 'middleware' => ['seller', 'auth', 'prevent.back.history']], function () {
     // Route::get('dashboard', [SellerController::class, 'index'])->name('seller.dashboard');
     Route::controller(SellerController::class)->group(function () {
         Route::get('dashboard', 'index')->name('seller.dashboard');
     });
 });
 
-Route::group(['prefix' => 'client', 'middleware' => ['client', 'auth']], function () {
+Route::group(['prefix' => 'client', 'middleware' => ['client', 'auth', 'prevent.back.history']], function () {
     // Route::get('dashboard', [UserController::class, 'index'])->name('user.dashboard');
     Route::controller(ClientController::class)->group(function () {
-        Route::get('dashboard', 'index')->name('user.dashboard');
+        Route::get('dashboard', 'index')->name('client.dashboard');
     });
 });

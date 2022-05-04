@@ -7,6 +7,15 @@
             <div class="card">
                 <div class="card-header">{{ __('Register') }}</div>
 
+                <div>
+                    @if(session('error'))
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <strong>{{session('error')}}</strong>
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    </div>
+                    @endif
+                </div>
+
                 <div class="card-body">
                     @php
                     $roles = DB::table('roles')->where('id','!=',1)->get();
