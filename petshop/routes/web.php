@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Seller\SellerController;
-use App\Http\Controllers\User\UserController;
+use App\Http\Controllers\User\ClientController;
 use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -26,23 +26,23 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
+Route::group(['prefix' => 'admin', 'middleware' => ['admin', 'auth']], function () {
     // Route::get('dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
     Route::controller(AdminController::class)->group(function () {
         Route::get('dashboard', 'index')->name('admin.dashboard');
     });
 });
 
-Route::group(['prefix' => 'seller', 'middleware' => 'auth'], function () {
+Route::group(['prefix' => 'seller', 'middleware' => ['seller', 'auth']], function () {
     // Route::get('dashboard', [SellerController::class, 'index'])->name('seller.dashboard');
     Route::controller(SellerController::class)->group(function () {
         Route::get('dashboard', 'index')->name('seller.dashboard');
     });
 });
 
-Route::group(['prefix' => 'user', 'middleware' => 'auth'], function () {
+Route::group(['prefix' => 'client', 'middleware' => ['client', 'auth']], function () {
     // Route::get('dashboard', [UserController::class, 'index'])->name('user.dashboard');
-    Route::controller(UserController::class)->group(function () {
+    Route::controller(ClientController::class)->group(function () {
         Route::get('dashboard', 'index')->name('user.dashboard');
     });
 });
