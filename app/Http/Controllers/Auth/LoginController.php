@@ -34,11 +34,11 @@ class LoginController extends Controller
     protected function redirectTo()
     {
         if (Auth()->user()->role_id == 1) {
-            return route('admin.dasboard');
+            return route('admin.dashboard');
         } elseif (Auth()->user()->role_id == 2) {
-            return route('seller.dasboard');
+            return route('seller.dashboard');
         } elseif (Auth()->user()->role_id == 3) {
-            return route('client.dasboard');
+            return route('client.dashboard');
         }
     }
 
