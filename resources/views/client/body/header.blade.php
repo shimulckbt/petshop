@@ -20,7 +20,6 @@
                      </form>
                   </li>
                   @endguest
-                  <li class="list-inline-item"><a href="contact.html">Contact</a></li>
                </ul>
             </div>
          </div>
