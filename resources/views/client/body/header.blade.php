@@ -9,8 +9,17 @@
             <div class="col-lg-12 text-center text-lg-right">
                <ul class="menu list-inline mb-0">
                   <!-- <li class="list-inline-item"><a href="#" data-toggle="modal" data-target="#login-modal">Login</a></li> -->
+                  @guest
                   <li class="list-inline-item"><a href="{{route('login')}}">Login</a></li>
                   <li class="list-inline-item"><a href="{{route('register')}}">Register</a></li>
+                  @else
+                  <li class="list-inline-item"><a href="{{ route('logout') }}">{{ Auth::user()->first_name." ".Auth::user()->last_name }}</a></li>
+                  <li class="list-inline-item"><a href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout</a>
+                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                     </form>
+                  </li>
+                  @endguest
                   <li class="list-inline-item"><a href="contact.html">Contact</a></li>
                </ul>
             </div>
