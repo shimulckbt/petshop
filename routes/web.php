@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Seller\SellerController;
-use App\Http\Controllers\User\ClientController;
+use App\Http\Controllers\Client\ClientController;
 use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -18,8 +18,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 Route::get('/', function () {
-    return view('welcome');
+    return view('client.index');
 });
 
 Route::middleware(['middleware' => 'prevent.back.history'])->group(function () {

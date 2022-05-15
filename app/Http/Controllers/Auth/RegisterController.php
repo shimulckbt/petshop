@@ -92,6 +92,7 @@ class RegisterController extends Controller
         $user->last_name = $request->last_name;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
+        // $user->save();
 
         if ($user->save()) {
             return redirect()->route('login')->with('success', 'You are now successfully registerd please login');
