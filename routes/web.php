@@ -23,7 +23,7 @@ use Illuminate\Support\Facades\Route;
 // });
 Route::get('/', function () {
     return view('client.index');
-});
+})->name('welcome');
 
 Route::middleware(['middleware' => 'prevent.back.history'])->group(function () {
     Auth::routes();

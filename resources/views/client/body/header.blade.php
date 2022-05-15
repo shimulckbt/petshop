@@ -8,14 +8,18 @@
          <div class="row">
             <div class="col-lg-12 text-center text-lg-right">
                <ul class="menu list-inline mb-0">
-                  <li class="list-inline-item"><a href="#" data-toggle="modal" data-target="#login-modal">Login</a></li>
-                  <li class="list-inline-item"><a href="register.html">Register</a></li>
+                  <!-- <li class="list-inline-item"><a href="#" data-toggle="modal" data-target="#login-modal">Login</a></li> -->
+                  <li class="list-inline-item"><a href="{{route('login')}}">Login</a></li>
+                  <li class="list-inline-item"><a href="{{route('register')}}">Register</a></li>
                   <li class="list-inline-item"><a href="contact.html">Contact</a></li>
                </ul>
             </div>
          </div>
       </div>
-      <div id="login-modal" tabindex="-1" role="dialog" aria-labelledby="Login" aria-hidden="true" class="modal fade">
+
+      <!-- ------------  Login  ------------ -->
+
+      <!-- <div id="login-modal" tabindex="-1" role="dialog" aria-labelledby="Login" aria-hidden="true" class="modal fade">
          <div class="modal-dialog modal-sm">
             <div class="modal-content">
                <div class="modal-header">
@@ -39,14 +43,14 @@
                </div>
             </div>
          </div>
-      </div>
+      </div> -->
       <!-- *** TOP BAR END ***-->
 
 
    </div>
    <nav class="navbar navbar-expand-lg">
       <div class="container">
-         <a href="index.html" class="navbar-brand home">
+         <a href="{{route('welcome')}}" class="navbar-brand home">
             <img class="rounded-circle" width="80" height="80" src="{{asset('client/img/petshop.jpg')}}" alt="Obaju logo" class="d-none d-md-inline-block">
             <!-- <img class="rounded-circle" width="50" height="50" src="{{asset('client/img/petshop.jpg')}}" alt="Obaju logo" class="d-inline-block d-md-none"> -->
             <span class="sr-only">Pet Shop - go to homepage</span>
