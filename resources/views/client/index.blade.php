@@ -7,7 +7,6 @@
          <div class="row">
             <div class="col-md-12">
                <div id="main-slider" class="owl-carousel owl-theme">
-                  <div class="item"><img src="{{asset('client/img/main-slider1.jpg')}}" alt="" class="img-fluid"></div>
                   <div class="item"><img src="{{asset('client/img/main-slider2.jpg')}}" alt="" class="img-fluid"></div>
                   <div class="item"><img src="{{asset('client/img/main-slider3.jpg')}}" alt="" class="img-fluid"></div>
                   <div class="item"><img src="{{asset('client/img/main-slider4.jpg')}}" alt="" class="img-fluid"></div>
@@ -78,7 +77,7 @@
                      <div class="text">
                         <h3><a href="detail.html">Fur coat with very but very very long name</a></h3>
                         <p class="price">
-                           <del></del>$143.00
+                           <del></del>1430.00 TK
                         </p>
                      </div>
                      <!-- /.text-->
@@ -111,7 +110,7 @@
                      <div class="text">
                         <h3><a href="detail.html">White Blouse Armani</a></h3>
                         <p class="price">
-                           <del>$280</del>$143.00
+                           <del></del>1430.00 TK
                         </p>
                      </div>
                      <!-- /.text-->
@@ -144,7 +143,7 @@
                      <div class="text">
                         <h3><a href="detail.html">Black Blouse Versace</a></h3>
                         <p class="price">
-                           <del></del>$143.00
+                           <del></del>1430.00 TK
                         </p>
                      </div>
                      <!-- /.text-->
@@ -162,7 +161,7 @@
                      <div class="text">
                         <h3><a href="detail.html">Black Blouse Versace</a></h3>
                         <p class="price">
-                           <del></del>$143.00
+                           <del></del>1430.00 TK
                         </p>
                      </div>
                      <!-- /.text-->
@@ -180,7 +179,7 @@
                      <div class="text">
                         <h3><a href="detail.html">White Blouse Versace</a></h3>
                         <p class="price">
-                           <del></del>$143.00
+                           <del></del>1430.00 TK
                         </p>
                      </div>
                      <!-- /.text-->
@@ -203,7 +202,7 @@
                      <div class="text">
                         <h3><a href="detail.html">Fur coat</a></h3>
                         <p class="price">
-                           <del></del>$143.00
+                           <del></del>1430.00 TK
                         </p>
                      </div>
                      <!-- /.text-->
@@ -226,7 +225,7 @@
                      <div class="text">
                         <h3><a href="detail.html">White Blouse Armani</a></h3>
                         <p class="price">
-                           <del>$280</del>$143.00
+                           <del>280</ TKdel>1430.00 TK
                         </p>
                      </div>
                      <!-- /.text-->
@@ -259,7 +258,7 @@
                      <div class="text">
                         <h3><a href="detail.html">Black Blouse Versace</a></h3>
                         <p class="price">
-                           <del></del>$143.00
+                           <del></del>1430.00 TK
                         </p>
                      </div>
                      <!-- /.text-->

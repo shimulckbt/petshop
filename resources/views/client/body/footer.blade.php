@@ -42,7 +42,7 @@
          <!-- /.col-lg-3-->
          <div class="col-lg-3 col-md-6">
             <h4 class="mb-3">Get the news</h4>
-            <p class="text-muted">Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
+            <p class="text-muted">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Neque, inventore!</p>
             <form>
                <div class="input-group">
                   <input type="text" class="form-control"><span class="input-group-append">
