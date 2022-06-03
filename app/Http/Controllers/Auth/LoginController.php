@@ -38,7 +38,7 @@ class LoginController extends Controller
         } elseif (Auth()->user()->role_id == 2) {
             return route('seller.dashboard');
         } elseif (Auth()->user()->role_id == 3) {
-            return route('client.dashboard');
+            return route('welcome');
         }
     }
 
@@ -75,7 +75,7 @@ class LoginController extends Controller
                 return redirect()->route('seller.dashboard');
             } elseif (auth()->user()->role_id == 3) {
                 // dd($request->all());
-                return redirect()->route('client.dashboard');
+                return redirect()->route('welcome');
             } else {
                 // dd($request->all());
                 return back()->with('logError', 'Invalid Email or Password');

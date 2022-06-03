@@ -40,8 +40,8 @@ Route::group(['prefix' => 'seller', 'middleware' => ['seller', 'auth', 'prevent.
     });
 });
 
-Route::group(['prefix' => 'client', 'middleware' => ['client', 'auth', 'prevent.back.history']], function () {
+Route::group(['middleware' => ['client', 'auth', 'prevent.back.history']], function () {
     Route::controller(ClientController::class)->group(function () {
-        Route::get('home', 'index')->name('client.dashboard');
+        // Route::get('home', 'index')->name('client.dashboard');
     });
 });
