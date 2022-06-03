@@ -69,6 +69,11 @@ class RegisterController extends Controller
     //     ]);
     // }
 
+    public function showRegistrationForm()
+    {
+        return view('auth.registerAndLogin');
+    }
+
     function register(Request $request)
     {
 
@@ -95,9 +100,9 @@ class RegisterController extends Controller
         // $user->save();
 
         if ($user->save()) {
-            return redirect()->route('login')->with('success', 'You are now successfully registerd please login');
+            return redirect()->route('login')->with('regSuccess', 'Successfully registerd. Please login!');
         } else {
-            return redirect()->back()->with('error', 'Failed to register');
+            return back()->with('regError', 'Registeration Failed');
         }
     }
 }

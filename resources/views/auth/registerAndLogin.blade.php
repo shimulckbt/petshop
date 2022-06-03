@@ -16,9 +16,9 @@
                 <!-- -------------Registration------------ -->
                 <div class="col-lg-6">
                     <div>
-                        @if(session('error'))
+                        @if(session('regError'))
                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            <strong>{{session('error')}}</strong>
+                            <strong>{{session('regError')}}</strong>
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -112,17 +112,17 @@
                 <!-- ------------------Login------------------ -->
                 <div class="col-lg-6">
                     <div>
-                        @if(session('success'))
+                        @if(session('regSuccess'))
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
-                            <strong>{{session('success')}}</strong>
+                            <strong>{{session('regSuccess')}}</strong>
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         @endif
-                        @if(session('error'))
+                        @if(session('logError'))
                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            <strong>{{session('error')}}</strong>
+                            <strong>{{session('logError')}}</strong>
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>

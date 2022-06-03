@@ -52,6 +52,11 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
+    public function showLoginForm()
+    {
+        return view('auth.registerAndLogin');
+    }
+
     public function login(Request $request)
     {
         $input = $request->all();
@@ -73,11 +78,11 @@ class LoginController extends Controller
                 return redirect()->route('client.dashboard');
             } else {
                 // dd($request->all());
-                return redirect()->back()->with('error', 'Email and password are wrong');
+                return back()->with('logError', 'Invalid Email or Password');
             }
         } else {
             // dd($request->all());
-            return redirect()->back()->with('error', 'Email and password are wrong');
+            return back()->with('logError', 'Invalid Email or Password');
         }
     }
 }
