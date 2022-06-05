@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Product\Category;
 
-use App\Models\ProductSubSubCategory;
 use Illuminate\Http\Request;
+use App\Models\Product\Category\ProductSubCategory;
+use App\Http\Controllers\Controller;
 
-class ProductSubSubCategoryController extends Controller
+class ProductSubCategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +42,10 @@ class ProductSubSubCategoryController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\ProductSubSubCategory  $productSubSubCategory
+     * @param  \App\Models\ProductSubCategory  $productSubCategory
      * @return \Illuminate\Http\Response
      */
-    public function show(ProductSubSubCategory $productSubSubCategory)
+    public function show(ProductSubCategory $productSubCategory)
     {
         //
     }
@@ -52,10 +53,10 @@ class ProductSubSubCategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\ProductSubSubCategory  $productSubSubCategory
+     * @param  \App\Models\ProductSubCategory  $productSubCategory
      * @return \Illuminate\Http\Response
      */
-    public function edit(ProductSubSubCategory $productSubSubCategory)
+    public function edit(ProductSubCategory $productSubCategory)
     {
         //
     }
@@ -64,10 +65,10 @@ class ProductSubSubCategoryController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\ProductSubSubCategory  $productSubSubCategory
+     * @param  \App\Models\ProductSubCategory  $productSubCategory
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ProductSubSubCategory $productSubSubCategory)
+    public function update(Request $request, ProductSubCategory $productSubCategory)
     {
         //
     }
@@ -75,10 +76,10 @@ class ProductSubSubCategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\ProductSubSubCategory  $productSubSubCategory
+     * @param  \App\Models\ProductSubCategory  $productSubCategory
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ProductSubSubCategory $productSubSubCategory)
+    public function destroy(ProductSubCategory $productSubCategory)
     {
         //
     }

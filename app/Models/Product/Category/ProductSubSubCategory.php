@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Product\Category;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ProductCategory extends Model
+class ProductSubSubCategory extends Model
 {
     use HasFactory;
 }

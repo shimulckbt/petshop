@@ -61,6 +61,32 @@
    <!-- Divider -->
    <hr class="sidebar-divider">
 
+    <!-- Heading -->
+    <div class="sidebar-heading">
+      Products
+   </div>
+
+   <!-- Nav Item - Pages Collapse Menu -->
+   <li class="nav-item">
+      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProducts" aria-expanded="true" aria-controls="collapseProducts">
+         <i class="fas fa-fw fa-folder"></i>
+         <span>Products</span>
+      </a>
+      <div id="collapseProducts" class="collapse" aria-labelledby="headingProducts" data-parent="#accordionSidebar">
+         <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Product Categories:</h6>
+            <a class="collapse-item" href="">Categories</a>
+            <div class="collapse-divider"></div>
+            <h6 class="collapse-header">Products:</h6>
+            <a class="collapse-item" href="">Add New Product</a>
+            <a class="collapse-item" href="">All Products</a>
+         </div>
+      </div>
+   </li>
+
+   <!-- Divider -->
+   <hr class="sidebar-divider">
+
    <!-- Heading -->
    <div class="sidebar-heading">
       Addons
