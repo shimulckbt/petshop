@@ -25,7 +25,7 @@ class ProductCategoryController extends Controller{
     public function index()
     {
         $categories = $this->categoryService->getAllCategories();
-        return view('admin.products.category.index', compact('categories'));
+        return view('panel.products.category.index', compact('categories'));
     }
 
 }
