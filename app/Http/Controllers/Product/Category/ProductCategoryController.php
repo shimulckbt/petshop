@@ -2,12 +2,21 @@
 
 namespace App\Http\Controllers\Product\Category;
 
-use Illuminate\Http\Request;
-use App\Models\Product\Category\ProductCategory;
 use App\Http\Controllers\Controller;
+use App\Services\Product\Category\CategoryService;
 
-class ProductCategoryController extends Controller
-{
+class ProductCategoryController extends Controller{
+    
+    /**
+     * categoryService
+     *
+     * @var mixed
+     */
+    private $categoryService;
+
+    public function __construct(CategoryService $categoryService){
+        $this->categoryService = $categoryService;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +24,8 @@ class ProductCategoryController extends Controller
      */
     public function index()
     {
-        return view('admin.products.category.index');
+        $categories = $this->categoryService->getAllCategories();
+        return view('admin.products.category.index', compact('categories'));
     }
 
 }

@@ -9,42 +9,63 @@
 
         <!-- Content Row -->
         <div class="row">
-            <h6>Test Category</h6>
+            <div class="col-12 mb-4">
+                <div class="card border-bottom-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                    All Categories</div>
+                                <div class="h5 mb-0 mt-2 font-weight-bold text-gray-800">
+                                    <select class="form-control" aria-label="Select Category" id="exampleCategory" name="categories">
+                                        <option selected  disabled>Select Category</option>
+                                        @foreach ($categories as $category)
+                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-
-        <!-- Content Row -->
         <div class="row">
-            <h6>Test Sub Category</h6>
+            <div class="col-xl-6 col-md-12 mb-4">
+                <div class="card shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                    Sub Categories</div>
+                                <div class="h5 mb-0 mt-2 font-weight-bold text-gray-800">
+                                    <select class="form-control" aria-label="Select Category" id="exampleCategory" name="categories">
+                                        <option selected  disabled>Select Sub-category</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6 col-md-12 mb-4">
+                <div class="card shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                    Brands / Breeds</div>
+                                <div class="h5 mb-0 mt-2 font-weight-bold text-gray-800">
+                                    <select class="form-control" aria-label="Select Category" id="exampleCategory" name="categories">
+                                        <option selected  disabled>Select Brand/Breed</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-
-        <!-- Content Row -->
-        <div class="row">
-            <h6>Test Brand Category</h6>
-        </div>
-
-        <!-- Content Row -->
-
 
     </div>
-
-    <!-- <div class="container">
-           <div class="row justify-content-center">
-              <div class="col-md-8">
-                 <div class="card">
-                    <div class="card-header">{{ __('Dashboard') }}</div>
-
-                    <h4>Hi I am Admin: My name is {{ Auth::user()->first_name }}</h4>
-                    <div class="card-body">
-                       @if (session('status'))
-    <div class="alert alert-success" role="alert">
-                          {{ session('status') }}
-                       </div>
-    @endif
-
-                       {{ __('You are logged in!') }}
-                    </div>
-                 </div>
-              </div>
-           </div>
-        </div> -->
 @endsection

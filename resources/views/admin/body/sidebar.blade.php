@@ -1,7 +1,7 @@
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
    <!-- Sidebar - Brand -->
-   <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+   <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('panel') }}">
       <div class="sidebar-brand-icon rotate-n-15">
          <i class="fas fa-laugh-wink"></i>
       </div>
@@ -12,8 +12,8 @@
    <hr class="sidebar-divider my-0">
 
    <!-- Nav Item - Dashboard -->
-   <li class="nav-item active">
-      <a class="nav-link" href="index.html">
+   <li class="nav-item {{ (request()->is('panel')) ? 'active' : '' }}">
+      <a class="nav-link" href="{{ route('panel') }}">
          <i class="fas fa-fw fa-tachometer-alt"></i>
          <span>Dashboard</span></a>
    </li>
@@ -67,7 +67,7 @@
    </div>
 
    <!-- Nav Item - Pages Collapse Menu -->
-   <li class="nav-item">
+   <li class="nav-item {{ (request()->is('products*')) ? 'active' : '' }}">
       <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProducts" aria-expanded="true" aria-controls="collapseProducts">
          <i class="fas fa-fw fa-folder"></i>
          <span>Products</span>
@@ -75,7 +75,7 @@
       <div id="collapseProducts" class="collapse" aria-labelledby="headingProducts" data-parent="#accordionSidebar">
          <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Product Categories:</h6>
-            <a class="collapse-item" href="">Categories</a>
+            <a class="collapse-item {{ (request()->is('products/categories')) ? 'active' : '' }}" href="{{ route('categories.index') }}">Categories</a>
             <div class="collapse-divider"></div>
             <h6 class="collapse-header">Products:</h6>
             <a class="collapse-item" href="">Add New Product</a>

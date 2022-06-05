@@ -30,19 +30,18 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::group(['middleware' => ['admin', 'auth', 'prevent.back.history']], function () {
     
-    
-    Route::controller(AdminController::class)->group(function () {
-        Route::get('dashboard', 'index')->name('admin.dashboard');
-    });
-    
     Route::group(['prefix' => "products"], function(){
         Route::resource('categories', ProductCategoryController::class)->only('index');
+    });
+    
+    Route::controller(AdminController::class)->group(function () {
+        Route::get('panel', 'index')->name('panel');
     });
 });
 
 Route::group(['middleware' => ['seller', 'auth', 'prevent.back.history']], function () {
     Route::controller(SellerController::class)->group(function () {
-        Route::get('dashboard', 'index')->name('seller.dashboard');
+        // Route::get('dashboard', 'index')->name('seller.dashboard');
     });
 });
 
