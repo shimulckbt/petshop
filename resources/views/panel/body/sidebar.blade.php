@@ -72,7 +72,7 @@
          <i class="fas fa-fw fa-folder"></i>
          <span>Products</span>
       </a>
-      <div id="collapseProducts" class="collapse" aria-labelledby="headingProducts" data-parent="#accordionSidebar">
+      <div id="collapseProducts" class="collapse {{ (request()->is('products*')) ? 'show' : '' }}" aria-labelledby="headingProducts" data-parent="#accordionSidebar">
          <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Product Categories:</h6>
             <a class="collapse-item {{ (request()->is('products/categories')) ? 'active' : '' }}" href="{{ route('categories.index') }}">Categories</a>
