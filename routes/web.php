@@ -27,26 +27,28 @@ Route::middleware(['middleware' => 'prevent.back.history'])->group(function () {
     Auth::routes();
 });
 
-Route::controller(DashboardController::class)->group(function () {
-    Route::get('/dashboard', 'index')->name('dashboard');
-});
 
-Route::group(['middleware' => ['admin', 'auth', 'prevent.back.history']], function () {
+Route::group(['middleware' => ['auth', 'prevent.back.history']], function () {
     
-    Route::group(['prefix' => "products"], function(){
-        Route::resource('categories', ProductCategoryController::class)->only('index');
+    Route::controller(DashboardController::class)->group(function () {
+        Route::get('/dashboard', 'index')->name('dashboard');
+    });
+
+    Route::group(['middleware' => 'admin'], function () {
+        
+        Route::group(['prefix' => "products"], function(){
+            Route::resource('categories', ProductCategoryController::class)->only('index');
+        });
+        
     });
     
+    Route::group(['middleware' => 'seller'], function () {
+    
+    });
+    
+    Route::group(['middleware' => 'customer'], function () {
+    
+    });
+
 });
 
-Route::group(['middleware' => ['seller', 'auth', 'prevent.back.history']], function () {
-    Route::controller(DashboardController::class)->group(function () {
-        // Route::get('/dashboard', 'index')->name('dashboard');
-    });
-});
-
-Route::group(['middleware' => ['customer', 'auth', 'prevent.back.history']], function () {
-    Route::controller(DashboardController::class)->group(function () {
-        // Route::get('/dashboard', 'index')->name('dashboard');
-    });
-});

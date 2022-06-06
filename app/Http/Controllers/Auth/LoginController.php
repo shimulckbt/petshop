@@ -31,16 +31,16 @@ class LoginController extends Controller
      */
     protected $redirectTo = RouteServiceProvider::HOME;
 
-    // protected function redirectTo()
-    // {
-    //     if (Auth()->user()->role_id == 1) {
-    //         return route('dashboard');
-    //     } elseif (Auth()->user()->role_id == 2) {
-    //         return route('dashboard');
-    //     } elseif (Auth()->user()->role_id == 3) {
-    //         return route('welcome');
-    //     }
-    // }
+    protected function redirectTo()
+    {
+        if (Auth()->user()->role_id == 1) {
+            return route('dashboard');
+        } elseif (Auth()->user()->role_id == 2) {
+            return route('dashboard');
+        } elseif (Auth()->user()->role_id == 3) {
+            return route('welcome');
+        }
+    }
 
     /**
      * Create a new controller instance.
@@ -69,7 +69,7 @@ class LoginController extends Controller
         if (auth()->attempt(array('email' => $input['email'], 'password' => $input['password']))) {
             if (auth()->user()->role_id == 1) {
                 // dd($request->all());
-                // return redirect()->route('dashboard');
+                return redirect()->route('dashboard');
             } elseif (auth()->user()->role_id == 2) {
                 // dd($request->all());
                 return redirect()->route('dashboard');

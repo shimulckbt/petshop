@@ -7,15 +7,6 @@ use Illuminate\Http\Request;
 class DashboardController extends Controller
 {        
     /**
-     * __construct
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-    /**
      * index
      *
      * @return void
