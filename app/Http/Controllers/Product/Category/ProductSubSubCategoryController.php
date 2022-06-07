@@ -2,24 +2,16 @@
 
 namespace App\Http\Controllers\Product\Category;
 
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 use App\Models\Product\Category\ProductCategory;
 use App\Models\Product\Category\ProductSubCategory;
 use App\Models\Product\Category\ProductSubSubCategory;
 
 class ProductSubSubCategoryController extends Controller
-{
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-        
+{      
     /**
      * getSubSubCategoriesAjax
      *
@@ -41,18 +33,37 @@ class ProductSubSubCategoryController extends Controller
      */
     public function create()
     {
-        return view('panel.products.category.sub-sub-category.index');
+        $categories = ProductCategory::all();
+        return view('panel.products.category.sub-sub-category.index', compact('categories'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+
+    public function storeSubSubCategoryAjax(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'shop' => 'required|numeric|exists:product_categories,id',
+            'category' => 'required|numeric|exists:product_sub_categories,id',
+            'brand_or_breed' => 'required|unique:product_sub_sub_categories,name'
+        ]);
+
+        if($validator->fails()){
+            return response()->json([
+                'status' => 400,
+                'message' => $validator->messages(),
+            ]);
+        }else{
+            ProductSubSubCategory::create([
+                'name' => $request->brand_or_breed,
+                'slug' => Str::slug($request->brand_or_breed),
+                'product_category_id' => $request->shop,
+                'product_sub_category_id' => $request->category
+            ]);
+
+            return response()->json([
+                'status' => 200,
+                'message' => "Successfully added! ✌",
+            ]);
+        }
     }
 
     /**

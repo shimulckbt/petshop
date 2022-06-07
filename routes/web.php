@@ -43,7 +43,10 @@ Route::group(['middleware' => ['auth', 'prevent.back.history']], function () {
             Route::resource('categories', ProductCategoryController::class)->only('index');
 
             Route::get('get-sub-categories/{id}', [ProductSubCategoryController::class, 'getSubCategoriesAjax'])->name('getSubCategories');
+            Route::post('store-sub-categories', [ProductSubCategoryController::class, 'storeSubCategoryAjax'])->name('storeSubCategories');
+            
             Route::get('get-sub-sub-categories/{id}', [ProductSubSubCategoryController::class, 'getSubSubCategoriesAjax'])->name('getSubSubCategories');
+            Route::post('store-sub-sub-categories', [ProductSubSubCategoryController::class, 'storeSubSubCategoryAjax'])->name('storeSubSubCategories');
 
             Route::get('create-sub-categories', [ProductSubCategoryController::class, 'create'])->name('subCategory.create');
             Route::get('create-sub-sub-categories', [ProductSubSubCategoryController::class, 'create'])->name('subSubCategory.create');;

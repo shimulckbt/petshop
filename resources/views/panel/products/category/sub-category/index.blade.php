@@ -18,10 +18,27 @@
                                     Add New Category
                                 </div>
                                 <div class="mb-0 mt-2">
-                                    <a class="btn btn-sm btn-primary" href="{{ route('categories.index') }}">&#8678; Go Back</a>
+                                    <a class="btn btn-sm btn-primary" href="{{ route('categories.index') }}">&#8678; Go
+                                        Back</a>
                                 </div>
                                 <div class="h5 mb-0 mt-4 font-weight-bold text-gray-800">
-                                    <form id="addSubCategory">                                        
+                                    <form id="addSubCategory">
+                                        <div class="form-group">
+                                            <label for="exampleCategory">Select Shop</label>
+                                            <select class="form-control" aria-label="Select Shop" id="exampleCategory"
+                                                name="shop">
+                                                <option selected disabled>Select Shop</option>
+                                                @foreach ($categories as $category)
+                                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleSubCategory">Enter Category</label>
+                                            <input type="text" name="category" class="form-control"
+                                                id="exampleSubCategory" placeholder="Category">
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Submit</button>
                                     </form>
                                 </div>
                             </div>
@@ -35,4 +52,31 @@
 @endsection
 
 @section('script')
+    <script>
+        $(document).ready(function() {
+            $('#addSubCategory').submit(function(e) {
+                e.preventDefault();
+                var data = $('#addSubCategory').serialize();
+                // For POST methods need token
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
+                $.ajax({
+                    type: 'POST',
+                    url: '{{ route('storeSubCategories') }}',
+                    data: data,
+                    dataType: 'json',
+                    success: function(response) {
+                        console.log(response);
+                        if (response.status == 'Success') {
+                            $('#addSubCategory')[0].reset();
+                        }
+                    }
+                });
+            });
+        });
+    </script>
 @endsection
