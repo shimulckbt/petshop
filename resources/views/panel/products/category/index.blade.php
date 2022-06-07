@@ -4,7 +4,7 @@
 
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+            <h1 class="h3 mb-0 text-gray-800">Categories</h1>
         </div>
 
         <!-- Content Row -->
@@ -39,11 +39,14 @@
                             <div class="col mr-2">
                                 <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                     Categories</div>
-                                <div class="h5 mb-0 mt-2 font-weight-bold text-gray-800">
+                                <div class="mb-0 mt-2 font-weight-bold text-gray-800">
                                     <select class="form-control" aria-label="Select Category" id="exampleSubCategory"
                                         name="sub_category">
                                         <option selected disabled>Select Category</option>
                                     </select>
+                                </div>
+                                <div class="mb-0 mt-2">
+                                    <a id="addSubCategory" class="btn btn-sm btn-primary" href="{{ route('subCategory.create') }}">Add More &#10133;</a>
                                 </div>
                             </div>
                         </div>
@@ -57,11 +60,15 @@
                             <div class="col mr-2">
                                 <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                     Brands / Breeds</div>
-                                <div class="h5 mb-0 mt-2 font-weight-bold text-gray-800">
+                                <div class="mb-0 mt-2 font-weight-bold text-gray-800">
                                     <select class="form-control" aria-label="Select Brand/Breed"
                                         id="exampleSubSubCategory" name="sub_sub_category">
                                         <option selected disabled>Select Brand/Breed</option>
                                     </select>
+                                </div>
+                                <div class="mb-0 mt-2">
+                                    <a id="viewSubSubCategory" class="d-none btn btn-sm btn-primary" href="#">View Details &#128064;</a>
+                                    <a id="addSubSubCategory" class="btn btn-sm btn-primary" href="{{ route('subSubCategory.create') }}">Add More &#10133;</a>
                                 </div>
                             </div>
                         </div>
@@ -101,6 +108,7 @@
                             $('select[name="sub_sub_category"]').empty().append(
                                 '<option selected disabled>Select Brand/Breed</option>'
                             );
+                            $('#viewSubSubCategory').addClass('d-none');
                             $.each(data.data, function(key, value) {
                                 $('select[name="sub_category"]').append(
                                     '<option value = "' +
@@ -131,6 +139,7 @@
                             $('select[name="sub_sub_category"]').empty().append(
                                 '<option selected disabled>Select Brand/Breed</option>'
                             );
+                            $('#viewSubSubCategory').addClass('d-none');
                             $.each(data.data, function(key, value) {
                                 $('select[name="sub_sub_category"]').append(
                                     '<option value = "' +
@@ -145,6 +154,13 @@
                 } else {
                     console.log("Something went wrong :(");
                 }
+            });
+            $('select[name="sub_sub_category"]').on("change", function() {
+                var subSubCategoryId = $(this).val();
+                var url = '{{ route('getSubCategories','id') }}';
+                url = url.replace('id', subSubCategoryId);
+                console.log(url);
+                $('#viewSubSubCategory').removeClass('d-none').attr("href", url);;
             });
         });
     </script>

@@ -19,12 +19,11 @@ class ProductSubSubCategoryController extends Controller
     {
         //
     }
-    
+        
     /**
      * getSubSubCategoriesAjax
      *
-     * @param  mixed $productCategory
-     * @param  mixed $productSubCategory
+     * @param  mixed $id
      * @return void
      */
     public function getSubSubCategoriesAjax($id){
@@ -42,7 +41,7 @@ class ProductSubSubCategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('panel.products.category.sub-sub-category.index');
     }
 
     /**

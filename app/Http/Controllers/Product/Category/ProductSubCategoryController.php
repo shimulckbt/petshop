@@ -16,9 +16,15 @@ class ProductSubCategoryController extends Controller
      */
     public function index()
     {
-        
+        //
     }
-
+    
+    /**
+     * getSubCategoriesAjax
+     *
+     * @param  mixed $id
+     * @return void
+     */
     public function getSubCategoriesAjax($id){
         $subCategories = ProductSubCategory::where('product_category_id', $id)->get();
         
@@ -34,7 +40,7 @@ class ProductSubCategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('panel.products.category.sub-category.index');
     }
 
     /**

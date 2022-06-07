@@ -9,6 +9,7 @@ use App\Http\Controllers\Customer\CustomerController;
 use App\Http\Controllers\Product\Category\ProductCategoryController;
 use App\Http\Controllers\Product\Category\ProductSubCategoryController;
 use App\Http\Controllers\Product\Category\ProductSubSubCategoryController;
+use App\Models\Role;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,8 +41,12 @@ Route::group(['middleware' => ['auth', 'prevent.back.history']], function () {
         
         Route::group(['prefix' => "products"], function(){
             Route::resource('categories', ProductCategoryController::class)->only('index');
+
             Route::get('get-sub-categories/{id}', [ProductSubCategoryController::class, 'getSubCategoriesAjax'])->name('getSubCategories');
             Route::get('get-sub-sub-categories/{id}', [ProductSubSubCategoryController::class, 'getSubSubCategoriesAjax'])->name('getSubSubCategories');
+
+            Route::get('create-sub-categories', [ProductSubCategoryController::class, 'create'])->name('subCategory.create');
+            Route::get('create-sub-sub-categories', [ProductSubSubCategoryController::class, 'create'])->name('subSubCategory.create');;
         });
         
     });
