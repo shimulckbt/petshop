@@ -95,7 +95,12 @@
                         type: "GET",
                         dataType: "json",
                         success: function(data) {
-                            $('select[name="sub_category"]').empty();
+                            $('select[name="sub_category"]').empty().append(
+                                '<option selected disabled>Select Category</option>'
+                            );
+                            $('select[name="sub_sub_category"]').empty().append(
+                                '<option selected disabled>Select Brand/Breed</option>'
+                            );
                             $.each(data.data, function(key, value) {
                                 $('select[name="sub_category"]').append(
                                     '<option value = "' +
@@ -116,14 +121,16 @@
                 var subSubCategoryId = $(this).val();
                 var url = "{{ route('getSubSubCategories', 'id') }}";
                 url = url.replace('id', subSubCategoryId);
-                console.log(url);
+                // console.log(url);
                 if (subSubCategoryId) {
                     $.ajax({
                         url: url,
                         type: "GET",
                         dataType: "json",
                         success: function(data) {
-                            $('select[name="sub_sub_category"]').empty();
+                            $('select[name="sub_sub_category"]').empty().append(
+                                '<option selected disabled>Select Brand/Breed</option>'
+                            );
                             $.each(data.data, function(key, value) {
                                 $('select[name="sub_sub_category"]').append(
                                     '<option value = "' +

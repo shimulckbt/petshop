@@ -40,8 +40,8 @@ Route::group(['middleware' => ['auth', 'prevent.back.history']], function () {
         
         Route::group(['prefix' => "products"], function(){
             Route::resource('categories', ProductCategoryController::class)->only('index');
-            Route::get('categories/{id}', [ProductSubCategoryController::class, 'getSubCategoriesAjax'])->name('getSubCategories');
-            Route::get('categories/sub-categories/{id}', [ProductSubSubCategoryController::class, 'getSubSubCategoriesAjax'])->name('getSubSubCategories');
+            Route::get('get-sub-categories/{id}', [ProductSubCategoryController::class, 'getSubCategoriesAjax'])->name('getSubCategories');
+            Route::get('get-sub-sub-categories/{id}', [ProductSubSubCategoryController::class, 'getSubSubCategoriesAjax'])->name('getSubSubCategories');
         });
         
     });
