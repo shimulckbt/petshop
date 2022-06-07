@@ -58,6 +58,7 @@
       </div>
    </li>
 
+   @if (auth()->user()->role->name == 'Admin')
    <!-- Divider -->
    <hr class="sidebar-divider">
 
@@ -83,6 +84,7 @@
          </div>
       </div>
    </li>
+   @endif
 
    <!-- Divider -->
    <hr class="sidebar-divider">

@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Product\Category;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Product\Category\ProductCategory;
+use App\Models\Product\Category\ProductSubCategory;
 use App\Models\Product\Category\ProductSubSubCategory;
 
 class ProductSubSubCategoryController extends Controller
@@ -16,6 +18,21 @@ class ProductSubSubCategoryController extends Controller
     public function index()
     {
         //
+    }
+    
+    /**
+     * getSubSubCategoriesAjax
+     *
+     * @param  mixed $productCategory
+     * @param  mixed $productSubCategory
+     * @return void
+     */
+    public function getSubSubCategoriesAjax($id){
+        $subSubCategories = ProductSubSubCategory::where('product_sub_category_id', $id)->get();
+        
+        return response()->json([
+            'data' => $subSubCategories,
+        ]);
     }
 
     /**

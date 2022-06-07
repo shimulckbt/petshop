@@ -7,6 +7,8 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Seller\SellerController;
 use App\Http\Controllers\Customer\CustomerController;
 use App\Http\Controllers\Product\Category\ProductCategoryController;
+use App\Http\Controllers\Product\Category\ProductSubCategoryController;
+use App\Http\Controllers\Product\Category\ProductSubSubCategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,13 +33,15 @@ Route::middleware(['middleware' => 'prevent.back.history'])->group(function () {
 Route::group(['middleware' => ['auth', 'prevent.back.history']], function () {
     
     Route::controller(DashboardController::class)->group(function () {
-        Route::get('/dashboard', 'index')->name('dashboard');
+        Route::get('dashboard', 'index')->name('dashboard');
     });
 
     Route::group(['middleware' => 'admin'], function () {
         
         Route::group(['prefix' => "products"], function(){
             Route::resource('categories', ProductCategoryController::class)->only('index');
+            Route::get('categories/{id}', [ProductSubCategoryController::class, 'getSubCategoriesAjax'])->name('getSubCategories');
+            Route::get('categories/sub-categories/{id}', [ProductSubSubCategoryController::class, 'getSubSubCategoriesAjax'])->name('getSubSubCategories');
         });
         
     });
