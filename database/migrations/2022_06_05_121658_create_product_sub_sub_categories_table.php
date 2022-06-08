@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('name')->unique();
             $table->string('slug');
             $table->foreignId('product_sub_category_id')->constrained()->cascadeOnDelete();
-            $table->text('descrition')->nullable();
-            $table->string('image')->nullable();;
+            $table->text('description')->nullable();
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }

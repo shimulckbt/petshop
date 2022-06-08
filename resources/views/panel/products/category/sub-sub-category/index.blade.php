@@ -103,12 +103,12 @@
 
                 $.ajax({
                     type: 'POST',
-                    url: '{{ route('storeSubSubCategories') }}',
+                    url: "{{ route('storeSubSubCategories') }}",
                     data: data,
                     dataType: 'json',
                     success: function(response) {
                         console.log(response);
-                        if (response.status == 'Success') {
+                        if (response.status == '200') {
                             $('#addSubSubCategory')[0].reset();
                         }
                     }
