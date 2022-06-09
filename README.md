@@ -8,7 +8,6 @@
 8. Open .env file and change 'DB_DATABASE=petshop'
 9. Then run following command in the terminal:
 10. php artisan serve
-11. php artisan migrate --path=database/migrations/2022_05_04_161517_create_roles_table.php
-12. php artisan migrate --seed
-13. login info: email: admin@admin.com
+11. php artisan migrate:fresh --seed
+12. login info: email: admin@admin.com
                 password: password
