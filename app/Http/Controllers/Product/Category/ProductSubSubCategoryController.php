@@ -11,16 +11,17 @@ use App\Models\Product\Category\ProductSubCategory;
 use App\Models\Product\Category\ProductSubSubCategory;
 
 class ProductSubSubCategoryController extends Controller
-{      
+{
     /**
      * getSubSubCategoriesAjax
      *
      * @param  mixed $id
      * @return void
      */
-    public function getSubSubCategoriesAjax($id){
+    public function getSubSubCategoriesAjax($id)
+    {
         $subSubCategories = ProductSubSubCategory::where('product_sub_category_id', $id)->get();
-        
+
         return response()->json([
             'data' => $subSubCategories,
         ]);
@@ -46,12 +47,12 @@ class ProductSubSubCategoryController extends Controller
             'brand_or_breed' => 'required|unique:product_sub_sub_categories,name'
         ]);
 
-        if($validator->fails()){
+        if ($validator->fails()) {
             return response()->json([
                 'status' => 400,
                 'message' => $validator->messages(),
             ]);
-        }else{
+        } else {
             ProductSubSubCategory::create([
                 'name' => $request->brand_or_breed,
                 'slug' => Str::slug($request->brand_or_breed),
