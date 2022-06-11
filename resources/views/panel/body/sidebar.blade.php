@@ -62,8 +62,8 @@
    <!-- Divider -->
    <hr class="sidebar-divider">
 
-    <!-- Heading -->
-    <div class="sidebar-heading">
+   <!-- Heading -->
+   <div class="sidebar-heading">
       Products
    </div>
 
@@ -116,6 +116,24 @@
 
    <!-- Divider -->
    <hr class="sidebar-divider d-none d-md-block">
+
+   @if (auth()->user()->role->name == 'Admin')
+   <li class="nav-item">
+      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSeller" aria-expanded="true" aria-controls="collapseSeller">
+         <i class="fas fa-fw fa-folder"></i>
+         <span>Manage Seller</span>
+      </a>
+      <div id="collapseSeller" class="collapse" aria-labelledby="headingSeller" data-parent="#accordionSidebar">
+         <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Login Screens:</h6>
+            <a class="collapse-item" href="{{route(showAllSeller)}}">Login</a>
+            <a class="collapse-item" href="register.html">Register</a>
+            <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
+            <div class="collapse-divider"></div>
+         </div>
+      </div>
+   </li>
+   @endif
 
    <!-- Sidebar Toggler (Sidebar) -->
    <div class="text-center d-none d-md-inline">

@@ -148,7 +148,7 @@
       <li class="nav-item dropdown no-arrow">
          <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <span class="px-2">
-               @if(Auth::user()->role_id==2)
+               @if(Auth::user()->role->name=='Seller')
                @if(isset(Auth::user()->sellerDetail) && Auth::user()->sellerDetail->is_verified==1)
                <span class="text-primary font-weight-bold">Verified</span>
                @else

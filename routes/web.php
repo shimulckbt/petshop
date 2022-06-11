@@ -54,7 +54,7 @@ Route::group(['middleware' => ['auth', 'prevent.back.history']], function () {
     });
 
     Route::group(['middleware' => 'seller'], function () {
-        Route::get('seller-details-form', [SellerController::class, 'getSellerDetails'])->name('getSellerDetails');
+        // Route::get('seller-details-form', [SellerController::class, 'getSellerDetails'])->name('getSellerDetails');
         Route::post('seller-details-form-submit', [SellerController::class, 'storeSellerDetails'])->name('storeSellerDetails');
     });
 

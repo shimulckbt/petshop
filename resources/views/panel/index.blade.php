@@ -5,7 +5,7 @@
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-        @if(Auth::user()->role_id==2)
+        @if(Auth::user()->role->name=='Seller')
         @if(!isset(Auth::user()->sellerDetail))
         <button class="btn btn-danger" id="hideButton" data-toggle="modal" data-target="#sellerDetailsModal">Provide more details for verification please...</button>
         @elseif(isset(Auth::user()->sellerDetail)&&(Auth::user()->sellerDetail->is_verified==0))
