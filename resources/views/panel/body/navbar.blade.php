@@ -157,14 +157,36 @@
                @endif
             </span>
             <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()->first_name}}</span>
-            <img class="img-profile rounded-circle" src="{{asset('images/admin.jpg')}}">
+            <img class="img-profile rounded-circle" src="{{isset(Auth::user()->profile_photo)?Auth::user()->profile_photo : asset('images/no_image.jpg')}}">
          </a>
          <!-- Dropdown - User Information -->
          <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
             <a class="dropdown-item" href="#">
-               <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-               Profile
+               <!-- <i class="fas fa-solid fa-circle-info mr-2 text-gray-400"></i> -->
+               <i class="fa fa-info-circle mr-2 text-gray-400"></i>
+               Change General Information
             </a>
+
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="{{route('changeProfilePhotoView')}}">
+               <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+               Change Profile Photo
+            </a>
+
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">
+               <!-- <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> -->
+               <i class="fa fa-key mr-2 text-gray-400"></i>
+               Change Password
+            </a>
+            @if(Auth::user()->role->name=='Seller')
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">
+               <!-- <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> -->
+               <i class="fa fa-cog mr-2 text-gray-400"></i>
+               Change Details
+            </a>
+            @endif
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>

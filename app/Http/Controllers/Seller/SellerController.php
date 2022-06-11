@@ -4,21 +4,13 @@ namespace App\Http\Controllers\Seller;
 
 use App\Http\Controllers\Controller;
 use App\Models\SellerDetail;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class SellerController extends Controller
 {
-    // public function index()
-    // {
-    //     return view('seller.index');
-    // }
-
-    public function getSellerDetails()
-    {
-    }
-
     public function storeSellerDetails(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -54,5 +46,27 @@ class SellerController extends Controller
                 'message' => "Successfully added!"
             ]);
         }
+    }
+
+    public function showAllSellers()
+    {
+        $sellers = User::with('sellerDetail')->where('role_id', 2)->get();
+        return view('panel.seller.all.index', compact('sellers'));
+    }
+
+    public function verifySeller($id)
+    {
+        $seller = SellerDetail::where('user_id', $id)->first();
+        $seller->is_verified = 1;
+        $seller->save();
+        return redirect()->back();
+    }
+
+    public function cancelVerificationOfSeller($id)
+    {
+        $seller = SellerDetail::where('user_id', $id)->first();
+        $seller->is_verified = 0;
+        $seller->save();
+        return redirect()->back();
     }
 }
