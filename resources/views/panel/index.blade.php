@@ -117,32 +117,36 @@
                     @csrf
                     <div class="form-group">
                         <label for="skill_type">Add Your Skill</label>
-                        <input type="text" name="skill_type" class="form-control" id="skill_type" required>
+                        <input type="text" name="skill_type" class="form-control" id="skill_type">
+                        <span class="text-danger small error_text skill_type_error"></span>
                     </div>
 
                     <div class="form-group">
                         <label for="ownership_type">Personal/Company</label>
-                        <!-- <input type="text" name="" class="form-control" id="ownership_type"> -->
-                        <select name="ownership_type" id="ownership_type" class="form-control" required>
+                        <select name="ownership_type" id="ownership_type" class="form-control">
                             <option selected disabled>Select Company type</option>
                             <option value="personal">Personal</option>
                             <option value="company">Company</option>
                         </select>
+                        <span class="text-danger small error_text ownership_type_error"></span>
                     </div>
 
                     <div class="form-group">
                         <label for="working_experience">Working Experience</label>
-                        <input type="number" name="working_experience" required class="form-control" id="working_experience">
+                        <input type="number" name="working_experience" class="form-control" id="working_experience">
+                        <span class="text-danger small error_text working_experience_error"></span>
                     </div>
 
                     <div class="form-group">
                         <label for="phone_number">Phone No</label>
-                        <input type="text" name="phone_number" required class="form-control" id="phone_number">
+                        <input type="text" name="phone_number" class="form-control" id="phone_number">
+                        <span class="text-danger small error_text phone_number_error"></span>
                     </div>
 
                     <div class="form-group">
                         <label for="nid_number">NID/Birth Registration No</label>
-                        <input type="text" name="nid_number" required class="form-control" id="nid_number">
+                        <input type="text" name="nid_number" class="form-control" id="nid_number">
+                        <span class="text-danger small error_text nid_number_error"></span>
                     </div>
 
                     <!-- <div class="form-group">
@@ -152,7 +156,8 @@
 
                     <div class="form-group">
                         <label for="adsress">Your Address</label>
-                        <textarea name="adsress" required cols="" rows="3" class="form-control" id="adsress"></textarea>
+                        <textarea name="adsress" cols="" rows="3" class="form-control" id="adsress"></textarea>
+                        <span class="text-danger small error_text adsress_error"></span>
                     </div>
 
                     <button type="submit" class="btn btn-primary text-center">Submit</button>
@@ -183,13 +188,19 @@
             url: "{{ route('storeSellerDetails') }}",
             data: data,
             dataType: 'json',
+            beforeSend: function() {
+                $(document).find('span.error_text').text('');
+            },
             success: function(response) {
-                console.log(response);
-                if (response) {
+                if (response.status == 200) {
                     $('#sellerDetailsForm')[0].reset();
                     $('#sellerDetailsModal').modal('hide');
-                    // $('#showReviewButton').show();
                     $('#hideButton').hide();
+                    alert(response.message);
+                } else if (response.status == 400) {
+                    $.each(response.error, function(prefix, val) {
+                        $('span.' + prefix + '_error').text(val[0]);
+                    });
                 }
             }
         });
