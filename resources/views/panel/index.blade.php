@@ -125,8 +125,8 @@
                         <label for="ownership_type">Personal/Company</label>
                         <select name="ownership_type" id="ownership_type" class="form-control">
                             <option selected disabled>Select Company type</option>
-                            <option value="personal">Personal</option>
-                            <option value="company">Company</option>
+                            <option value="Personal">Personal</option>
+                            <option value="Company">Company</option>
                         </select>
                         <span class="text-danger small error_text ownership_type_error"></span>
                     </div>

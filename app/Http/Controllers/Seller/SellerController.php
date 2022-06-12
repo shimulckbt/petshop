@@ -67,4 +67,39 @@ class SellerController extends Controller
         $seller->save();
         return redirect()->back();
     }
+
+    public function showChangeDetailsView()
+    {
+        $seller = User::with('sellerDetail')->findOrFail(auth()->user()->id);
+        // dd($seller->sellerDetail->skill_type);
+        return view('panel.seller.details.index', compact('seller'));
+    }
+
+    public function updateSellerDetails(Request $request)
+    {
+        $request->validate([
+            'skill_type' => 'required',
+            'ownership_type' => 'required',
+            'working_experience' => 'required',
+            'phone_number' => 'required',
+            'nid_number' => 'required',
+            'adsress' => 'required',
+        ]);
+
+        $seller = User::with('sellerDetail')->findOrFail(auth()->user()->id);
+        // dd($seller->sellerDetail->skill_type);
+
+        $seller->sellerDetail()->update(
+            [
+                'skill_type' => $request->skill_type,
+                'ownership_type' => $request->ownership_type,
+                'working_experience' => $request->working_experience,
+                'phone_number' => $request->phone_number,
+                'nid_number' => $request->nid_number,
+                'adsress' => $request->adsress,
+                'is_verified' => 0,
+            ]
+        );
+        return back()->with('success', "Updated Successfully!");
+    }
 }

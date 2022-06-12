@@ -181,7 +181,7 @@
             </a>
             @if(Auth::user()->role->name=='Seller')
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">
+            <a class="dropdown-item" href="{{route('showChangeDetailsView')}}">
                <!-- <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> -->
                <i class="fa fa-cog mr-2 text-gray-400"></i>
                Change Details
