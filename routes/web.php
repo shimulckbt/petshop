@@ -71,8 +71,12 @@ Route::group(['middleware' => ['auth', 'prevent.back.history']], function () {
     ////////////          Profile Change Route              //////////////
 
     Route::group(['prefix' => 'profile'], function () {
-        Route::get('change-photo', [CommonTaskController::class, 'changeProfilePhotoView'])->name('changeProfilePhotoView');
+        Route::get('change-photo', [CommonTaskController::class, 'showChangeProfilePhotoView'])->name('showChangeProfilePhotoView');
         Route::post('change-photo-request-submit', [CommonTaskController::class, 'profilePhotoChangeRequestSubmit'])->name('profilePhotoChangeRequestSubmit');
+        Route::get('change-password', [CommonTaskController::class, 'showChangePasswordView'])->name('showChangePasswordView');
+        Route::post('change-password-request-submit', [CommonTaskController::class, 'changePasswordRequestSubmit'])->name('changePasswordRequestSubmit');
+        Route::get('change-general-information', [CommonTaskController::class, 'showGeneralInformationView'])->name('showGeneralInformationView');
+        Route::post('change-general-information-request-submit', [CommonTaskController::class, 'changeGeneralInfoRequestSubmit'])->name('changeGeneralInfoRequestSubmit');
     });
 
     Route::group(['middleware' => 'customer'], function () {

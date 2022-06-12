@@ -157,24 +157,24 @@
                @endif
             </span>
             <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()->first_name}}</span>
-            <img class="img-profile rounded-circle" src="{{asset(isset(Auth::user()->profile_photo))?asset(Auth::user()->profile_photo) : asset('images/no_image.jpg')}}">
+            <img class="img-profile rounded-circle" src="{{isset(Auth::user()->profile_photo)?asset(Auth::user()->profile_photo) : asset('images/no_image.jpg')}}">
          </a>
          <!-- Dropdown - User Information -->
          <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-            <a class="dropdown-item" href="#">
+            <a class="dropdown-item" href="{{route('showGeneralInformationView')}}">
                <!-- <i class="fas fa-solid fa-circle-info mr-2 text-gray-400"></i> -->
                <i class="fa fa-info-circle mr-2 text-gray-400"></i>
                Change General Information
             </a>
 
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="{{route('changeProfilePhotoView')}}">
+            <a class="dropdown-item" href="{{route('showChangeProfilePhotoView')}}">
                <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                Change Profile Photo
             </a>
 
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">
+            <a class="dropdown-item" href="{{route('showChangePasswordView')}}">
                <!-- <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> -->
                <i class="fa fa-key mr-2 text-gray-400"></i>
                Change Password

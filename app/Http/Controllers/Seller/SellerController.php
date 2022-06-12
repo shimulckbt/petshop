@@ -28,10 +28,8 @@ class SellerController extends Controller
                 'error' => $validator->errors()->toArray(),
             ]);
         } else {
-            $id = Auth::user()->id;
             $seller = new SellerDetail();
-
-            $seller->user_id = $id;
+            $seller->user_id = Auth::user()->id;
             $seller->skill_type = $request->skill_type;
             $seller->ownership_type = $request->ownership_type;
             $seller->working_experience = $request->working_experience;
