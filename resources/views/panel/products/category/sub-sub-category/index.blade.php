@@ -26,7 +26,7 @@
                                         <div class="form-group">
                                             <label for="exampleCategory">Select Shop</label>
                                             <select class="form-control" aria-label="Select Shop" id="exampleCategory"
-                                                name="shop">
+                                                name="product_category_id">
                                                 <option selected disabled>Select Shop</option>
                                                 @foreach ($categories as $category)
                                                     <option value="{{ $category->id }}">{{ $category->name }}</option>
@@ -36,13 +36,13 @@
                                         <div class="form-group">
                                             <label for="exampleSubCategory">Select Category</label>
                                             <select class="form-control" aria-label="Select Category"
-                                                id="exampleSubCategory" name="category">
+                                                id="exampleSubCategory" name="product_sub_category_id">
                                                 <option selected disabled>Select Category</option>
                                             </select>
                                         </div>
                                         <div class="form-group">
                                             <label for="exampleSubSubCategory">Enter Brand/Breed</label>
-                                            <input type="text" name="brand_or_breed" class="form-control"
+                                            <input type="text" name="name" class="form-control"
                                                 id="exampleSubSubCategory" placeholder="Brand/Breed">
                                         </div>
                                         <button type="submit" class="btn btn-primary">Submit</button>
@@ -61,7 +61,7 @@
 @section('script')
     <script>
         $(document).ready(function() {
-            $('select[name="shop"]').on("change", function() {
+            $('select[name="product_category_id"]').on("change", function() {
                 var categoryId = $(this).val();
                 var url = "{{ route('getSubCategories', 'id') }}";
                 url = url.replace('id', categoryId);
@@ -72,11 +72,11 @@
                         type: "GET",
                         dataType: "json",
                         success: function(data) {
-                            $('select[name="category"]').empty().append(
+                            $('select[name="product_sub_category_id"]').empty().append(
                                 '<option selected disabled>Select Category</option>'
                             );
                             $.each(data.data, function(key, value) {
-                                $('select[name="category"]').append(
+                                $('select[name="product_sub_category_id"]').append(
                                     '<option value = "' +
                                     value.id +
                                     '">' +
@@ -108,7 +108,7 @@
                     dataType: 'json',
                     success: function(response) {
                         console.log(response);
-                        if (response.status == '200') {
+                        if (response.status == 'success') {
                             $('#addSubSubCategory')[0].reset();
                         }
                     }

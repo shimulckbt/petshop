@@ -26,7 +26,7 @@
                                         <div class="form-group">
                                             <label for="exampleCategory">Select Shop</label>
                                             <select class="form-control" aria-label="Select Shop" id="exampleCategory"
-                                                name="shop">
+                                                name="product_category_id">
                                                 <option selected disabled>Select Shop</option>
                                                 @foreach ($categories as $category)
                                                     <option value="{{ $category->id }}">{{ $category->name }}</option>
@@ -35,7 +35,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="exampleSubCategory">Enter Category</label>
-                                            <input type="text" name="category" class="form-control"
+                                            <input type="text" name="name" class="form-control"
                                                 id="exampleSubCategory" placeholder="Category">
                                         </div>
                                         <button type="submit" class="btn btn-primary">Submit</button>
@@ -71,7 +71,7 @@
                     dataType: 'json',
                     success: function(response) {
                         console.log(response);
-                        if (response.status == '200') {
+                        if (response.status == 'success') {
                             $('#addSubCategory')[0].reset();
                         }
                     }
