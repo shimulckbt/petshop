@@ -22,6 +22,7 @@
                                         Back</a>
                                 </div>
                                 <div class="h5 mb-0 mt-4 font-weight-bold text-gray-800">
+                                    <div id="message" class="d-none"></div>
                                     <form id="addSubSubCategory">
                                         <div class="form-group">
                                             <label for="exampleCategory">Select Shop</label>
@@ -106,10 +107,30 @@
                     url: "{{ route('storeSubSubCategories') }}",
                     data: data,
                     dataType: 'json',
-                    success: function(response) {
-                        console.log(response);
-                        if (response.status == 'success') {
+                    success: function(data, status, xhr) {
+                        // console.log(data);
+                        // console.log(status);
+                        // console.log(xhr);
+
+                        if (data.status == 'success') {
                             $('#addSubSubCategory')[0].reset();
+                            $('#message').empty().removeClass().addClass('alert alert-success')
+                                .attr('role', 'alert');
+                            $('#message').append(data.message);
+                        }
+                    },
+                    error: function(jqXhr, textStatus, errorThrown) {
+                        // console.log(jqXhr);
+                        // console.log(textStatus);
+                        // console.log(errorThrown);
+                        // console.log(jqXhr.responseJSON);
+
+                        if (jqXhr.status == 400) {
+                            $('#message').empty().removeClass().addClass('alert alert-danger')
+                                .attr('role', 'alert').append('<ul id="errors" class="mb-0"></ul>');;
+                            $.each(jqXhr.responseJSON.message, function(key, value) {
+                                $('#errors').append('<li>' + value + ' 😑 </li>');
+                            });
                         }
                     }
                 });

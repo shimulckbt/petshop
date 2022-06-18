@@ -52,7 +52,7 @@ class ProductSubCategoryController extends Controller
             'product_category_id.numeric' => 'Invalid shop selection',
             'product_category_id.exists' => 'Selected shop does not exist',
             'name.required' => 'Category name is required',
-            'name.unique' => 'Categor name already exists',
+            'name.unique' => 'Category name already exists',
         ]);
 
         if($validator->fails()){
@@ -70,7 +70,7 @@ class ProductSubCategoryController extends Controller
             return response()->json([
                 'status' => 'success',
                 'message' => "Successfully added! ✌",
-            ], 200);
+            ], 201);
         }
     }
 

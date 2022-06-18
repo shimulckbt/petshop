@@ -72,7 +72,7 @@ class ProductSubSubCategoryController extends Controller
             return response()->json([
                 'status' => 'success',
                 'message' => "Successfully added! ✌",
-            ], 200);
+            ], 201);
         }
     }
 
