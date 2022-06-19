@@ -48,7 +48,7 @@ class SellerController extends Controller
 
     public function showAllSellers()
     {
-        $sellers = User::with('sellerDetail')->where('role_id', 2)->get();
+        $sellers = User::with('sellerDetail')->where('role_id', 2)->latest()->get();
         return view('panel.seller.all.index', compact('sellers'));
     }
 
@@ -101,5 +101,17 @@ class SellerController extends Controller
             ]
         );
         return back()->with('success', "Updated Successfully!");
+    }
+
+    public function sellerDelete($sellerID)
+    {
+        // dd($sellerID);
+        $profile_photo = User::findOrFail($sellerID)->profile_photo;
+        // dd(public_path($profile_photo));
+        if (isset($profile_photo)) {
+            unlink(public_path($profile_photo));
+        }
+        User::findOrFail($sellerID)->delete();
+        return back();
     }
 }

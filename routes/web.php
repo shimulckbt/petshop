@@ -60,6 +60,7 @@ Route::group(['middleware' => ['auth', 'prevent.back.history']], function () {
             Route::get('manage-all', [SellerController::class, 'showAllSellers'])->name('showAllSellers');
             Route::get('manage-verification/{id}', [SellerController::class, 'verifySeller'])->name('verifySeller');
             Route::get('manage-cancel-verification/{id}', [SellerController::class, 'cancelVerificationOfSeller'])->name('cancelVerificationOfSeller');
+            Route::get('delete/{id}', [SellerController::class, 'sellerDelete'])->name('seller.delete');
         });
     });
 

@@ -3,7 +3,7 @@
 <div class="container-fluid">
    <!-- Page Heading -->
    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-      <h1 class="h3 mb-0 text-gray-800">All Seller</h1>
+      <h1 class="h3 mb-0 text-gray-800">All Sellers</h1>
    </div>
 
    <div class="card shadow mb-4">
@@ -38,15 +38,16 @@
                               @if(isset($seller->sellerDetail) && $seller->sellerDetail->is_verified==1)
                               <td class="text-center"><a href="{{route('cancelVerificationOfSeller',$seller->id)}}" id="notverify"><span class="badge badge-pill badge-success" style="font-weight: bold;" title="Cancel Verification">Verified</span></a></td>
                               @else
-                              <td class="text-center"><a href="{{route('verifySeller',$seller->id)}}" id="verify"><span class="badge badge-pill badge-dark" style="font-weight: bold;" title="Verify Now">Not Verified</span></a></td>
+                              <td class="text-center"><a href="{{route('verifySeller',$seller->id)}}" id="verify"><span class="badge badge-pill badge-primary" style="font-weight: bold;" title="Verify Now">Not Verified</span></a></td>
                               @endif
                               <td class="text-center">
-                                 <a href="" class="btn btn-info btn-sm" title="View Details"><i class="far fa-eye"></i></a>
+                                 <a href="#" class="btn btn-info btn-sm" data-toggle="modal" data-target="#sellerDetailsModal{{$seller->id}}" title="View Details"><i class="far fa-eye"></i></a>
                                  <a href="" class="btn btn-primary btn-sm"><i class="fas fa-edit" title="Edit Details"></i></a>
 
-                                 <a href="" id="delete" class="btn btn-danger btn-sm" title="Delete"><i class="fas fa-trash-alt"></i></a>
+                                 <a href="{{route('seller.delete',$seller->id)}}" id="delete" class="btn btn-danger btn-sm" title="Delete"><i class="fas fa-trash-alt"></i></a>
                               </td>
                            </tr>
+                           @include('panel.seller.all.modal')
                            @endforeach
                         </tbody>
                      </table>
