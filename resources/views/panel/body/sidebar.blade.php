@@ -68,21 +68,21 @@
    </div>
 
    <!-- Nav Item - Pages Collapse Menu -->
-   <li class="nav-item {{ (request()->is('products*')) ? 'active' : '' }}">
+   <li class="nav-item {{ (request()->is('products*')) || (request()->is('categories*')) ? 'active' : '' }}">
       <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProducts" aria-expanded="true" aria-controls="collapseProducts">
          <i class="fas fa-fw fa-folder"></i>
          <span>Products</span>
       </a>
-      <div id="collapseProducts" class="collapse {{ (request()->is('products*')) ? 'show' : '' }}" aria-labelledby="headingProducts" data-parent="#accordionSidebar">
+      <div id="collapseProducts" class="collapse {{ (request()->is('products*')) || (request()->is('categories*')) ? 'show' : '' }}" aria-labelledby="headingProducts" data-parent="#accordionSidebar">
          <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Product Categories:</h6>
-            <a class="collapse-item {{ (request()->is('products/categories')) ? 'active' : '' }}" href="{{ route('categories.index') }}">All Categories</a>
-            <a class="collapse-item {{ (request()->is('products/create-sub-categories')) ? 'active' : '' }}" href="{{ route('subCategory.create') }}">Add Categories</a>
-            <a class="collapse-item {{ (request()->is('products/create-sub-sub-categories')) ? 'active' : '' }}" href="{{ route('subSubCategory.create') }}">Add Brands/Breeds</a>
+            <a class="collapse-item {{ (request()->is('categories')) ? 'active' : '' }}" href="{{ route('categories.index') }}">All Categories</a>
+            <a class="collapse-item {{ (request()->is('categories/create-sub-categories')) ? 'active' : '' }}" href="{{ route('subCategory.create') }}">Add Categories</a>
+            <a class="collapse-item {{ (request()->is('categories/create-sub-sub-categories')) ? 'active' : '' }}" href="{{ route('subSubCategory.create') }}">Add Brands/Breeds</a>
             <div class="collapse-divider"></div>
             <h6 class="collapse-header">Products:</h6>
-            <a class="collapse-item" href="">All Products</a>
-            <a class="collapse-item" href="">Add New Product</a>
+            <a class="collapse-item {{ (request()->is('products')) ? 'active' : '' }}" href="{{ route('products.index') }}">All Products</a>
+            <a class="collapse-item {{ (request()->is('products/create')) ? 'active' : '' }}" href="{{ route('products.create') }}">Add New Product</a>
          </div>
       </div>
    </li>

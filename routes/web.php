@@ -1,15 +1,16 @@
 <?php
 
+use App\Models\Role;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Seller\SellerController;
+use App\Http\Controllers\Product\ProductController;
 use App\Http\Controllers\Customer\CustomerController;
 use App\Http\Controllers\Product\Category\ProductCategoryController;
 use App\Http\Controllers\Product\Category\ProductSubCategoryController;
 use App\Http\Controllers\Product\Category\ProductSubSubCategoryController;
-use App\Models\Role;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,9 +40,11 @@ Route::group(['middleware' => ['auth', 'prevent.back.history']], function () {
 
     Route::group(['middleware' => 'admin'], function () {
         
-        Route::group(['prefix' => "products"], function(){
-            Route::resource('categories', ProductCategoryController::class)->only('index');
+        Route::resource('products', ProductController::class);
+        
+        Route::get('categories', [ProductCategoryController::class, 'index'])->name('categories.index');
 
+        Route::group(['prefix' => "categories"], function(){
             Route::get('get-sub-categories/{id}', [ProductSubCategoryController::class, 'getSubCategoriesAjax'])->name('getSubCategories');
             Route::post('store-sub-categories', [ProductSubCategoryController::class, 'storeSubCategoryAjax'])->name('storeSubCategories');
             
@@ -49,7 +52,7 @@ Route::group(['middleware' => ['auth', 'prevent.back.history']], function () {
             Route::post('store-sub-sub-categories', [ProductSubSubCategoryController::class, 'storeSubSubCategoryAjax'])->name('storeSubSubCategories');
 
             Route::get('create-sub-categories', [ProductSubCategoryController::class, 'create'])->name('subCategory.create');
-            Route::get('create-sub-sub-categories', [ProductSubSubCategoryController::class, 'create'])->name('subSubCategory.create');;
+            Route::get('create-sub-sub-categories', [ProductSubSubCategoryController::class, 'create'])->name('subSubCategory.create');
         });
         
     });
