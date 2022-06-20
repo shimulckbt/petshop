@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Seller;
 
 use App\Http\Controllers\Controller;
+use App\Models\Role;
 use App\Models\SellerDetail;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -103,7 +104,7 @@ class SellerController extends Controller
         return back()->with('success', "Updated Successfully!");
     }
 
-    public function sellerDelete($sellerID)
+    public function deleteSeller($sellerID)
     {
         // dd($sellerID);
         $profile_photo = User::findOrFail($sellerID)->profile_photo;
@@ -113,5 +114,52 @@ class SellerController extends Controller
         }
         User::findOrFail($sellerID)->delete();
         return back();
+    }
+
+    public function editSeller(Request $request, $id)
+    {
+        $seller = User::with('sellerDetail')->where('id', $id)->first();
+        // dd($seller);
+        return view('panel.seller.all.edit', compact('seller'));
+    }
+
+    public function validateUpdate($request, $id)
+    {
+        return  $this->validate($request, [
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'email' => 'required|unique:users,email,' . $id,
+            'skill_type' => 'required',
+            'ownership_type' => 'required',
+            'working_experience' => 'required',
+            'phone_number' => 'required',
+            'nid_number' => 'required',
+            'adsress' => 'required',
+            // 'image' => 'mimes:jpeg,jpg,png',
+            // 'role_id' => 'required',
+
+        ]);
+    }
+
+    public function updateSeller(Request $request, $id)
+    {
+        $this->validateUpdate($request, $id);
+        // dd($request->all());
+        $seller = User::findOrFail($id);
+
+        $seller->first_name = $request->first_name;
+        $seller->last_name = $request->last_name;
+        $seller->email = $request->email;
+        $seller->sellerDetail->skill_type = $request->skill_type;
+        $seller->sellerDetail->ownership_type = $request->ownership_type;
+        $seller->sellerDetail->working_experience = $request->working_experience;
+        $seller->sellerDetail->phone_number = $request->phone_number;
+        $seller->sellerDetail->nid_number = $request->nid_number;
+        $seller->sellerDetail->adsress = $request->adsress;
+
+        $seller->update();
+        $seller->sellerDetail->update();
+
+        return back()->with('success', 'Seller updated successfully');
     }
 }

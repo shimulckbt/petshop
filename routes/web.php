@@ -10,6 +10,7 @@ use App\Http\Controllers\Customer\CustomerController;
 use App\Http\Controllers\Product\Category\ProductCategoryController;
 use App\Http\Controllers\Product\Category\ProductSubCategoryController;
 use App\Http\Controllers\Product\Category\ProductSubSubCategoryController;
+use App\Http\Controllers\Seller\AppointmentsController;
 use App\Models\Role;
 
 /*
@@ -53,21 +54,27 @@ Route::group(['middleware' => ['auth', 'prevent.back.history']], function () {
             Route::get('create-sub-sub-categories', [ProductSubSubCategoryController::class, 'create'])->name('subSubCategory.create');;
         });
 
-
-        ///////////////           Verify Seller             ////////////////
+        ///////////////           Verify Seller and Manage Seller             ////////////////
 
         Route::group(['prefix' => "seller"], function () {
             Route::get('manage-all', [SellerController::class, 'showAllSellers'])->name('showAllSellers');
             Route::get('manage-verification/{id}', [SellerController::class, 'verifySeller'])->name('verifySeller');
             Route::get('manage-cancel-verification/{id}', [SellerController::class, 'cancelVerificationOfSeller'])->name('cancelVerificationOfSeller');
-            Route::get('delete/{id}', [SellerController::class, 'sellerDelete'])->name('seller.delete');
+            Route::get('delete/{id}', [SellerController::class, 'deleteSeller'])->name('seller.delete');
+            Route::get('edit/{id}', [SellerController::class, 'editSeller'])->name('seller.edit');
+            Route::post('update/{id}', [SellerController::class, 'updateSeller'])->name('seller.update');
         });
     });
+
+
+    ////////////             Seller Middleware Section           //////////////
 
     Route::group(['middleware' => 'seller'], function () {
         Route::post('seller-details-form-submit', [SellerController::class, 'storeSellerDetails'])->name('storeSellerDetails');
         Route::get('seller-details-form', [SellerController::class, 'showChangeDetailsView'])->name('showChangeDetailsView');
         Route::post('seller-details-update', [SellerController::class, 'updateSellerDetails'])->name('updateSellerDetails');
+
+        Route::resource('appointments', AppointmentsController::class);
     });
 
     ////////////          Profile Change Route              //////////////
