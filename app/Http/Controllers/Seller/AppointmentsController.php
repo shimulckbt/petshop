@@ -16,8 +16,7 @@ class AppointmentsController extends Controller
      */
     public function index()
     {
-        $myappointments = Appointment::with('user')->latest()->where('user_id', auth()->user()->id)->get();
-
+        $myappointments = Appointment::with(['user', 'times'])->latest()->where('user_id', auth()->user()->id)->get();
         return view('panel.seller.appointment.index', compact('myappointments'));
     }
 
@@ -33,7 +32,6 @@ class AppointmentsController extends Controller
         $appointmentId = $appointment->id;
         $times = Time::where('appointment_id', $appointmentId)->get();
 
-
         return view('panel.seller.appointment.index', compact('times', 'appointmentId', 'date'));
     }
 
@@ -42,6 +40,9 @@ class AppointmentsController extends Controller
         // dd('update time');
         $appointmentId = $request->appoinmentId;
         $appointment = Time::where('appointment_id', $appointmentId)->delete();
+        if (!isset($request->times)) {
+            return redirect()->route('appointments.index')->with('success', 'Appointment time cancelled!!');
+        }
         foreach ($request->times as $time) {
             Time::create([
                 'appointment_id' => $appointmentId,
