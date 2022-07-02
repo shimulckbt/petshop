@@ -30,7 +30,7 @@ class Product extends Model
         return $this->belongsTo(ProductSubSubCategory::class);
     }
 
-    public function images()
+    public function image()
     {
         return $this->morphOne(Image::class, 'imagable');
     }

@@ -4,9 +4,10 @@ namespace App\Http\Controllers\Product;
 
 use Illuminate\Http\Request;
 use App\Models\Product\Product;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\Models\Product\Category\ProductCategory;
 use Illuminate\Support\Facades\Validator;
+use App\Models\Product\Category\ProductCategory;
 
 class ProductController extends Controller
 {
@@ -17,7 +18,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return 'All Products';
+        $products = Product::with('image')->get();
+        return view('panel.products.index', compact('products'));
     }
 
     /**
@@ -39,6 +41,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        // return $request->hasFile('image');
         $validator = Validator::make($request->all(), [
             'product_category_id' => 'required|numeric|exists:product_categories,id',
             'product_sub_category_id' => 'required|numeric|exists:product_sub_categories,id',
@@ -46,12 +49,12 @@ class ProductController extends Controller
             'name' => 'required|string|max:255',
             'slug' => 'required|string|max:255|unique:products,slug',
             'short_description' => 'required|string|max:255',
-            'short_description' => 'required|string|max:1000',
+            'long_description' => 'required|string|max:1000',
             'sku' => 'required|string|max:255',
             'stock' => 'required|numeric',
             'unit_price_buying' => 'required|numeric',
             'unit_price_selling' => 'required|numeric',
-            'image' => 'required|mimes:jpg,png|dimensions:max_width=450,max_height=678|max:1024',
+            'image' => 'required|mimes:jpg,png|dimensions:width=500,height=500|max:1024',
         ], [
             'product_category_id.required' => 'Please select shop',
             'product_category_id.numeric' => 'Invalid shop selection',
@@ -70,11 +73,52 @@ class ProductController extends Controller
                 'message' => $validator->messages(),
             ], 400);
         } else {
-            return response()->json([
-                'status' => 'success',
-                'message' => "Successfully added! ✌",
-            ], 201);
+            DB::transaction(function () use ($request) {
+                $product = Product::create([
+                    'product_category_id' => $request->product_category_id,
+                    'product_sub_category_id' => $request->product_sub_category_id,
+                    'product_sub_sub_category_id' => $request->product_sub_sub_category_id,
+                    'name' => $request->name,
+                    'slug' => $request->slug,
+                    'short_description' => $request->short_description,
+                    'long_description' => $request->long_description,
+                    'sku' => $request->sku,
+                    'stock' => $request->stock,
+                    'unit_price_buying' => $request->unit_price_buying,
+                    'unit_price_selling' => $request->unit_price_selling,
+                    'status' => 0,
+                ]);
+                
+                // if (!file_exists(public_path('images/product'))) {
+                //     mkdir(public_path('images/product'));
+                // }
+
+                $imageName = 'prod-img-' . $product->id . '.' . $request->image->extension();
+                // $request->file('image')->move(public_path('images/products'), $imageName);
+                $request->file('image')->storeAs('public/images/products', $imageName);
+                $product->image()->create([
+                    'image' => 'images/products/' . $imageName
+                ]);
+            });
         }
+        return response()->json([
+            'status' => 'success',
+            'message' => "Successfully added! ✌",
+        ], 201);
+    }
+
+        /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Product  $product
+     * @return \Illuminate\Http\Response
+     */
+    public function toggleStatus(Product $product)
+    {
+        $product->status == false ? $product->status = true : $product->status = false;
+        $product->save();
+
+        return back();
     }
 
     /**
@@ -119,6 +163,8 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        $product->delete();
+        
+        return back();
     }
 }

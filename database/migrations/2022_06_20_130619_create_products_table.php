@@ -23,7 +23,7 @@ return new class extends Migration
             $table->integer('stock')->nullable();
             $table->integer('unit_price_buying')->nullable();
             $table->integer('unit_price_selling')->nullable();
-            $table->boolean('status')->nullable();
+            $table->boolean('status')->nullable()->default(0);
             $table->foreignId('product_category_id')->constrained()->cascadeOnDelete();
             $table->foreignId('product_sub_category_id')->constrained()->cascadeOnDelete();
             $table->foreignId('product_sub_sub_category_id')->constrained()->cascadeOnDelete();

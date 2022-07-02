@@ -63,13 +63,13 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="exampleShortDesc">Short Description</label>
-                                                    <textarea class="form-control" id="exampleShortDesc" placeholder="Short Description" 
-                                                    name="short_description" rows="2"></textarea>
+                                                    <textarea class="form-control" id="exampleShortDesc" placeholder="Short Description" name="short_description"
+                                                        rows="2"></textarea>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="exampleLongDesc">Long Description</label>
-                                                    <textarea class="form-control" id="exampleLongDesc" placeholder="Long Description" 
-                                                    name="long_description" rows="3"></textarea>
+                                                    <textarea class="form-control" id="exampleLongDesc" placeholder="Long Description" name="long_description"
+                                                        rows="3"></textarea>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="exampleSKU">SKU</label>
@@ -79,7 +79,7 @@
                                                 <div class="form-group">
                                                     <label for="exampleStock">Stock</label>
                                                     <input type="number" name="stock" class="form-control"
-                                                    id="exampleStock" placeholder="0">
+                                                        id="exampleStock" placeholder="0">
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="exampleUnitPriceBuying">Buying Unit Price</label>
@@ -93,8 +93,9 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="exampleImage">Upload Image</label>
-                                                    <input type="file" class="form-control-file" id="exampleImage" name="image">
-                                                  </div>
+                                                    <input type="file" class="form-control-file" id="exampleImage"
+                                                        name="image">
+                                                </div>
                                                 <button type="submit" class="btn btn-primary">Submit</button>
                                             </form>
                                         </div>
@@ -103,7 +104,8 @@
                                         <div class="h5 mb-0 mt-4 font-weight-bold text-gray-800 text-center">
                                             Images
                                             <div class="mt-2 p-2 border rounded" id="images">
-                                                <img src="https://via.placeholder.com/330x497" alt="placeholder" class="img-fluid">
+                                                <img id="previewImage" src="https://via.placeholder.com/500"
+                                                    alt="placeholder" class="img-fluid">
                                             </div>
                                         </div>
                                     </div>
@@ -181,6 +183,22 @@
                 } else {
                     console.log("Something went wrong :(");
                 }
+            });
+
+            function readURL(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function(e) {
+                        $('#previewImage').attr('src', e.target.result);
+                    }
+
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+
+            $("#exampleImage").change(function() {
+                readURL(this);
             });
 
             $('#addProduct').submit(function(e) {

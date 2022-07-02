@@ -27,6 +27,8 @@ Route::get('/', function () {
     return view('guest.index');
 })->name('welcome');
 
+Route::get('shop', [\App\Http\Controllers\Shop\ProductController::class, 'index'])->name('shop');
+
 Route::middleware(['middleware' => 'prevent.back.history'])->group(function () {
     Auth::routes();
 });
@@ -41,6 +43,7 @@ Route::group(['middleware' => ['auth', 'prevent.back.history']], function () {
     Route::group(['middleware' => 'admin'], function () {
         
         Route::resource('products', ProductController::class);
+        Route::post('products/{product}/toggle-status', [ProductController::class, 'toggleStatus'])->name('products.toggle');
         
         Route::get('categories', [ProductCategoryController::class, 'index'])->name('categories.index');
 
