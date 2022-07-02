@@ -46,12 +46,20 @@
                                                 <td class="text-center">
                                                     {{ isset($seller->sellerDetail->phone_number) ? $seller->sellerDetail->phone_number : 'Null' }}
                                                 </td>
+
                                                 @if (isset($seller->sellerDetail) && $seller->sellerDetail->is_verified == 1)
                                                     <td class="text-center"><a
                                                             href="{{ route('cancelVerificationOfSeller', $seller->id) }}"
                                                             id="notverify"><span class="badge badge-pill badge-success"
                                                                 style="font-weight: bold;"
-                                                                title="Cancel Verification">Verified</span></a></td>
+                                                                title="Cancel Verification">Verified</span></a>
+                                                    </td>
+                                                @elseif (!isset($seller->sellerDetail))
+                                                    <td class="text-center"><a href="#" id="notapplied"><span
+                                                                class="badge badge-pill badge-warning"
+                                                                style="font-weight: bold;" title="Cancel Verification">Not
+                                                                Applied</span></a>
+                                                    </td>
                                                 @else
                                                     <td class="text-center"><a
                                                             href="{{ route('verifySeller', $seller->id) }}"

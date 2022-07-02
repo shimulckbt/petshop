@@ -73,7 +73,7 @@ class SellerController extends Controller
     {
         $seller = User::with('sellerDetail')->findOrFail(auth()->user()->id);
         // dd($seller->sellerDetail->skill_type);
-        return view('panel.seller.details.index', compact('seller'));
+        return view('panel.seller.details.change', compact('seller'));
     }
 
     public function updateSellerDetails(Request $request)

@@ -1,6 +1,4 @@
-<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" style="background-color:#005EB8;"
-    id="accordionSidebar">
-
+<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('dashboard') }}">
         <div class="sidebar-brand-icon rotate-n-15">
@@ -126,7 +124,8 @@
 
     {{-- Manage Appointments --}}
 
-    @if (auth()->user()->role->name === 'Seller')
+    @if (auth()->user()->role->name === 'Seller' && isset(Auth::user()->sellerDetail) && Auth::user()->sellerDetail->is_verified === 1)
+        {{-- @if (Auth::user()->sellerDetail->is_verified === 1) --}}
         <li class="nav-item {{ request()->is('appointments*') ? 'active' : '' }}">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAppointments"
                 aria-expanded="true" aria-controls="collapseAppointments">
@@ -138,14 +137,15 @@
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">All Appointments:</h6>
                     <a class="collapse-item {{ request()->is('appointments/create') ? 'active' : '' }}"
-                        href="{{ route('appointments.create') }}">Create Appointment</a>
+                        href="{{ route('appointments.create') }}">Create Appointments</a>
 
-                    {{-- <a class="collapse-item {{ request()->is('appointments/manage-all') ? 'active' : '' }}"
-                        href="{{ route('showAllSellers') }}">Appointments</a> --}}
+                    <a class="collapse-item {{ request()->is('appointments') ? 'active' : '' }}"
+                        href="{{ route('appointments.index') }}">Show Appointments</a>
                     <div class="collapse-divider"></div>
                 </div>
             </div>
         </li>
+        {{-- @endif --}}
     @endif
 
     <!-- Sidebar Toggler (Sidebar) -->

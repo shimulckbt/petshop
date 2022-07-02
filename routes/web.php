@@ -75,6 +75,10 @@ Route::group(['middleware' => ['auth', 'prevent.back.history']], function () {
         Route::post('seller-details-update', [SellerController::class, 'updateSellerDetails'])->name('updateSellerDetails');
 
         Route::resource('appointments', AppointmentsController::class);
+
+        Route::post('appointments/check', [AppointmentsController::class, 'check'])->name('appointments.check');
+
+        Route::post('appointments/update-time', [AppointmentsController::class, 'updateTime'])->name('update.time');
     });
 
     ////////////          Profile Change Route              //////////////
