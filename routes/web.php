@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Booking\ServiceController;
 use App\Http\Controllers\Common\CommonTaskController;
 use App\Http\Controllers\Seller\SellerController;
 use App\Http\Controllers\Customer\CustomerController;
@@ -27,6 +28,9 @@ use App\Models\Role;
 Route::get('/', function () {
     return view('guest.index');
 })->name('welcome');
+
+Route::get('/services', [ServiceController::class, 'index'])->name('services.index');
+
 
 Route::middleware(['middleware' => 'prevent.back.history'])->group(function () {
     Auth::routes();

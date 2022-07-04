@@ -20,39 +20,6 @@ class AppointmentsController extends Controller
         return view('panel.seller.appointment.index', compact('myappointments'));
     }
 
-    public function check(Request $request)
-    {
-        // dd('check method');
-        $date = $request->date;
-        $appointment = Appointment::where('date', $date)->where('user_id', auth()->user()->id)->first();
-        // dd($appointment);
-        if (!$appointment) {
-            return redirect()->to('/appointments')->with('error', 'Appointment time not available for this date');
-        }
-        $appointmentId = $appointment->id;
-        $times = Time::where('appointment_id', $appointmentId)->get();
-
-        return view('panel.seller.appointment.index', compact('times', 'appointmentId', 'date'));
-    }
-
-    public function updateTime(Request $request)
-    {
-        // dd('update time');
-        $appointmentId = $request->appoinmentId;
-        $appointment = Time::where('appointment_id', $appointmentId)->delete();
-        if (!isset($request->times)) {
-            return redirect()->route('appointments.index')->with('success', 'Appointment time cancelled!!');
-        }
-        foreach ($request->times as $time) {
-            Time::create([
-                'appointment_id' => $appointmentId,
-                'time' => $time,
-                'status' => 0
-            ]);
-        }
-        return redirect()->route('appointments.index')->with('success', 'Appointment time updated!!');
-    }
-
     /**
      * Show the form for creating a new resource.
      * 
@@ -132,5 +99,39 @@ class AppointmentsController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+
+    public function check(Request $request)
+    {
+        // dd('check method');
+        $date = $request->date;
+        $appointment = Appointment::where('date', $date)->where('user_id', auth()->user()->id)->first();
+        // dd($appointment);
+        if (!$appointment) {
+            return redirect()->to('/appointments')->with('error', 'Appointment time not available for this date');
+        }
+        $appointmentId = $appointment->id;
+        $times = Time::where('appointment_id', $appointmentId)->get();
+
+        return view('panel.seller.appointment.index', compact('times', 'appointmentId', 'date'));
+    }
+
+    public function updateTime(Request $request)
+    {
+        // dd('update time');
+        $appointmentId = $request->appoinmentId;
+        $appointment = Time::where('appointment_id', $appointmentId)->delete();
+        if (!isset($request->times)) {
+            return redirect()->route('appointments.index')->with('success', 'Appointment time cancelled!!');
+        }
+        foreach ($request->times as $time) {
+            Time::create([
+                'appointment_id' => $appointmentId,
+                'time' => $time,
+                'status' => 0
+            ]);
+        }
+        return redirect()->route('appointments.index')->with('success', 'Appointment time updated!!');
     }
 }
