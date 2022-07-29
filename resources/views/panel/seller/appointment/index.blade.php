@@ -32,7 +32,7 @@
                 <div class="card-header text-success">
                     @if (isset($date))
                         Your Appointments For:
-                        {{ $date }}
+                        {{ date('Y-m-d', strtotime($date)) }}
                     @endif
                 </div>
                 <div class="card-body">
@@ -273,7 +273,7 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $appoinment->user->first_name }} {{ $appoinment->user->last_name }}</td>
-                            <td>{{ $appoinment->date }}</td>
+                            <td>{{ date('Y-m-d', strtotime($appoinment->date)) }}</td>
                             <td>
                                 <form action="{{ route('appointments.check') }}" method="post">@csrf
                                     <input type="hidden" name="date" value="{{ $appoinment->date }}">

@@ -25,10 +25,21 @@
                 <div class="card-header">
                     Choose date
                 </div>
-                <div class="card-body">
-                    <input type="text" name="date" style="cursor:pointer; color: rgb(47, 42, 42) !important;" readonly
+                <div class="row card-body">
+                    {{-- <input class="col-md-4" type="text" name="date"
+                        style="cursor:pointer; color: rgb(47, 42, 42) !important;" readonly
                         class="form-control datetimepicker-input" id="datepicker" placeholder="Enter {{ date('Y-m-d') }}"
-                        data-toggle="datetimepicker" data-target="#datepicker" name="date">
+                        data-toggle="datetimepicker" data-target="#datepicker"> --}}
+
+                    From <input class="col-md-4 mx-2 bg-gray-200 border-0" type="text" name="from_date"
+                        style="cursor:pointer; color: rgb(47, 42, 42) !important;" readonly
+                        class="form-control datetimepicker-input" id="fromdatepicker"
+                        placeholder="Enter {{ date('Y-m-d') }}" data-toggle="datetimepicker" data-target="#datepicker">
+
+                    To <input class="col-md-4 mx-2 bg-gray-200 border-0" type="text" name="to_date"
+                        style="cursor:pointer; color: rgb(47, 42, 42) !important;" readonly
+                        class="form-control datetimepicker-input" id="todatepicker"
+                        placeholder="Enter {{ date('Y-m-d') }}" data-toggle="datetimepicker" data-target="#datepicker">
                 </div>
             </div>
 
@@ -157,7 +168,15 @@
             $("#datepicker").datepicker({
                 format: 'yyyy-mm-dd',
                 autoclose: true
-            })
+            });
+            $("#fromdatepicker").datepicker({
+                format: 'yyyy-mm-dd',
+                autoclose: true
+            });
+            $("#todatepicker").datepicker({
+                format: 'yyyy-mm-dd',
+                autoclose: true
+            });
         })
     </script>
 @endsection

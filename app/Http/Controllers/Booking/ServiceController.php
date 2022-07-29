@@ -17,7 +17,7 @@ class ServiceController extends Controller
             $sellers = $this->findServiceSellersBasedOnDate(request('date'));
             return view('guest.services.index', compact('sellers'));
         }
-        $sellers = Appointment::where('date', date('Y-m-d'))->get();
+        $sellers = Appointment::with('user')->where('date', date('Y-m-d'))->get();
         // dd($sellers);
 
         return view('guest.services.index', compact('sellers'));
