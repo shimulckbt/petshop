@@ -22,11 +22,12 @@
                                         Back</a>
                                 </div>
                                 <div class="h5 mb-0 mt-4 font-weight-bold text-gray-800">
+                                    <div id="message" class="d-none"></div>
                                     <form id="addSubSubCategory">
                                         <div class="form-group">
                                             <label for="exampleCategory">Select Shop</label>
                                             <select class="form-control" aria-label="Select Shop" id="exampleCategory"
-                                                name="shop">
+                                                name="product_category_id">
                                                 <option selected disabled>Select Shop</option>
                                                 @foreach ($categories as $category)
                                                     <option value="{{ $category->id }}">{{ $category->name }}</option>
@@ -36,13 +37,13 @@
                                         <div class="form-group">
                                             <label for="exampleSubCategory">Select Category</label>
                                             <select class="form-control" aria-label="Select Category"
-                                                id="exampleSubCategory" name="category">
+                                                id="exampleSubCategory" name="product_sub_category_id">
                                                 <option selected disabled>Select Category</option>
                                             </select>
                                         </div>
                                         <div class="form-group">
                                             <label for="exampleSubSubCategory">Enter Brand/Breed</label>
-                                            <input type="text" name="brand_or_breed" class="form-control"
+                                            <input type="text" name="name" class="form-control"
                                                 id="exampleSubSubCategory" placeholder="Brand/Breed">
                                         </div>
                                         <button type="submit" class="btn btn-primary">Submit</button>
@@ -61,7 +62,7 @@
 @section('script')
     <script>
         $(document).ready(function() {
-            $('select[name="shop"]').on("change", function() {
+            $('select[name="product_category_id"]').on("change", function() {
                 var categoryId = $(this).val();
                 var url = "{{ route('getSubCategories', 'id') }}";
                 url = url.replace('id', categoryId);
@@ -72,11 +73,11 @@
                         type: "GET",
                         dataType: "json",
                         success: function(data) {
-                            $('select[name="category"]').empty().append(
+                            $('select[name="product_sub_category_id"]').empty().append(
                                 '<option selected disabled>Select Category</option>'
                             );
                             $.each(data.data, function(key, value) {
-                                $('select[name="category"]').append(
+                                $('select[name="product_sub_category_id"]').append(
                                     '<option value = "' +
                                     value.id +
                                     '">' +
@@ -106,10 +107,30 @@
                     url: "{{ route('storeSubSubCategories') }}",
                     data: data,
                     dataType: 'json',
-                    success: function(response) {
-                        console.log(response);
-                        if (response.status == '200') {
+                    success: function(data, status, xhr) {
+                        // console.log(data);
+                        // console.log(status);
+                        // console.log(xhr);
+
+                        if (data.status == 'success') {
                             $('#addSubSubCategory')[0].reset();
+                            $('#message').empty().removeClass().addClass('alert alert-success')
+                                .attr('role', 'alert');
+                            $('#message').append(data.message);
+                        }
+                    },
+                    error: function(jqXhr, textStatus, errorThrown) {
+                        // console.log(jqXhr);
+                        // console.log(textStatus);
+                        // console.log(errorThrown);
+                        // console.log(jqXhr.responseJSON);
+
+                        if (jqXhr.status == 400) {
+                            $('#message').empty().removeClass().addClass('alert alert-danger')
+                                .attr('role', 'alert').append('<ul id="errors" class="mb-0"></ul>');;
+                            $.each(jqXhr.responseJSON.message, function(key, value) {
+                                $('#errors').append('<li>' + value + ' 😑 </li>');
+                            });
                         }
                     }
                 });

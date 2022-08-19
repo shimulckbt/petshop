@@ -45,26 +45,32 @@ class ProductSubCategoryController extends Controller
     public function storeSubCategoryAjax(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'shop' => 'required|numeric|exists:product_categories,id',
-            'category' => 'required|unique:product_sub_categories,name'
+            'product_category_id' => 'required|numeric|exists:product_categories,id',
+            'name' => 'required|unique:product_sub_categories,name'
+        ],[
+            'product_category_id.required' => 'Please select shop',
+            'product_category_id.numeric' => 'Invalid shop selection',
+            'product_category_id.exists' => 'Selected shop does not exist',
+            'name.required' => 'Category name is required',
+            'name.unique' => 'Category name already exists',
         ]);
 
         if($validator->fails()){
             return response()->json([
-                'status' => 400,
+                'status' => 'failed',
                 'message' => $validator->messages(),
-            ]);
+            ], 400);
         }else{
             ProductSubCategory::create([
-                'name' => $request->category,
-                'slug' => Str::slug($request->category),
-                'product_category_id' => $request->shop,
+                'name' => $request->name,
+                'slug' => Str::slug($request->name),
+                'product_category_id' => $request->product_category_id,
             ]);
 
             return response()->json([
-                'status' => 200,
+                'status' => 'success',
                 'message' => "Successfully added! ✌",
-            ]);
+            ], 201);
         }
     }
 

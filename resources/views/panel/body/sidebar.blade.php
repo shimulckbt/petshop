@@ -124,7 +124,9 @@
 
     {{-- Manage Appointments --}}
 
-    @if (auth()->user()->role->name === 'Seller' && isset(Auth::user()->sellerDetail) && Auth::user()->sellerDetail->is_verified === 1)
+    @if (auth()->user()->role->name === 'Seller' &&
+        isset(Auth::user()->sellerDetail) &&
+        Auth::user()->sellerDetail->is_verified === 1)
         {{-- @if (Auth::user()->sellerDetail->is_verified === 1) --}}
         <li class="nav-item {{ request()->is('appointments*') ? 'active' : '' }}">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAppointments"

@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Role;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
@@ -7,6 +8,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Booking\ServiceController;
 use App\Http\Controllers\Common\CommonTaskController;
 use App\Http\Controllers\Seller\SellerController;
+use App\Http\Controllers\Product\ProductController;
 use App\Http\Controllers\Customer\CustomerController;
 use App\Http\Controllers\Product\Category\ProductCategoryController;
 use App\Http\Controllers\Product\Category\ProductSubCategoryController;
@@ -32,6 +34,8 @@ Route::get('/', function () {
 Route::get('/services', [ServiceController::class, 'index'])->name('services.index');
 
 
+Route::get('shop', [\App\Http\Controllers\Shop\ProductController::class, 'index'])->name('shop');
+
 Route::middleware(['middleware' => 'prevent.back.history'])->group(function () {
     Auth::routes();
 });
@@ -45,9 +49,12 @@ Route::group(['middleware' => ['auth', 'prevent.back.history']], function () {
 
     Route::group(['middleware' => 'admin'], function () {
 
-        Route::group(['prefix' => "products"], function () {
-            Route::resource('categories', ProductCategoryController::class)->only('index');
+        Route::resource('products', ProductController::class);
+        Route::post('products/{product}/toggle-status', [ProductController::class, 'toggleStatus'])->name('products.toggle');
 
+        Route::get('categories', [ProductCategoryController::class, 'index'])->name('categories.index');
+
+        Route::group(['prefix' => "categories"], function () {
             Route::get('get-sub-categories/{id}', [ProductSubCategoryController::class, 'getSubCategoriesAjax'])->name('getSubCategories');
             Route::post('store-sub-categories', [ProductSubCategoryController::class, 'storeSubCategoryAjax'])->name('storeSubCategories');
 
@@ -55,7 +62,7 @@ Route::group(['middleware' => ['auth', 'prevent.back.history']], function () {
             Route::post('store-sub-sub-categories', [ProductSubSubCategoryController::class, 'storeSubSubCategoryAjax'])->name('storeSubSubCategories');
 
             Route::get('create-sub-categories', [ProductSubCategoryController::class, 'create'])->name('subCategory.create');
-            Route::get('create-sub-sub-categories', [ProductSubSubCategoryController::class, 'create'])->name('subSubCategory.create');;
+            Route::get('create-sub-sub-categories', [ProductSubSubCategoryController::class, 'create'])->name('subSubCategory.create');
         });
 
         ///////////////           Verify Seller and Manage Seller             ////////////////
