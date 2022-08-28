@@ -90,7 +90,7 @@
                         $('#sellerDetailsForm')[0].reset();
                         $('#sellerDetailsModal').modal('hide');
                         $('#hideButton').hide();
-                        alert(response.message);
+                        // alert(response.message);
                     } else if (response.status == 400) {
                         $.each(response.error, function(prefix, val) {
                             $('span.' + prefix + '_error').text(val[0]);

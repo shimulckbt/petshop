@@ -80,6 +80,12 @@
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item"><a href="{{ route('welcome') }}" class="nav-link">Home</a></li>
 
+                    {{-- Products --}}
+
+                    <li class="nav-item"><a href="{{ route('shop') }}" class="nav-link">Shop</b></a></li>
+
+                    {{-- Products --}}
+
                     {{-- Services --}}
 
                     <li class="nav-item dropdown menu-large">

@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Role;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
@@ -14,7 +13,7 @@ use App\Http\Controllers\Product\Category\ProductCategoryController;
 use App\Http\Controllers\Product\Category\ProductSubCategoryController;
 use App\Http\Controllers\Product\Category\ProductSubSubCategoryController;
 use App\Http\Controllers\Seller\AppointmentsController;
-use App\Models\Role;
+
 
 /*
 |--------------------------------------------------------------------------
