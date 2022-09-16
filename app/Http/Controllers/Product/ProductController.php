@@ -18,7 +18,14 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::with('image')->get();
+        if (auth()->user()->role->name == 'Admin') {
+            $products = Product::with('image')->get();
+        }
+
+        if (auth()->user()->role->name == 'Seller') {
+            $products = Product::with('image')->where('user_id', auth()->id())->get();
+        }
+
         return view('panel.products.index', compact('products'));
     }
 
@@ -87,8 +94,9 @@ class ProductController extends Controller
                     'unit_price_buying' => $request->unit_price_buying,
                     'unit_price_selling' => $request->unit_price_selling,
                     'status' => 0,
+                    'user_id' => auth()->id(),
                 ]);
-                
+
                 // if (!file_exists(public_path('images/product'))) {
                 //     mkdir(public_path('images/product'));
                 // }
@@ -107,7 +115,7 @@ class ProductController extends Controller
         ], 201);
     }
 
-        /**
+    /**
      * Display the specified resource.
      *
      * @param  \App\Models\Product  $product
@@ -164,7 +172,7 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         $product->delete();
-        
+
         return back();
     }
 }

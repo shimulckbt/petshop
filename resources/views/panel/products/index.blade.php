@@ -35,10 +35,12 @@
                                               <td>{{ $product->short_description }}</td>
                                               <td>{{ $product->status == true ? "Active" :"Inactive" }}</td>
                                               <td>
+                                                @if (auth()->user()->role->name == 'Admin')
                                                 <form method="POST" class="d-inline" action="{{ route('products.toggle', $product) }}">
                                                     @csrf
                                                     <input type="submit" class="btn btn-sm {{ $product->status == false ? 'btn-primary' : 'btn-warning' }}" value="{{ $product->status == false ? "Activate" :"Deactivate" }}">
                                                 </form>
+                                                @endif
                                                 <form method="POST" class="d-inline" action="{{ route('products.destroy', $product) }}">
                                                     @csrf
                                                     <input type="hidden" name="_method" value="delete" />
