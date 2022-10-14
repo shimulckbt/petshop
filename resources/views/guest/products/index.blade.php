@@ -4,49 +4,19 @@
         <div id="content">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-12">
-                        <!-- breadcrumb-->
-                        <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li aria-current="page" class="breadcrumb-item active">Shop</li>
-                            </ol>
-                        </nav>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="card sidebar-menu mb-4">
-                            <div class="card-header">
-                                <h3 class="h4 card-title">Shop</h3>
-                            </div>
-                            <div class="card-body">
-                                <ul class="nav nav-pills flex-column category-menu">
-                                    <li><a href="#" class="nav-link">Pets</a>
-                                        <ul class="list-unstyled">
-                                            <li><a href="#" class="nav-link"></a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="#" class="nav-link active">Pet Foods</a>
-                                        <ul class="list-unstyled">
-                                            <li><a href="#" class="nav-link"></a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="#" class="nav-link">Pet Accessories</a>
-                                        <ul class="list-unstyled">
-                                            <li><a href="#" class="nav-link"></a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
+
+                    @include('guest.layouts.shop._breadcrumbs')
+                    @include('guest.layouts.shop._categories-sidebar')
+                    
                     <div class="col-lg-9">
                         <div class="row products">
-                          <!-- /.products-->
-                          @foreach ($allActiveProducts as $product)  
-                          <div class="col-lg-4 col-md-6">
-                              <div class="product">
-                                  <div class="flip-container">
-                                      <div class="flipper">
+                            <!-- /.products-->
+                            @foreach ($allActiveProducts as $product)  
+                            <div class="col-lg-4 col-md-6">
+                                <div class="product">
+                                    @include('guest.layouts.shop._cart-notification')
+                                    <div class="flip-container">
+                                        <div class="flipper">
                                           <div class="front"><a href="#"><img src="{{ asset('storage/' . $product->image->image) }}"
                                                       alt="" class="img-fluid"></a></div>
                                           <div class="back"><a href="#"><img src="{{ asset('storage/' . $product->image->image) }}"
@@ -59,9 +29,14 @@
                                       <p class="price">
                                           <del></del>TK {{ $product->unit_price_selling }}
                                       </p>
-                                      <p class="buttons"><a href="#" class="btn btn-outline-secondary">View
-                                              detail</a><a href="#" class="btn btn-primary"><i
-                                                  class="fa fa-shopping-cart"></i>Add to cart</a></p>
+                                      <p class="buttons"><a href="{{ route('detail', $product) }}" class="btn btn-outline-secondary">View
+                                              detail</a>
+                                              @if (! $product->stock <= 0)
+                                        <a href="{{ route('add-to-cart', $product) }}" class="btn btn-primary"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                        @else
+                                        <a class="btn btn-warning disabled" ><i class="fa fa-shopping-cart"></i>Out of stock</a>
+                                        @endif
+                                            </p>
                                   </div>
                                   <!-- /.text-->
                               </div>
