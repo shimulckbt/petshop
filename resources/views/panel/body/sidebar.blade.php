@@ -1,6 +1,6 @@
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('dashboard') }}">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('welcome') }}">
         <div class="sidebar-brand-icon rotate-n-15">
             <i class="fas fa-laugh-wink"></i>
         </div>
@@ -16,6 +16,25 @@
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span></a>
     </li>
+
+    @if (auth()->user()->role->name == 'Admin')
+        <li class="nav-item {{ request()->is('slider*') ? 'active' : '' }}">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSliders"
+                aria-expanded="true" aria-controls="collapseSliders">
+                <i class="fas fa-fw fa-folder"></i>
+                <span>Manage Slider</span>
+            </a>
+            <div id="collapseSliders" class="collapse {{ request()->is('slider*') ? 'show' : '' }}"
+                aria-labelledby="headingSliders" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">All Sliders:</h6>
+                    <a class="collapse-item {{ request()->is('slider/view') ? 'active' : '' }}"
+                        href="{{ route('manage-slider') }}">All Sliders</a>
+                    <div class="collapse-divider"></div>
+                </div>
+            </div>
+        </li>
+    @endif
 
     <!-- Divider -->
     {{-- <hr class="sidebar-divider"> --}}
@@ -104,11 +123,57 @@
 
                     <a class="collapse-item {{ request()->is('appointments') ? 'active' : '' }}"
                         href="{{ route('appointments.index') }}">Show Appointments</a>
+
+                    <a class="collapse-item {{ request()->is('appointments/all') ? 'active' : '' }}"
+                        href="{{ route('sellersAllAppointments') }}">All Appointments</a>
+
                     <div class="collapse-divider"></div>
                 </div>
             </div>
         </li>
         {{-- @endif --}}
+    @endif
+
+    {{-- My Appointment --}}
+
+    @if (auth()->user()->role->name === 'User')
+        <li class="nav-item {{ request()->is('customers*') ? 'active' : '' }}">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseMyAppointments"
+                aria-expanded="true" aria-controls="collapseMyAppointments">
+                <i class="fas fa-fw fa-folder"></i>
+                <span>My Appointments</span>
+            </a>
+            <div id="collapseMyAppointments" class="collapse {{ request()->is('customers*') ? 'show' : '' }}"
+                aria-labelledby="headingAMyppointments" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">All Appointments:</h6>
+                    <a class="collapse-item {{ request()->is('customers/my-appointments') ? 'active' : '' }}"
+                        href="{{ route('my.appointment') }}">My Appointments</a>\
+                </div>
+            </div>
+        </li>
+    @endif
+
+    {{-- Appointment Taker List --}}
+
+    @if (auth()->user()->role->name === 'Admin')
+        <li class="nav-item {{ request()->is('customer-appointments*') ? 'active' : '' }}">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse"
+                data-target="#collapseCustomerAppointments" aria-expanded="true"
+                aria-controls="collapseCustomerAppointments">
+                <i class="fas fa-fw fa-folder"></i>
+                <span>My Appointments</span>
+            </a>
+            <div id="collapseCustomerAppointments"
+                class="collapse {{ request()->is('customer-appointments*') ? 'show' : '' }}"
+                aria-labelledby="headingAMyppointments" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">All Appointments:</h6>
+                    <a class="collapse-item {{ request()->is('customer-appointments/taker') ? 'active' : '' }}"
+                        href="{{ route('appointment.taker') }}">All Appointments</a>\
+                </div>
+            </div>
+        </li>
     @endif
 
     <!-- Sidebar Toggler (Sidebar) -->

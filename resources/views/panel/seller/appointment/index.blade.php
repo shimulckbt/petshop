@@ -130,10 +130,10 @@
                                 <tr>
                                     <th scope="row">4</th>
                                     <td><input type="checkbox" name="times[]"
-                                            value="9am"@if (isset($times)) {{ $times->contains('time', '9am') ? 'checked' : '' }} @endif>9am
+                                            value="9am"@if (isset($times)) {{ $times->contains('time', '9:00am') ? 'checked' : '' }} @endif>9am
                                     </td>
                                     <td><input type="checkbox" name="times[]"
-                                            value="9.30am"@if (isset($times)) {{ $times->contains('time', '9.30am') ? 'checked' : '' }} @endif>9.30am
+                                            value="9.30am"@if (isset($times)) {{ $times->contains('time', '9:30am') ? 'checked' : '' }} @endif>9.30am
                                     </td>
                                     <td><input type="checkbox" name="times[]"
                                             value="10:00am"@if (isset($times)) {{ $times->contains('time', '10:00am') ? 'checked' : '' }} @endif>10:00am
