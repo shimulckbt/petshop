@@ -39,7 +39,10 @@
     <!-- Divider -->
     {{-- <hr class="sidebar-divider"> --}}
 
-    @if (auth()->user()->role->name == 'Admin')
+    @if (auth()->user()->role->name == 'Admin' ||
+        (auth()->user()->role->name === 'Seller' &&
+            isset(Auth::user()->sellerDetail) &&
+            Auth::user()->sellerDetail->is_verified === 1))
         <!-- Heading -->
         <div class="sidebar-heading">
             Products
@@ -56,13 +59,15 @@
                 class="collapse {{ request()->is('products*') || request()->is('categories*') ? 'show' : '' }}"
                 aria-labelledby="headingProducts" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header">Product Categories:</h6>
-                    <a class="collapse-item {{ request()->is('categories') ? 'active' : '' }}"
-                        href="{{ route('categories.index') }}">All Categories</a>
-                    <a class="collapse-item {{ request()->is('categories/create-sub-categories') ? 'active' : '' }}"
-                        href="{{ route('subCategory.create') }}">Add Categories</a>
-                    <a class="collapse-item {{ request()->is('categories/create-sub-sub-categories') ? 'active' : '' }}"
-                        href="{{ route('subSubCategory.create') }}">Add Brands/Breeds</a>
+                    @if (auth()->user()->role->name == 'Admin')
+                        <h6 class="collapse-header">Product Categories:</h6>
+                        <a class="collapse-item {{ request()->is('categories') ? 'active' : '' }}"
+                            href="{{ route('categories.index') }}">All Categories</a>
+                        <a class="collapse-item {{ request()->is('categories/create-sub-categories') ? 'active' : '' }}"
+                            href="{{ route('subCategory.create') }}">Add Categories</a>
+                        <a class="collapse-item {{ request()->is('categories/create-sub-sub-categories') ? 'active' : '' }}"
+                            href="{{ route('subSubCategory.create') }}">Add Brands/Breeds</a>
+                    @endif
                     <div class="collapse-divider"></div>
                     <h6 class="collapse-header">Products:</h6>
                     <a class="collapse-item {{ request()->is('products') ? 'active' : '' }}"

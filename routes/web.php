@@ -43,6 +43,10 @@ Route::middleware(['middleware' => 'prevent.back.history'])->group(function () {
     Auth::routes();
 });
 
+Route::group(['prefix' => "categories"], function () {
+    Route::get('get-sub-categories/{id}', [ProductSubCategoryController::class, 'getSubCategoriesAjax'])->name('getSubCategories');
+    Route::get('get-sub-sub-categories/{id}', [ProductSubSubCategoryController::class, 'getSubSubCategoriesAjax'])->name('getSubSubCategories');
+});
 Route::get('/new-appointment/{sellerId}/{date}', [ServiceController::class, 'show'])->name('create.appointment');
 
 Route::group(['middleware' => ['auth', 'prevent.back.history']], function () {
@@ -65,10 +69,7 @@ Route::group(['middleware' => ['auth', 'prevent.back.history']], function () {
         Route::get('categories', [ProductCategoryController::class, 'index'])->name('categories.index');
 
         Route::group(['prefix' => "categories"], function () {
-            Route::get('get-sub-categories/{id}', [ProductSubCategoryController::class, 'getSubCategoriesAjax'])->name('getSubCategories');
             Route::post('store-sub-categories', [ProductSubCategoryController::class, 'storeSubCategoryAjax'])->name('storeSubCategories');
-
-            Route::get('get-sub-sub-categories/{id}', [ProductSubSubCategoryController::class, 'getSubSubCategoriesAjax'])->name('getSubSubCategories');
             Route::post('store-sub-sub-categories', [ProductSubSubCategoryController::class, 'storeSubSubCategoryAjax'])->name('storeSubSubCategories');
 
             Route::get('create-sub-categories', [ProductSubCategoryController::class, 'create'])->name('subCategory.create');
@@ -113,6 +114,11 @@ Route::group(['middleware' => ['auth', 'prevent.back.history']], function () {
         Route::post('appointments/check', [AppointmentsController::class, 'check'])->name('appointments.check');
 
         Route::post('appointments/update-time', [AppointmentsController::class, 'updateTime'])->name('update.time');
+    });
+
+    //////////// Admin Seller Common Routes /////////////////////////
+    Route::group(['middleware' => 'ascommon'], function () {
+        Route::resource('products', ProductController::class);
     });
 
     ////////////          Profile Change Route              //////////////

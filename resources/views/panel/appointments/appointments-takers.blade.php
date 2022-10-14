@@ -56,7 +56,8 @@
                                                 </td>
                                             </tr>
                                         @empty
-                                            <td>There is no appointments !</td>
+                                            <td class="text-danger text-center" colspan="8">There is no appointments !
+                                            </td>
                                         @endforelse
                                     </tbody>
                                 </table>
