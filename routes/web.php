@@ -12,6 +12,7 @@ use App\Http\Controllers\Booking\ServiceController;
 use App\Http\Controllers\Product\ProductController;
 use App\Http\Controllers\Common\CommonTaskController;
 use App\Http\Controllers\Customer\CustomerController;
+use App\Http\Controllers\Orders\AdminSellerOrderController;
 use App\Http\Controllers\Seller\AppointmentsController;
 use App\Http\Controllers\Product\Category\ProductCategoryController;
 use App\Http\Controllers\Product\Category\ProductSubCategoryController;
@@ -71,7 +72,14 @@ Route::group(['middleware' => ['auth', 'prevent.back.history']], function () {
             Route::post('store-sub-sub-categories', [ProductSubSubCategoryController::class, 'storeSubSubCategoryAjax'])->name('storeSubSubCategories');
 
             Route::get('create-sub-categories', [ProductSubCategoryController::class, 'create'])->name('subCategory.create');
+            Route::get('edit-sub-categories/{id}', [ProductSubCategoryController::class, 'edit'])->name('subCategory.edit');
+            Route::post('update-sub-categories/{id}', [ProductSubCategoryController::class, 'update'])->name('subCategory.update');
+            Route::post('delete-sub-categories/{id}', [ProductSubCategoryController::class, 'destroy'])->name('subCategory.destroy');
+
             Route::get('create-sub-sub-categories', [ProductSubSubCategoryController::class, 'create'])->name('subSubCategory.create');
+            Route::get('edit-sub-sub-categories/{id}', [ProductSubSubCategoryController::class, 'edit'])->name('subSubCategory.edit');
+            Route::post('update-sub-sub-categories/{id}', [ProductSubSubCategoryController::class, 'update'])->name('subSubCategory.update');
+            Route::post('delete-sub-sub-categories/{id}', [ProductSubSubCategoryController::class, 'destroy'])->name('subSubCategory.destroy');
         });
 
         ///////////////           Verify Seller and Manage Seller             ////////////////
@@ -104,6 +112,10 @@ Route::group(['middleware' => ['auth', 'prevent.back.history']], function () {
     //////////// Admin Seller Common Routes /////////////////////////
     Route::group(['middleware' => 'ascommon'], function () {
         Route::resource('products', ProductController::class);
+
+        Route::group(['prefix' => 'orders'], function () {
+            Route::get('all-orders', [AdminSellerOrderController::class, 'checkAllOrders'])->name('all-orders');
+        });
     });
 
     ////////////          Profile Change Route              //////////////
@@ -134,10 +146,11 @@ Route::group(['middleware' => ['auth', 'prevent.back.history']], function () {
             Route::get('checkout-delivery-method', 'checkoutDeliveryMethod')->name('delivery-method');
             Route::get('checkout-payement-method', 'checkoutPaymentMethod')->name('payement-method');
             Route::post('confirm-order', 'confirmOrder')->name('confirm-order');
+
         });
 
         Route::group(['prefix' => 'orders'], function () {
-            Route::get('your-orders', );
+            Route::get('your-orders', [OrderController::class, 'checkYourOrders'])->name('your-orders');
         });
     });
 });

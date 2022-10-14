@@ -160,7 +160,7 @@
                 var url = '{{ route('getSubCategories','id') }}';
                 url = url.replace('id', subSubCategoryId);
                 console.log(url);
-                $('#viewSubSubCategory').removeClass('d-none').attr("href", url);;
+                // $('#viewSubSubCategory').removeClass('d-none').attr("href", url);
             });
         });
     </script>

@@ -11,6 +11,7 @@ class OrderInfo extends Model
     use HasFactory;
     
     protected $table = 'order_infos';
+    protected $primaryKey = 'order_no';
     protected $guarded = [];
 
     public function orders(){

@@ -10,16 +10,17 @@ use App\Models\Product\Category\ProductCategory;
 use App\Models\Product\Category\ProductSubCategory;
 
 class ProductSubCategoryController extends Controller
-{  
+{
     /**
      * getSubCategoriesAjax
      *
      * @param  mixed $id
      * @return void
      */
-    public function getSubCategoriesAjax($id){
+    public function getSubCategoriesAjax($id)
+    {
         $subCategories = ProductSubCategory::where('product_category_id', $id)->get();
-        
+
         return response()->json([
             'data' => $subCategories,
         ]);
@@ -33,7 +34,8 @@ class ProductSubCategoryController extends Controller
     public function create()
     {
         $categories = ProductCategory::all();
-        return view('panel.products.category.sub-category.index', compact('categories'));
+        $subCategories = ProductSubCategory::with(['productCategory'])->get();
+        return view('panel.products.category.sub-category.index', compact('categories', 'subCategories'));
     }
 
     /**
@@ -47,7 +49,7 @@ class ProductSubCategoryController extends Controller
         $validator = Validator::make($request->all(), [
             'product_category_id' => 'required|numeric|exists:product_categories,id',
             'name' => 'required|unique:product_sub_categories,name'
-        ],[
+        ], [
             'product_category_id.required' => 'Please select shop',
             'product_category_id.numeric' => 'Invalid shop selection',
             'product_category_id.exists' => 'Selected shop does not exist',
@@ -55,12 +57,12 @@ class ProductSubCategoryController extends Controller
             'name.unique' => 'Category name already exists',
         ]);
 
-        if($validator->fails()){
+        if ($validator->fails()) {
             return response()->json([
                 'status' => 'failed',
                 'message' => $validator->messages(),
             ], 400);
-        }else{
+        } else {
             ProductSubCategory::create([
                 'name' => $request->name,
                 'slug' => Str::slug($request->name),
@@ -91,9 +93,12 @@ class ProductSubCategoryController extends Controller
      * @param  \App\Models\ProductSubCategory  $productSubCategory
      * @return \Illuminate\Http\Response
      */
-    public function edit(ProductSubCategory $productSubCategory)
+    public function edit($id)
     {
-        //
+        $productSubCategory = ProductSubCategory::findOrFail($id);
+        // $categories = ProductCategory::all();
+
+        return view('panel.products.category.sub-category.edit', compact('productSubCategory'));
     }
 
     /**
@@ -103,9 +108,15 @@ class ProductSubCategoryController extends Controller
      * @param  \App\Models\ProductSubCategory  $productSubCategory
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ProductSubCategory $productSubCategory)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate(['name' => 'string|required']);
+
+        $productSubCategory = ProductSubCategory::findOrFail($id);
+
+        $productSubCategory->update(['name' => $request->name]);
+
+        return redirect()->route('subCategory.create');
     }
 
     /**
@@ -114,8 +125,11 @@ class ProductSubCategoryController extends Controller
      * @param  \App\Models\ProductSubCategory  $productSubCategory
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ProductSubCategory $productSubCategory)
+    public function destroy($id)
     {
-        //
+        $productSubCategory = ProductSubCategory::findOrFail($id);
+        $productSubCategory->delete();
+
+        return back();
     }
 }

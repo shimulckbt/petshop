@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Customer;
 
 use App\Models\Cart;
+use App\Models\Order;
 use App\Models\OrderInfo;
 use Illuminate\Http\Request;
+use App\Models\Product\Product;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\Models\Order;
+use League\CommonMark\Node\Query\OrExpr;
 
 class OrderController extends Controller
 {
@@ -109,6 +111,9 @@ class OrderController extends Controller
 
         foreach ($productsInCart as $cart){
             $cartToOrder[] = $this->mapOrderData($cart, $orderInfo);
+            $product = Product::where('id', $cart->product_id)->first();
+            $product->stock = $product->stock - $cart->qty;
+            $product->save();
         }
 
         return $cartToOrder;
@@ -126,6 +131,9 @@ class OrderController extends Controller
     }
 
     public function checkYourOrders(){
-        
+        $orders = Order::where('customer_id', auth()->id())->with(['orderInfo'])->latest()->get();
+        // dd($orders);
+
+        return view('panel.orders.index', compact('orders'));
     }
 }

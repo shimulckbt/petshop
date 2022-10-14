@@ -61,7 +61,7 @@ class ProductController extends Controller
             'stock' => 'required|numeric',
             'unit_price_buying' => 'required|numeric',
             'unit_price_selling' => 'required|numeric',
-            'image' => 'required|mimes:jpg,png|dimensions:width=500,height=500|max:1024',
+            'image' => 'required|mimes:jpg,png|dimensions:max_width=2000,max_height=2000|max:10240',
         ], [
             'product_category_id.required' => 'Please select shop',
             'product_category_id.numeric' => 'Invalid shop selection',
@@ -148,7 +148,8 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        $categories = ProductCategory::all();
+        return view('panel.products.edit', compact('categories', 'product'));
     }
 
     /**
@@ -160,7 +161,67 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //
+        // dd($request->all());
+        $request->validate([
+            'product_category_id' => 'required|numeric|exists:product_categories,id',
+            'product_sub_category_id' => 'required|numeric|exists:product_sub_categories,id',
+            'product_sub_sub_category_id' => 'required|numeric|exists:product_sub_sub_categories,id',
+            'name' => 'required|string|max:255',
+            'slug' => 'required|string|max:255|unique:products,slug',
+            'short_description' => 'required|string|max:255',
+            'long_description' => 'required|string|max:1000',
+            'sku' => 'required|string|max:255',
+            'stock' => 'required|numeric',
+            'unit_price_buying' => 'required|numeric',
+            'unit_price_selling' => 'required|numeric',
+            'image' => 'nullable|mimes:jpg,png|dimensions:max_width=2000,max_height=2000|max:10240',
+        ], [
+            'product_category_id.required' => 'Please select shop',
+            'product_category_id.numeric' => 'Invalid shop selection',
+            'product_category_id.exists' => 'Selected shop does not exist',
+            'product_sub_category_id.required' => 'Please select category',
+            'product_sub_category_id.numeric' => 'Invalid category selection',
+            'product_sub_category_id.exists' => 'Selected category does not exist',
+            'product_sub_sub_category_id.required' => 'Please select sub-category',
+            'product_sub_sub_category_id.numeric' => 'Invalid sub-category selection',
+            'product_sub_sub_category_id.exists' => 'Selected sub-category does not exist',
+        ]);
+
+        dd($request->all());
+
+
+        DB::transaction(function () use ($request, $product) {
+            $product->update([
+                'product_category_id' => $request->product_category_id,
+                'product_sub_category_id' => $request->product_sub_category_id,
+                'product_sub_sub_category_id' => $request->product_sub_sub_category_id,
+                'name' => $request->name,
+                'slug' => $request->slug,
+                'short_description' => $request->short_description,
+                'long_description' => $request->long_description,
+                'sku' => $request->sku,
+                'stock' => $request->stock,
+                'unit_price_buying' => $request->unit_price_buying,
+                'unit_price_selling' => $request->unit_price_selling,
+                'status' => 0,
+                'user_id' => auth()->id(),
+            ]);
+
+            // if (!file_exists(public_path('images/product'))) {
+            //     mkdir(public_path('images/product'));
+            // }
+
+            if ($request->image != NULL){
+                $imageName = 'prod-img-' . $product->id . '.' . $request->image->extension();
+                // $request->file('image')->move(public_path('images/products'), $imageName);
+                $request->file('image')->storeAs('public/images/products', $imageName);
+                $product->image()->update([
+                    'image' => 'images/products/' . $imageName
+                ]);
+            }
+
+            return route('products.index');
+        });
     }
 
     /**
