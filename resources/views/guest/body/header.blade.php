@@ -73,7 +73,7 @@
                         class="fa fa-align-justify"></i></button>
                 <button type="button" data-toggle="collapse" data-target="#search"
                     class="btn btn-outline-secondary navbar-toggler"><span class="sr-only">Toggle search</span><i
-                        class="fa fa-search"></i></button><a href="basket.html"
+                        class="fa fa-search"></i></button><a href="{{ route('view-cart') }}"
                     class="btn btn-outline-secondary navbar-toggler"><i class="fa fa-shopping-cart"></i></a>
             </div>
             <div id="navigation" class="collapse navbar-collapse">
@@ -105,9 +105,9 @@
                         <i class="fa fa-search"></i>
                     </a>
                     <div id="basket-overview" class="navbar-collapse collapse d-none d-lg-block">
-                        <a href="basket.html" class="btn btn-primary navbar-btn">
+                        <a href="{{ route('view-cart') }}" class="btn btn-primary navbar-btn">
                             <i class="fa fa-shopping-cart"></i>
-                            <span>3 items in cart</span>
+                            <span>{{ session('cartCount') ?? 0}} items in cart</span>
                         </a>
                     </div>
                 </div>

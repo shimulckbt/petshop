@@ -1,18 +1,21 @@
 <?php
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Admin\AdminController;
-use App\Http\Controllers\Booking\ServiceController;
-use App\Http\Controllers\Common\CommonTaskController;
+use App\Http\Controllers\Customer\CartController;
 use App\Http\Controllers\Seller\SellerController;
+use App\Http\Controllers\Customer\OrderController;
+use App\Http\Controllers\Booking\ServiceController;
 use App\Http\Controllers\Product\ProductController;
+use App\Http\Controllers\Common\CommonTaskController;
 use App\Http\Controllers\Customer\CustomerController;
+use App\Http\Controllers\Seller\AppointmentsController;
 use App\Http\Controllers\Product\Category\ProductCategoryController;
 use App\Http\Controllers\Product\Category\ProductSubCategoryController;
 use App\Http\Controllers\Product\Category\ProductSubSubCategoryController;
-use App\Http\Controllers\Seller\AppointmentsController;
 
 
 /*
@@ -32,8 +35,14 @@ Route::get('/', function () {
 
 Route::get('/services', [ServiceController::class, 'index'])->name('services.index');
 
+///////////////////// SHOP ///////////////////////////////
 
-Route::get('shop', [\App\Http\Controllers\Shop\ProductController::class, 'index'])->name('shop');
+Route::controller(\App\Http\Controllers\Shop\ProductController::class)->group(function () {
+    Route::get('shop','index')->name('shop');
+    Route::get('shop/detail/{product}','detail')->name('detail');
+});
+
+//////////////////////////////////////////////////////////////////
 
 Route::middleware(['middleware' => 'prevent.back.history'])->group(function () {
     Auth::routes();
@@ -108,6 +117,31 @@ Route::group(['middleware' => ['auth', 'prevent.back.history']], function () {
         Route::post('change-general-information-request-submit', [CommonTaskController::class, 'changeGeneralInfoRequestSubmit'])->name('changeGeneralInfoRequestSubmit');
     });
 
+    ///////////////////////////// CUSTOMER ////////////////////////////////////
     Route::group(['middleware' => 'customer'], function () {
+
+        /////////////////////////// CART //////////////////////////////////////
+        Route::controller(CartController::class)->group(function () {
+            Route::get('view-cart', 'viewCart')->name('view-cart');
+            Route::get('add-product-to-cart/{product}', 'addToCart')->name('add-to-cart');
+            Route::post('update-cart/{cart}', 'updateCart')->name('update-cart');
+            Route::get('delete-cart/{cart}', 'deleteCart')->name('delete-cart');
+        });
+
+        Route::controller(OrderController::class)->group(function () {
+            Route::get('proceed-to-checkout', 'proceedToCheckout')->name('proceed-checkout');
+            Route::get('checkout-address', 'checkoutAddress')->name('checkout-address');
+            Route::get('checkout-delivery-method', 'checkoutDeliveryMethod')->name('delivery-method');
+            Route::get('checkout-payement-method', 'checkoutPaymentMethod')->name('payement-method');
+            Route::post('confirm-order', 'confirmOrder')->name('confirm-order');
+        });
+
+        Route::group(['prefix' => 'orders'], function () {
+            Route::get('your-orders', );
+        });
     });
+});
+
+Route::get('get-browser-info', function(Request $request){
+    dd($request->userAgent());
 });

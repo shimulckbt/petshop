@@ -13,4 +13,10 @@ class ProductController extends Controller
 
         return view('guest.products.index', compact('allActiveProducts'));
     }
+
+    public function detail(Request $request, Product $product){
+        // dd($product);
+        return view('guest.products.detail', compact('product'));
+    }
+
 }

@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Models\Cart;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 
-use Illuminate\Http\Request;
+use App\Providers\RouteServiceProvider;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
 {
@@ -75,6 +76,9 @@ class LoginController extends Controller
                 return redirect()->route('dashboard');
             } elseif (auth()->user()->role_id == 3) {
                 // dd($request->all());
+                $cartCount = Cart::where('customer_id', auth()->id())->count();
+                session(['cartCount' => $cartCount]);
+                
                 return redirect()->route('welcome');
             } else {
                 // dd($request->all());

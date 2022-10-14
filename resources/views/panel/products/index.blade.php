@@ -8,56 +8,66 @@
         </div>
 
         <!-- Content Row -->
-        <div class="row">
-            <div class="col-12 mb-4">
-                <div class="card border-bottom-primary shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                    All Products</div>
-                                <div class="h5 mb-0 mt-2 font-weight-bold text-gray-800">
-                                    <table class="table">
-                                        <thead class="thead-light">
-                                          <tr>
-                                            <th scope="col">#</th>
-                                            <th scope="col">Name</th>
-                                            <th scope="col">Description</th>
-                                            <th scope="col">Status</th>
-                                            <th scope="col">Action</th>
-                                          </tr>
+        
+            <div class="card shadow mb-4">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <table class="table table-bordered dataTable" id="dataTable" role="grid"
+                                        aria-describedby="dataTable_info" style="width: 100%;" width="100%"
+                                        cellspacing="0">
+                                        <thead>
+                                            <tr role="row">
+                                                <th class="text-center" scope="col">#</th>
+                                                <th class="text-center" scope="col">Name</th>
+                                                <th class="text-center" scope="col">Description</th>
+                                                <th class="text-center" scope="col">Status</th>
+                                                <th class="text-center" scope="col">Action</th>
+                                            </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($products as $product)                                                
-                                            <tr>
-                                              <th scope="row">{{ $loop->index + 1}}</th>
-                                              <td>{{ $product->name }}</td>
-                                              <td>{{ $product->short_description }}</td>
-                                              <td>{{ $product->status == true ? "Active" :"Inactive" }}</td>
-                                              <td>
-                                                @if (auth()->user()->role->name == 'Admin')
-                                                <form method="POST" class="d-inline" action="{{ route('products.toggle', $product) }}">
-                                                    @csrf
-                                                    <input type="submit" class="btn btn-sm {{ $product->status == false ? 'btn-primary' : 'btn-warning' }}" value="{{ $product->status == false ? "Activate" :"Deactivate" }}">
-                                                </form>
-                                                @endif
-                                                <form method="POST" class="d-inline" action="{{ route('products.destroy', $product) }}">
-                                                    @csrf
-                                                    <input type="hidden" name="_method" value="delete" />
-                                                    <input type="submit" class="btn btn-sm btn-danger" value="Delete">
-                                                </form>
-                                              </td>
-                                            </tr>
+                                            @foreach ($products as $product)
+                                                <tr>
+                                                    <td class="text-center sorting_1">{{ $loop->index + 1 }}</td>
+                                                    <td class="text-center">{{ $product->name }}</td>
+                                                    <td class="text-center">
+                                                        {{ $product->short_description }}
+                                                    </td>
+                                                    <td class="text-center">
+                                                        {{ $product->status == true ? 'Active' : 'Inactive' }}
+                                                    </td>
+                                                    <td class="text-center">
+                                                        @if (auth()->user()->role->name == 'Admin')
+                                                            <form method="POST" class="d-inline"
+                                                                action="{{ route('products.toggle', $product) }}">
+                                                                @csrf
+                                                                <input type="submit"
+                                                                    class="btn btn-sm {{ $product->status == false ? 'btn-primary' : 'btn-warning' }}"
+                                                                    value="{{ $product->status == false ? 'Activate' : 'Deactivate' }}">
+                                                            </form>
+                                                        @endif
+                                                        <form method="POST" class="d-inline"
+                                                            action="{{ route('products.destroy', $product) }}">
+                                                            @csrf
+                                                            <input type="hidden" name="_method" value="delete" />
+                                                            <input type="submit" class="btn btn-sm btn-danger"
+                                                                value="Delete">
+                                                        </form>
+                                                    </td>
+                                                </tr>
                                             @endforeach
                                         </tbody>
-                                      </table>
+                                    </table>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+
+
 
     </div>
 @endsection
