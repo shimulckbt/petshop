@@ -115,6 +115,12 @@ Route::group(['middleware' => ['auth', 'prevent.back.history']], function () {
 
         Route::group(['prefix' => 'orders'], function () {
             Route::get('all-orders', [AdminSellerOrderController::class, 'checkAllOrders'])->name('all-orders');
+
+            Route::post('approve-order/{order}', [AdminSellerOrderController::class, 'approveOrder'])->name('approve-order');
+            Route::post('decline-order/{order}', [AdminSellerOrderController::class, 'declineOrder'])->name('decline-order');
+
+            Route::post('approve-delivery/{order}', [AdminSellerOrderController::class, 'approveDelivery'])->name('approve-delivery');
+            Route::post('decline-delivery/{order}', [AdminSellerOrderController::class, 'declineDelivery'])->name('decline-delivery');
         });
     });
 

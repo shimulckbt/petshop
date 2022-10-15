@@ -31,7 +31,8 @@
                                                 (auth()->user()->role->name === 'Seller' &&
                                                     isset(Auth::user()->sellerDetail) &&
                                                     Auth::user()->sellerDetail->is_verified === 1))
-                                                <th class="text-center" scope="col">Action</th>
+                                                <th class="text-center" scope="col" width="20%">Order Action</th>
+                                                <th class="text-center" scope="col" width="20%">Delivery Action</th>
                                             @endif
                                         </tr>
                                     </thead>
@@ -53,27 +54,59 @@
                                                     {{ $order->total_price }}
                                                 </td>
                                                 <td class="text-center">
-                                                    {{ $order->is_aproved == true ? 'Approved' : 'N/A' }}
+                                                    @if ($order->is_aproved == true)
+                                                        Approved
+                                                    @elseif ($order->is_aproved === null)
+                                                        N/A
+                                                    @else
+                                                        Declined
+                                                    @endif
+
                                                 </td>
                                                 <td class="text-center">
-                                                    {{ $order->is_delivered == true ? 'Delivered' : 'Pending' }}
+                                                    @if ($order->is_delivered == true)
+                                                        Delivered
+                                                    @elseif ($order->is_delivered === null)
+                                                        Pending
+                                                    @else
+                                                        Declined
+                                                    @endif
                                                 </td>
                                                 @if (auth()->user()->role->name == 'Admin' ||
                                                     (auth()->user()->role->name === 'Seller' &&
                                                         isset(Auth::user()->sellerDetail) &&
                                                         Auth::user()->sellerDetail->is_verified === 1))
                                                     <td class="text-center">
-                                                        <form method="POST" class="d-inline" action="">
+                                                        <form method="POST" class="d-inline"
+                                                            action="{{ route('approve-order', $order) }}">
                                                             @csrf
                                                             <input type="submit"
-                                                                class="btn btn-sm {{ $order->is_aproved == false ? 'btn-primary' : 'btn-warning' }}"
-                                                                value="{{ $order->is_aproved == false ? 'Approve' : 'Deactivate' }}">
+                                                                class="btn btn-sm {{ ($order->is_aproved === null) ? ('btn-primary') : ('btn-warning disabled') }}"
+                                                                 value="@if($order->is_aproved === null)Approve @elseif($order->is_aproved == true)Approved @else Declined @endif">
                                                         </form>
-                                                        <form method="POST" class="d-inline" action="">
+                                                        <form method="POST" class="d-inline"
+                                                            action="{{ route('decline-order', $order) }}">
                                                             @csrf
-                                                            <input type="hidden" name="_method" value="delete" />
-                                                            <input type="submit" class="btn btn-sm btn-danger"
-                                                                value="Delete">
+                                                            <input type="submit"
+                                                                class="btn btn-sm {{ $order->is_aproved === null ? 'btn-danger' : 'btn-warning d-none' }}"
+                                                                value="{{ $order->is_aproved === null ? 'Decline' : 'Approved' }}">
+                                                        </form>
+                                                        {{-- <a href="" class="btn btn-sm btn-primary">Approve</a> --}}
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <form method="POST" class="d-inline"
+                                                            action="{{ route('approve-delivery', $order) }}">
+                                                            @csrf
+                                                            <input type="submit"
+                                                                class="btn btn-sm {{ $order->is_delivered === null ? 'btn-primary' : 'btn-warning disabled' }}"
+                                                                value="{{ $order->is_delivered === false || $order->is_delivered === null ? 'Deliver' : 'Declined' }}">
+                                                        </form>
+                                                        <form method="POST" class="d-inline"
+                                                            action="{{ route('decline-delivery', $order) }}">
+                                                            @csrf
+                                                            <input type="submit"
+                                                                class="btn btn-sm {{ $order->is_delivered === null ? 'btn-danger' : 'btn-warning d-none' }}"
+                                                                value="{{ $order->is_delivered === false || $order->is_delivered === null ? 'Decline' : 'Delivered' }}">
                                                         </form>
                                                         {{-- <a href="" class="btn btn-sm btn-primary">Approve</a> --}}
                                                     </td>
