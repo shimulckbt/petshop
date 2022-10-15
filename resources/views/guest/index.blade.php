@@ -1,6 +1,12 @@
 @extends('guest.layouts.app')
 @section('content')
     <div id="all">
+        @php
+            $sliders = App\Models\Slider::where('status', 1)
+                ->orderBy('id', 'DESC')
+                ->limit(3)
+                ->get();
+        @endphp
         <div id="content">
             <div class="container">
                 <div class="row">
@@ -49,9 +55,9 @@
         <!-- /#advantages-->
         <!-- *** ADVANTAGES END ***-->
         <!--
-                                                *** HOT PRODUCT SLIDESHOW ***
-                                                _________________________________________________________
-                                                -->
+                                                                            *** HOT PRODUCT SLIDESHOW ***
+                                                                            _________________________________________________________
+                                                                            -->
         <div id="hot">
             <div class="box py-4">
                 <div class="container">
@@ -311,9 +317,9 @@
             <!-- *** HOT END ***-->
         </div>
         <!--
-                                                *** GET INSPIRED ***
-                                                _________________________________________________________
-                                                -->
+                                                                            *** GET INSPIRED ***
+                                                                            _________________________________________________________
+                                                                            -->
         <div class="container">
             <div class="col-md-12">
                 <div class="box slideshow">
@@ -332,9 +338,9 @@
         </div>
         <!-- *** GET INSPIRED END ***-->
         <!--
-                                                *** BLOG HOMEPAGE ***
-                                                _________________________________________________________
-                                                -->
+                                                                            *** BLOG HOMEPAGE ***
+                                                                            _________________________________________________________
+                                                                            -->
         <div class="box text-center">
             <div class="container">
                 <div class="col-md-12">

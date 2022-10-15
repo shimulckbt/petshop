@@ -44,12 +44,12 @@
                                                 <td class="align-middle">{{ $appointment->seller->first_name }}
                                                     {{ $appointment->seller->last_name }}</td>
                                                 <td class="align-middle">
-                                                    @if ($appointment->status !== 1)
-                                                        <a href="{{ route('update.status', [$appointment->id]) }}"
+                                                    @if ($appointment->status == 0)
+                                                        <a href="{{ route('update_appointment.status', [$appointment->id]) }}"
                                                             title="Make Visited"><button
                                                                 class="btn btn-primary">Pending</button></a>
                                                     @else
-                                                        <a href="{{ route('update.status', [$appointment->id]) }}"
+                                                        <a href="{{ route('update_appointment.status', [$appointment->id]) }}"
                                                             title="Make Pending"><button
                                                                 class="btn btn-success">Visited</button></a>
                                                     @endif

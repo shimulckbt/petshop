@@ -17,7 +17,8 @@ use App\Http\Controllers\Product\Category\ProductCategoryController;
 use App\Http\Controllers\Product\Category\ProductSubCategoryController;
 use App\Http\Controllers\Product\Category\ProductSubSubCategoryController;
 use App\Http\Controllers\Seller\AppointmentsController;
-
+use App\Http\Controllers\SliderController;
+use App\Models\Slider;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,9 +31,13 @@ use App\Http\Controllers\Seller\AppointmentsController;
 |
 */
 
+// Route::get('/', function () {
+//     $sliders = Slider::where('status', 1)->orderBy('id', 'DESC')->limit(3)->get();
+//     return view('guest.index', compact('sliders'));
+// })->name('welcome');
+
 Route::get('/', function () {
-    $sliders = Slider::where('status', 1)->orderBy('id', 'DESC')->limit(3)->get();
-    return view('guest.index', compact('sliders'));
+    return view('guest.index');
 })->name('welcome');
 
 Route::get('/services', [ServiceController::class, 'index'])->name('services.index');
@@ -66,7 +71,7 @@ Route::group(['middleware' => ['auth', 'prevent.back.history']], function () {
         Route::group(['prefix' => "customer-appointments"], function () {
             Route::get('taker', [AppointmentTakerController::class, 'index'])->name('appointment.taker');
             Route::get('/customer/all', [AppointmentTakerController::class, 'allTimeAppointment'])->name('all.appointments');
-            Route::get('/status/update/{id}', [AppointmentTakerController::class, 'toggleStatus'])->name('update.status');
+            Route::get('/status/update/{id}', [AppointmentTakerController::class, 'toggleStatus'])->name('update_appointment.status');
             Route::resource('department', 'DepartmentController');
         });
 
