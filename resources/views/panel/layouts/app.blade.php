@@ -22,8 +22,7 @@
     <!-- Custom styles for this template-->
     <link href="{{ asset('panel/css/sb-admin-2.min.css') }}" rel="stylesheet">
     <!-- <link href="//cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css"> -->
-    <link href="{{ asset('panel/vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet"
-        type="text/css">
+    <link href="{{ asset('panel/vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('panel/css/bootstrap-datepicker.min.css') }}" rel="stylesheet">
 
 </head>

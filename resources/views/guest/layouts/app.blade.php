@@ -22,6 +22,9 @@
     <!-- Custom stylesheet - for your changes-->
     <link rel="stylesheet" href="{{ asset('guest/css/custom.css') }}">
     <link href="{{ asset('panel/css/bootstrap-datepicker.min.css') }}" rel="stylesheet">
+
+    @yield('csslink')
+
     <!-- Favicon-->
     <link rel="shortcut icon" href="favicon.png">
     <!-- Tweaks for older IEs-->
@@ -54,7 +57,7 @@
     <script src="{{ asset('guest/vendor/owl.carousel/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('guest/vendor/owl.carousel2.thumbs/owl.carousel2.thumbs.js') }}"></script>
     <script src="{{ asset('guest/js/front.js') }}"></script>
-    <script src="{{ asset('panel/js/bootstrap-datepicker.min.js') }}"></script>
+
     @yield('script')
 
     <style type="text/css">

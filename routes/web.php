@@ -16,6 +16,7 @@ use App\Http\Controllers\Customer\CustomerController;
 use App\Http\Controllers\Product\Category\ProductCategoryController;
 use App\Http\Controllers\Product\Category\ProductSubCategoryController;
 use App\Http\Controllers\Product\Category\ProductSubSubCategoryController;
+use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\Seller\AppointmentsController;
 use App\Http\Controllers\SliderController;
 use App\Models\Slider;
@@ -108,6 +109,15 @@ Route::group(['middleware' => ['auth', 'prevent.back.history']], function () {
             Route::get('/inactive/{id}', [SliderController::class, 'SliderInactive'])->name('slider.inactive');
             Route::get('/active/{id}', [SliderController::class, 'SliderActive'])->name('slider.active');
         });
+
+        Route::prefix('reviews')->group(function () {
+            Route::get('/all', [ReviewController::class, 'allReview'])->name('all.review');
+            Route::get('/pending', [ReviewController::class, 'pendingReview'])->name('pending.review');
+            Route::get('/admin/approve/{id}', [ReviewController::class, 'reviewApprove'])->name('review.approve');
+            Route::get('/admin/inapprove/{id}', [ReviewController::class, 'reviewInApprove'])->name('review.inapprove');
+            Route::get('/publish', [ReviewController::class, 'publishReview'])->name('publish.review');
+            Route::get('/delete/{id}', [ReviewController::class, 'deleteReview'])->name('delete.review');
+        });
     });
 
 
@@ -170,6 +180,15 @@ Route::group(['middleware' => ['auth', 'prevent.back.history']], function () {
         });
     });
 });
+
+Route::group(['prefix' => 'review'], function () {
+    // Route::post();
+});
+
+/// Frontend Product Review Routes
+
+Route::post('/review-store', [ReviewController::class, 'reviewStore'])->name('review.store');
+
 
 Route::get('get-browser-info', function (Request $request) {
     dd($request->userAgent());

@@ -26,12 +26,6 @@ class AppointmentTakerController extends Controller
         return redirect()->back();
     }
 
-    public function allTimeAppointment()
-    {
-        $appointments = Booking::latest()->paginate(20);
-        return view('admin.patientlist.index', compact('appointments'));
-    }
-
     public function sellersAllAppointments()
     {
         $appointments = Booking::latest()->where('seller_id', auth()->user()->id)->get();

@@ -7,6 +7,7 @@ use App\Models\Appointment;
 use App\Models\Booking;
 use App\Models\Time;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class ServiceController extends Controller
@@ -18,7 +19,9 @@ class ServiceController extends Controller
             $sellers = $this->findServiceSellersBasedOnDate(request('date'));
             return view('guest.services.index', compact('sellers'));
         }
-        $sellers = Appointment::with('user')->where('date', date('Y-m-d'))->get();
+        // $date = Carbon::now();
+        $sellers = Appointment::with('user')->where('date', '>=', date('Y-m-d'))->orderBy('date')->get();
+        // dd($sellers[0]->date);
 
         return view('guest.services.index', compact('sellers'));
     }

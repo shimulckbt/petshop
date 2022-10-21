@@ -191,8 +191,8 @@
 
     @if (auth()->user()->role->name === 'User')
         <li class="nav-item {{ request()->is('customers*') ? 'active' : '' }}">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseMyAppointments"
-                aria-expanded="true" aria-controls="collapseMyAppointments">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse"
+                data-target="#collapseMyAppointments" aria-expanded="true" aria-controls="collapseMyAppointments">
                 <i class="fas fa-fw fa-folder"></i>
                 <span>My Appointments</span>
             </a>
@@ -224,6 +224,30 @@
                     <h6 class="collapse-header">All Appointments:</h6>
                     <a class="collapse-item {{ request()->is('customer-appointments/taker') ? 'active' : '' }}"
                         href="{{ route('appointment.taker') }}">All Appointments</a>\
+                </div>
+            </div>
+        </li>
+    @endif
+
+    @if (auth()->user()->role->name === 'Admin')
+        <li class="nav-item {{ request()->is('reviews*') ? 'active' : '' }}">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseReviews"
+                aria-expanded="true" aria-controls="collapseReviews">
+                <i class="fas fa-fw fa-folder"></i>
+                <span>Manage Reviews</span>
+            </a>
+            <div id="collapseReviews" class="collapse {{ request()->is('reviews*') ? 'show' : '' }}"
+                aria-labelledby="headingReviews" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">All Reviews:</h6>
+                    <a class="collapse-item {{ request()->is('reviews/all') ? 'active' : '' }}"
+                        href="{{ route('all.review') }}">All Reviews</a>
+
+                    <a class="collapse-item {{ request()->is('reviews/pending') ? 'active' : '' }}"
+                        href="{{ route('pending.review') }}">Pending Reviews</a>
+
+                    <a class="collapse-item {{ request()->is('reviews/publish') ? 'active' : '' }}"
+                        href="{{ route('publish.review') }}">Publish Reviews</a>\
                 </div>
             </div>
         </li>
