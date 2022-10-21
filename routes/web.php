@@ -17,7 +17,7 @@ use App\Http\Controllers\Seller\AppointmentsController;
 use App\Http\Controllers\Product\Category\ProductCategoryController;
 use App\Http\Controllers\Product\Category\ProductSubCategoryController;
 use App\Http\Controllers\Product\Category\ProductSubSubCategoryController;
-
+use App\Http\Controllers\WishListController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,6 +42,8 @@ Route::controller(\App\Http\Controllers\Shop\ProductController::class)->group(fu
     Route::get('shop','index')->name('shop');
     Route::get('shop/detail/{product}','detail')->name('detail');
 });
+
+Route::get('breed/{id}', [ProductSubSubCategoryController::class, 'breedOrBrand'])->name('breed');
 
 //////////////////////////////////////////////////////////////////
 
@@ -145,6 +147,10 @@ Route::group(['middleware' => ['auth', 'prevent.back.history']], function () {
             Route::post('update-cart/{cart}', 'updateCart')->name('update-cart');
             Route::get('delete-cart/{cart}', 'deleteCart')->name('delete-cart');
         });
+
+        Route::get('add-to-wish-list/{id}', [WishListController::class, 'addToWishList'])->name('addWish');
+        Route::get('remove-from-wish-list/{id}', [WishListController::class, 'removeFromWishList'])->name('removeWish');
+        Route::get('wish-list', [WishListController::class, 'checkWishList'])->name('viewWish');
 
         Route::controller(OrderController::class)->group(function () {
             Route::get('proceed-to-checkout', 'proceedToCheckout')->name('proceed-checkout');

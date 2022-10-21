@@ -148,4 +148,10 @@ class ProductSubSubCategoryController extends Controller
 
         return back();
     }
+
+    public function breedOrBrand($id)
+    {
+        $productSubSubCategory = ProductSubSubCategory::findOrFail($id);
+        return view('guest.products.breed', compact('productSubSubCategory'));
+    }
 }

@@ -14,7 +14,7 @@ class Order extends Model
     protected $guarded = [];
 
     public function orderInfo(){
-        return $this->belongsTo(OrderInfo::class, 'order_no');
+        return $this->belongsTo(OrderInfo::class, 'order_no', 'order_no');
     }
 
     public function product(){

@@ -43,9 +43,9 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="exampleProductName">Description</label>
-                                                    <input type="text" name="description" class="form-control"
+                                                    <textarea name="description" class="form-control"
                                                     id="exampleProductName" placeholder="Description"
-                                                    value="{{ old('description', $productSubSubCategory->description) }}">
+                                                    value="{{ old('description', $productSubSubCategory->description) }}" rows="3"></textarea>
                                                     @error('description')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>

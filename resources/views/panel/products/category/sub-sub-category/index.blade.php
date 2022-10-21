@@ -101,7 +101,7 @@
                                                                     {{ $subSubCategory->name }}
                                                                 </td>
                                                                 <td class="text-center">
-                                                                    {{ $subSubCategory->description }}
+                                                                    {{ \Str::limit($subSubCategory->description, 10 )}}
                                                                 </td>
                                                                 <td class="text-center">
                                                                     <img src="{{ asset('storage/' . $subSubCategory->image) }}" class="img-fluid" width=30px alt="">

@@ -59,14 +59,92 @@
             <div class="container">
                <div class="row">
                   <div class="col-md-12">
-                     <h2 class="mb-0">Hot this week</h2>
+                     <h2 class="mb-0">Pets</h2>
                   </div>
                </div>
             </div>
          </div>
          <div class="container">
             <div class="product-slider owl-carousel owl-theme">
-               @foreach ($products = \App\Models\Product\Product::where('status', 1)->with('image')->get() as $product)   
+               @foreach ($products = \App\Models\Product\Product::where('product_category_id', 1)->where('status', 1)->with('image')->latest()->get() as $product)   
+               <div class="item">
+                  <div class="product">
+                     <div class="flip-container">
+                        <div class="flipper">
+                           <div class="front"><a href="{{ route('detail', $product) }}"><img src="{{ asset('storage/' . $product->image->image) }}" alt="" class=" img-fluid"></a></div>
+                           <div class="back"><a href="{{ route('detail', $product) }}"><img src="{{ asset('storage/' . $product->image->image) }}" alt="" class=" img-fluid"></a></div>
+                        </div>
+                     </div><a href="{{ route('detail', $product) }}" class="invisible"><img src="{{ asset('storage/' . $product->image->image) }}" alt="" class=" img-fluid"></a>
+                     <div class="text">
+                        <h3><a href="{{ route('detail', $product) }}">{{ $product->name }}</a></h3>
+                        <p class="price">
+                           {{ $product->unit_price_selling }}
+                        </p>
+                     </div>
+                  </div>
+                  <!-- /.product-->
+               </div>
+               @endforeach
+               <!-- /.product-slider-->
+            </div>
+            <!-- /.container-->
+         </div>
+         <!-- /#hot-->
+         <!-- *** HOT END ***-->
+      </div>
+
+      <div id="hot">
+         <div class="box py-4">
+            <div class="container">
+               <div class="row">
+                  <div class="col-md-12">
+                     <h2 class="mb-0">Foods for Pets</h2>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="container">
+            <div class="product-slider owl-carousel owl-theme">
+               @foreach ($products = \App\Models\Product\Product::where('product_category_id', 2)->where('status', 1)->with('image')->latest()->get() as $product)   
+               <div class="item">
+                  <div class="product">
+                     <div class="flip-container">
+                        <div class="flipper">
+                           <div class="front"><a href="{{ route('detail', $product) }}"><img src="{{ asset('storage/' . $product->image->image) }}" alt="" class=" img-fluid"></a></div>
+                           <div class="back"><a href="{{ route('detail', $product) }}"><img src="{{ asset('storage/' . $product->image->image) }}" alt="" class=" img-fluid"></a></div>
+                        </div>
+                     </div><a href="{{ route('detail', $product) }}" class="invisible"><img src="{{ asset('storage/' . $product->image->image) }}" alt="" class=" img-fluid"></a>
+                     <div class="text">
+                        <h3><a href="{{ route('detail', $product) }}">{{ $product->name }}</a></h3>
+                        <p class="price">
+                           {{ $product->unit_price_selling }}
+                        </p>
+                     </div>
+                  </div>
+                  <!-- /.product-->
+               </div>
+               @endforeach
+               <!-- /.product-slider-->
+            </div>
+            <!-- /.container-->
+         </div>
+         <!-- /#hot-->
+         <!-- *** HOT END ***-->
+      </div>
+
+      <div id="hot">
+         <div class="box py-4">
+            <div class="container">
+               <div class="row">
+                  <div class="col-md-12">
+                     <h2 class="mb-0">Accessories for Pets</h2>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="container">
+            <div class="product-slider owl-carousel owl-theme">
+               @foreach ($products = \App\Models\Product\Product::where('product_category_id', 3)->where('status', 1)->with('image')->latest()->get() as $product)   
                <div class="item">
                   <div class="product">
                      <div class="flip-container">

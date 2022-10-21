@@ -55,10 +55,11 @@
                                     <!-- /.table-responsive-->
                                 </div>
                                 <!-- /.content-->
-                                <div class="box-footer d-flex justify-content-between"><a
+                                <div class="box-footer d-flex justify-content-between">
+                                    {{-- <a
                                         href="{{ route('payement-method') }}" class="btn btn-outline-secondary"><i
                                             class="fa fa-chevron-left"></i>Back to payment
-                                        method</a>
+                                        method</a> --}}
                                     <button type="submit" class="btn btn-primary">Place an order<i
                                             class="fa fa-chevron-right"></i></button>
                                 </div>

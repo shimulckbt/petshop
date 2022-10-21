@@ -102,11 +102,11 @@
                     <div id="search-not-mobile" class="navbar-collapse collapse">
                     </div>
                     {{-- //// Product Search //// --}}
-                    {{-- <a data-toggle="collapse" href="#search"
+                    <a data-toggle="collapse" href="#search"
                         class="btn navbar-btn btn-primary d-none d-lg-inline-block">
                         <span class="sr-only">Toggle search</span>
                         <i class="fa fa-search"></i>
-                    </a> --}}
+                    </a>
                     <div id="basket-overview" class="navbar-collapse collapse d-none d-lg-block">
                         <a href="{{ route('view-cart') }}" class="btn btn-primary navbar-btn">
                             <i class="fa fa-shopping-cart"></i>
@@ -119,11 +119,11 @@
     </nav>
     <div id="search" class="collapse">
         <div class="container">
-            <form role="search" class="ml-auto">
+            <form role="search" class="ml-auto" method="get" action="{{ route('shop') }}">
                 <div class="input-group">
-                    <input type="text" placeholder="Search" class="form-control">
+                    <input type="text" placeholder="Search" class="form-control" name="filter">
                     <div class="input-group-append">
-                        <button type="button" class="btn btn-primary"><i class="fa fa-search"></i></button>
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
                     </div>
                 </div>
             </form>

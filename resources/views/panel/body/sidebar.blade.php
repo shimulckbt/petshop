@@ -86,9 +86,9 @@
     </div>
 
     <!-- Nav Item - Pages Collapse Menu -->
-    <li class="nav-item {{ request()->is('categories*') ? 'active' : '' }}">
+    <li class="nav-item {{ request()->is('orders*') ? 'active' : '' }}">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOrders"
-            aria-expanded="true" aria-controls="collapseOrders>
+            aria-expanded="true" aria-controls="collapseOrders">
                 <i class="fas fa-fw fa-folder"></i>
             <span>Orders</span>
         </a>
@@ -107,6 +107,29 @@
             </div>
         </div>
     </li>
+
+    @if (auth()->user()->role->name != 'Admin' && auth()->user()->role->name != 'Seller')
+    <div class="sidebar-heading">
+        Wish List
+    </div>
+
+    <!-- Nav Item - Pages Collapse Menu -->
+    <li class="nav-item {{ request()->is('wish-list*') ? 'active' : '' }}">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseWishList"
+            aria-expanded="true" aria-controls="collapseWishList">
+                <i class="fas fa-fw fa-folder"></i>
+            <span>Wish List</span>
+        </a>
+        <div id="collapseWishList" class="collapse {{ request()->is('wish-list*') ? 'show' : '' }}"
+            aria-labelledby="headingProducts" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item"
+                    href="{{ route('viewWish') }}">Your Wish List</a>
+            </div>
+        </div>
+    </li>
+
+    @endif
 
     {{-- Manage Seller --}}
 

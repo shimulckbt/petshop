@@ -43,9 +43,10 @@
                                     <!-- /.row-->
                                 </div>
                                 <!-- /.content-->
-                                <div class="box-footer d-flex justify-content-between"><a
+                                <div class="box-footer d-flex justify-content-between">
+                                    {{-- <a
                                         href="{{ route('delivery-method') }}" class="btn btn-outline-secondary"><i
-                                            class="fa fa-chevron-left"></i>Back to Shipping Method</a>
+                                            class="fa fa-chevron-left"></i>Back to Shipping Method</a> --}}
                                     <button type="submit" class="btn btn-primary">Continue to Order Review<i
                                             class="fa fa-chevron-right"></i></button>
                                 </div>
