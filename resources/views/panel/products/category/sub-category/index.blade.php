@@ -49,6 +49,66 @@
             </div>
         </div>
 
+        <div class="row">
+            <div class="col-12 mb-4">
+                <div class="card border-bottom-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                    All Categories
+                                </div>
+                                <div class="table-responsive">
+                                    <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <table class="table table-bordered dataTable" id="dataTable" role="grid"
+                                                    aria-describedby="dataTable_info" style="width: 100%;" width="100%"
+                                                    cellspacing="0">
+                                                    <thead>
+                                                        <tr role="row">
+                                                            <th class="text-center" scope="col">#</th>
+                                                            <th class="text-center" scope="col">Shop</th>
+                                                            <th class="text-center" scope="col">Name</th>
+                                                            <th class="text-center" scope="col">Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach ($subCategories as $subCategory)
+                                                            <tr>
+                                                                <td class="text-center sorting_1">{{ $loop->index + 1 }}
+                                                                </td>
+                                                                <td class="text-center">
+                                                                    {{ $subCategory->productCategory->name }}</td>
+                                                                <td class="text-center">
+                                                                    {{ $subCategory->name }}
+                                                                </td>
+
+                                                                <td class="text-center">
+                                                                    <a href="{{ route('subCategory.edit', $subCategory->id) }}"
+                                                                        class="btn btn-sm btn-primary">Edit</a>
+                                                                    <form method="POST" class="d-inline"
+                                                                        action="{{ route('subCategory.destroy', $subCategory->id) }}">
+                                                                        @csrf
+                                                                        <input type="submit" class="btn btn-sm btn-danger"
+                                                                            value="Delete">
+                                                                    </form>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 @endsection
 

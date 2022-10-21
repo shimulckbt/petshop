@@ -35,7 +35,8 @@ class ProductSubSubCategoryController extends Controller
     public function create()
     {
         $categories = ProductCategory::all();
-        return view('panel.products.category.sub-sub-category.index', compact('categories'));
+        $subSubCategories = ProductSubSubCategory::with(['productCategory', 'productSubCategory'])->get();
+        return view('panel.products.category.sub-sub-category.index', compact('categories', 'subSubCategories'));
     }
 
 
@@ -44,7 +45,8 @@ class ProductSubSubCategoryController extends Controller
         $validator = Validator::make($request->all(), [
             'product_category_id' => 'required|numeric|exists:product_categories,id',
             'product_sub_category_id' => 'required|numeric|exists:product_sub_categories,id',
-            'name' => 'required|unique:product_sub_sub_categories,name'
+            'name' => 'required|unique:product_sub_sub_categories,name',
+            'description' => 'required|string',
         ], [
             'product_category_id.required' => 'Please select shop',
             'product_category_id.numeric' => 'Invalid shop selection',
@@ -66,6 +68,7 @@ class ProductSubSubCategoryController extends Controller
             ProductSubSubCategory::create([
                 'name' => $request->name,
                 'slug' => Str::slug($request->name),
+                'description' => $request->description,
                 'product_category_id' => $request->product_category_id,
                 'product_sub_category_id' => $request->product_sub_category_id
             ]);
@@ -94,9 +97,11 @@ class ProductSubSubCategoryController extends Controller
      * @param  \App\Models\ProductSubSubCategory  $productSubSubCategory
      * @return \Illuminate\Http\Response
      */
-    public function edit(ProductSubSubCategory $productSubSubCategory)
+    public function edit($id)
     {
-        //
+        $productSubSubCategory = ProductSubSubCategory::findOrFail($id);
+
+        return view('panel.products.category.sub-sub-category.edit', compact('productSubSubCategory'));
     }
 
     /**
@@ -106,9 +111,28 @@ class ProductSubSubCategoryController extends Controller
      * @param  \App\Models\ProductSubSubCategory  $productSubSubCategory
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ProductSubSubCategory $productSubSubCategory)
+    public function update(Request $request, $id)
     {
-        //
+        // dd($request->file());
+        $request->validate([
+            'name' => 'required|string',
+            'description' => 'required|string',
+            'image' => 'nullable|mimes:jpg,png|dimensions:max_width=2000,max_height=2000|max:10240',
+        ]);
+
+        $productSubSubCategory = ProductSubSubCategory::findOrFail($id);
+
+        $productSubSubCategory->name = $request->name;
+        $productSubSubCategory->description = $request->description;
+        if ($request->image != NULL) {
+            $imageName = 'brand-breed-img-' . $productSubSubCategory->id . '.' . $request->image->extension();
+            // $request->file('image')->move(public_path('images/products'), $imageName);
+            $request->file('image')->storeAs('public/images/sub-sub-cat', $imageName);
+            $productSubSubCategory->image = 'images/sub-sub-cat/' . $imageName;
+        }
+        $productSubSubCategory->save();
+
+        return redirect()->route('subSubCategory.create');
     }
 
     /**
@@ -117,8 +141,17 @@ class ProductSubSubCategoryController extends Controller
      * @param  \App\Models\ProductSubSubCategory  $productSubSubCategory
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ProductSubSubCategory $productSubSubCategory)
+    public function destroy($id)
     {
-        //
+        $productSubSubCategory = ProductSubSubCategory::findOrFail($id);
+        $productSubSubCategory->delete();
+
+        return back();
+    }
+
+    public function breedOrBrand($id)
+    {
+        $productSubSubCategory = ProductSubSubCategory::findOrFail($id);
+        return view('guest.products.breed', compact('productSubSubCategory'));
     }
 }

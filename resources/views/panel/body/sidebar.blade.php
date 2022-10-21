@@ -105,27 +105,50 @@
     </div>
 
     <!-- Nav Item - Pages Collapse Menu -->
-    <li class="nav-item {{ request()->is('categories*') ? 'active' : '' }}">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCategories"
-            aria-expanded="true" aria-controls="collapseCategories>
+    <li class="nav-item {{ request()->is('orders*') ? 'active' : '' }}">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOrders"
+            aria-expanded="true" aria-controls="collapseOrders">
                 <i class="fas fa-fw fa-folder"></i>
-            <span>Your Orders</span>
+            <span>Orders</span>
         </a>
-        <div id="collapseCategories" class="collapse {{ request()->is('categories*') ? 'show' : '' }}"
+        <div id="collapseOrders" class="collapse {{ request()->is('orders*') ? 'show' : '' }}"
             aria-labelledby="headingProducts" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                @if (auth()->user()->role->name == 'Admin')
-                    <h6 class="collapse-header">Product Categories:</h6>
-                    <a class="collapse-item {{ request()->is('categories') ? 'active' : '' }}"
-                        href="{{ route('categories.index') }}">All Categories</a>
-                    <a class="collapse-item {{ request()->is('categories/create-sub-categories') ? 'active' : '' }}"
-                        href="{{ route('subCategory.create') }}">Add Categories</a>
-                    <a class="collapse-item {{ request()->is('categories/create-sub-sub-categories') ? 'active' : '' }}"
-                        href="{{ route('subSubCategory.create') }}">Add Brands/Breeds</a>
+                @if (auth()->user()->role->name == 'Admin' ||
+                    (auth()->user()->role->name === 'Seller' && isset(Auth::user()->sellerDetail) && Auth::user()->sellerDetail->is_verified === 1))
+                    <h6 class="collapse-header">Order Management:</h6>
+                    <a class="collapse-item {{ request()->is('orders') ? 'active' : '' }}"
+                        href="{{ route('all-orders') }}">All Orders</a>
+                @else
+                <a class="collapse-item {{ request()->is('orders') ? 'active' : '' }}"
+                    href="{{ route('your-orders') }}">Your Orders</a>
                 @endif
             </div>
         </div>
     </li>
+
+    @if (auth()->user()->role->name != 'Admin' && auth()->user()->role->name != 'Seller')
+    <div class="sidebar-heading">
+        Wish List
+    </div>
+
+    <!-- Nav Item - Pages Collapse Menu -->
+    <li class="nav-item {{ request()->is('wish-list*') ? 'active' : '' }}">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseWishList"
+            aria-expanded="true" aria-controls="collapseWishList">
+                <i class="fas fa-fw fa-folder"></i>
+            <span>Wish List</span>
+        </a>
+        <div id="collapseWishList" class="collapse {{ request()->is('wish-list*') ? 'show' : '' }}"
+            aria-labelledby="headingProducts" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item"
+                    href="{{ route('viewWish') }}">Your Wish List</a>
+            </div>
+        </div>
+    </li>
+
+    @endif
 
     {{-- Manage Seller --}}
 

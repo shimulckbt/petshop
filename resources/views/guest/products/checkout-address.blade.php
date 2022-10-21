@@ -58,9 +58,10 @@
                                     </div>
                                     <!-- /.row-->
                                 </div>
-                                <div class="box-footer d-flex justify-content-between"><a href="{{ route('view-cart') }}"
+                                <div class="box-footer d-flex justify-content-between">
+                                    {{-- <a href="{{ route('view-cart') }}"
                                         class="btn btn-outline-secondary"><i class="fa fa-chevron-left"></i>Back to
-                                        Basket</a>
+                                        Basket</a> --}}
                                     <button type="submit" class="btn btn-primary">Continue to Delivery Method<i
                                             class="fa fa-chevron-right"></i></button>
                                 </div>

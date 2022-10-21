@@ -41,9 +41,10 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="box-footer d-flex justify-content-between"><a
+                                <div class="box-footer d-flex justify-content-between">
+                                    {{-- <a
                                         href="{{ route('checkout-address') }}" class="btn btn-outline-secondary"><i
-                                            class="fa fa-chevron-left"></i>Back to address</a>
+                                            class="fa fa-chevron-left"></i>Back to address</a> --}}
                                     <button type="submit" class="btn btn-primary">Continue to Payment Method<i
                                             class="fa fa-chevron-right"></i></button>
                                 </div>

@@ -55,6 +55,7 @@
                                                             <input type="submit" class="btn btn-sm btn-danger"
                                                                 value="Delete">
                                                         </form>
+                                                        <a href="{{ route('products.edit', $product) }}" class="btn btn-sm btn-primary">Edit</a>
                                                     </td>
                                                 </tr>
                                             @endforeach

@@ -120,7 +120,8 @@
                                             <a class="btn btn-warning disabled"><i class="fa fa-shopping-cart"></i> Out of
                                                 stock</a>
                                         @endif
-                                        <a href="#" class="btn btn-outline-primary"><i class="fa fa-heart"></i> Add to
+                                        <a href="{{ route('addWish', $product->id) }}" class="btn btn-outline-primary"><i
+                                                class="fa fa-heart"></i> Add to
                                             wishlist</a>
                                     </p>
                                 </div>
@@ -143,7 +144,11 @@
                             <p>{{ $product->short_description }}</p>
                             <hr>
 
-                            <h4 class="font-weight-bold">Product Details:</h4>
+                            <h4 class="font-weight-bold"><b>Product Details:</b></h4>
+                            <p><i>Breed (Brand): </i><a
+                                    href="{{ route('breed', $product->productSubSubCategory->id) }}">{{ $product->productSubSubCategory->name }}</a>
+                            </p>
+                            <hr>
                             <p>{{ $product->long_description }}</p>
                             <hr>
 

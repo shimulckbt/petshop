@@ -13,13 +13,14 @@ use App\Http\Controllers\Booking\ServiceController;
 use App\Http\Controllers\Product\ProductController;
 use App\Http\Controllers\Common\CommonTaskController;
 use App\Http\Controllers\Customer\CustomerController;
+use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\SliderController;
+use App\Http\Controllers\Orders\AdminSellerOrderController;
+use App\Http\Controllers\Seller\AppointmentsController;
 use App\Http\Controllers\Product\Category\ProductCategoryController;
 use App\Http\Controllers\Product\Category\ProductSubCategoryController;
 use App\Http\Controllers\Product\Category\ProductSubSubCategoryController;
-use App\Http\Controllers\ReviewController;
-use App\Http\Controllers\Seller\AppointmentsController;
-use App\Http\Controllers\SliderController;
-use App\Models\Slider;
+use App\Http\Controllers\WishListController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,6 +50,8 @@ Route::controller(\App\Http\Controllers\Shop\ProductController::class)->group(fu
     Route::get('shop', 'index')->name('shop');
     Route::get('shop/detail/{product}', 'detail')->name('detail');
 });
+
+Route::get('breed/{id}', [ProductSubSubCategoryController::class, 'breedOrBrand'])->name('breed');
 
 //////////////////////////////////////////////////////////////////
 
@@ -86,7 +89,14 @@ Route::group(['middleware' => ['auth', 'prevent.back.history']], function () {
             Route::post('store-sub-sub-categories', [ProductSubSubCategoryController::class, 'storeSubSubCategoryAjax'])->name('storeSubSubCategories');
 
             Route::get('create-sub-categories', [ProductSubCategoryController::class, 'create'])->name('subCategory.create');
+            Route::get('edit-sub-categories/{id}', [ProductSubCategoryController::class, 'edit'])->name('subCategory.edit');
+            Route::post('update-sub-categories/{id}', [ProductSubCategoryController::class, 'update'])->name('subCategory.update');
+            Route::post('delete-sub-categories/{id}', [ProductSubCategoryController::class, 'destroy'])->name('subCategory.destroy');
+
             Route::get('create-sub-sub-categories', [ProductSubSubCategoryController::class, 'create'])->name('subSubCategory.create');
+            Route::get('edit-sub-sub-categories/{id}', [ProductSubSubCategoryController::class, 'edit'])->name('subSubCategory.edit');
+            Route::post('update-sub-sub-categories/{id}', [ProductSubSubCategoryController::class, 'update'])->name('subSubCategory.update');
+            Route::post('delete-sub-sub-categories/{id}', [ProductSubSubCategoryController::class, 'destroy'])->name('subSubCategory.destroy');
         });
 
         ///////////////           Verify Seller and Manage Seller             ////////////////
@@ -141,6 +151,16 @@ Route::group(['middleware' => ['auth', 'prevent.back.history']], function () {
     //////////// Admin Seller Common Routes /////////////////////////
     Route::group(['middleware' => 'ascommon'], function () {
         Route::resource('products', ProductController::class);
+
+        Route::group(['prefix' => 'orders'], function () {
+            Route::get('all-orders', [AdminSellerOrderController::class, 'checkAllOrders'])->name('all-orders');
+
+            Route::post('approve-order/{order}', [AdminSellerOrderController::class, 'approveOrder'])->name('approve-order');
+            Route::post('decline-order/{order}', [AdminSellerOrderController::class, 'declineOrder'])->name('decline-order');
+
+            Route::post('approve-delivery/{order}', [AdminSellerOrderController::class, 'approveDelivery'])->name('approve-delivery');
+            Route::post('decline-delivery/{order}', [AdminSellerOrderController::class, 'declineDelivery'])->name('decline-delivery');
+        });
     });
 
     ////////////          Profile Change Route              //////////////
@@ -167,6 +187,10 @@ Route::group(['middleware' => ['auth', 'prevent.back.history']], function () {
             Route::get('delete-cart/{cart}', 'deleteCart')->name('delete-cart');
         });
 
+        Route::get('add-to-wish-list/{id}', [WishListController::class, 'addToWishList'])->name('addWish');
+        Route::get('remove-from-wish-list/{id}', [WishListController::class, 'removeFromWishList'])->name('removeWish');
+        Route::get('wish-list', [WishListController::class, 'checkWishList'])->name('viewWish');
+
         Route::controller(OrderController::class)->group(function () {
             Route::get('proceed-to-checkout', 'proceedToCheckout')->name('proceed-checkout');
             Route::get('checkout-address', 'checkoutAddress')->name('checkout-address');
@@ -176,7 +200,7 @@ Route::group(['middleware' => ['auth', 'prevent.back.history']], function () {
         });
 
         Route::group(['prefix' => 'orders'], function () {
-            Route::get('your-orders',);
+            Route::get('your-orders', [OrderController::class, 'checkYourOrders'])->name('your-orders');
         });
     });
 });

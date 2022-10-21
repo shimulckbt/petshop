@@ -46,8 +46,84 @@
                                             <input type="text" name="name" class="form-control"
                                                 id="exampleSubSubCategory" placeholder="Brand/Breed">
                                         </div>
+                                        <div class="form-group">
+                                            <label for="exampleSubSubCategory">Enter Description</label>
+                                            <input type="text" name="description" class="form-control"
+                                                id="exampleSubSubCategory" placeholder="Description">
+                                        </div>
                                         <button type="submit" class="btn btn-primary">Submit</button>
                                     </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 mb-4">
+                <div class="card border-bottom-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                    All Sub-categories (Brands/Breeds)
+                                </div>
+                                <div class="table-responsive">
+                                    <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <table class="table table-bordered dataTable" id="dataTable" role="grid"
+                                                    aria-describedby="dataTable_info" style="width: 100%;" width="100%"
+                                                    cellspacing="0">
+                                                    <thead>
+                                                        <tr role="row">
+                                                            <th class="text-center" scope="col">#</th>
+                                                            <th class="text-center" scope="col">Shop</th>
+                                                            <th class="text-center" scope="col">Category</th>
+                                                            <th class="text-center" scope="col">Name</th>
+                                                            <th class="text-center" scope="col">Description</th>
+                                                            <th class="text-center" scope="col">Image</th>
+                                                            <th class="text-center" scope="col">Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach ($subSubCategories as $subSubCategory)
+                                                            <tr>
+                                                                <td class="text-center sorting_1">{{ $loop->index + 1 }}
+                                                                </td>
+                                                                <td class="text-center">
+                                                                    {{ $subSubCategory->productCategory->name }}</td>
+                                                                <td class="text-center">
+                                                                    {{ $subSubCategory->productSubCategory->name }}
+                                                                </td>
+                                                                <td class="text-center">
+                                                                    {{ $subSubCategory->name }}
+                                                                </td>
+                                                                <td class="text-center">
+                                                                    {{ \Str::limit($subSubCategory->description, 10 )}}
+                                                                </td>
+                                                                <td class="text-center">
+                                                                    <img src="{{ asset('storage/' . $subSubCategory->image) }}" class="img-fluid" width=30px alt="">
+                                                                </td>
+
+                                                                <td class="text-center">
+                                                                    <a href="{{ route('subSubCategory.edit', $subSubCategory->id) }}"
+                                                                        class="btn btn-sm btn-primary">Edit</a>
+                                                                    <form method="POST" class="d-inline"
+                                                                        action="{{ route('subSubCategory.destroy', $subSubCategory->id) }}">
+                                                                        @csrf
+                                                                        <input type="submit" class="btn btn-sm btn-danger"
+                                                                            value="Delete">
+                                                                    </form>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -127,7 +203,8 @@
 
                         if (jqXhr.status == 400) {
                             $('#message').empty().removeClass().addClass('alert alert-danger')
-                                .attr('role', 'alert').append('<ul id="errors" class="mb-0"></ul>');;
+                                .attr('role', 'alert').append(
+                                    '<ul id="errors" class="mb-0"></ul>');;
                             $.each(jqXhr.responseJSON.message, function(key, value) {
                                 $('#errors').append('<li>' + value + ' 😑 </li>');
                             });
