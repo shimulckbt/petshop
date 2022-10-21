@@ -51,7 +51,7 @@
                                                     {{ $order->unit_price }}
                                                 </td>
                                                 <td class="text-center">
-                                                    {{ $order->total_price }}
+                                                    {{ $order->total_price + 100 }}
                                                 </td>
                                                 <td class="text-center">
                                                     @if ($order->is_aproved == true)
@@ -80,9 +80,9 @@
                                                         <form method="POST" class="d-inline"
                                                             action="{{ route('approve-order', $order) }}">
                                                             @csrf
-                                                            <input type="submit"
-                                                                class="btn btn-sm {{ ($order->is_aproved === null) ? ('btn-primary') : ('btn-warning disabled') }}"
-                                                                 value="@if($order->is_aproved === null)Approve @elseif($order->is_aproved == true)Approved @else Declined @endif">
+                                                            <input type="submit" @disabled($order->is_aproved !== null)
+                                                                class="btn btn-sm {{ $order->is_aproved === null ? 'btn-primary' : 'btn-warning disabled' }}"
+                                                                value="{{ $order->is_aproved === false || $order->is_aproved === null ? 'Approve' : 'Approved' }}">
                                                         </form>
                                                         <form method="POST" class="d-inline"
                                                             action="{{ route('decline-order', $order) }}">
@@ -97,7 +97,7 @@
                                                         <form method="POST" class="d-inline"
                                                             action="{{ route('approve-delivery', $order) }}">
                                                             @csrf
-                                                            <input type="submit"
+                                                            <input type="submit" @disabled($order->is_delivered !== null)
                                                                 class="btn btn-sm {{ $order->is_delivered === null ? 'btn-primary' : 'btn-warning disabled' }}"
                                                                 value="{{ $order->is_delivered === false || $order->is_delivered === null ? 'Deliver' : 'Declined' }}">
                                                         </form>

@@ -213,7 +213,6 @@ Route::group(['prefix' => 'review'], function () {
 
 Route::post('/review-store', [ReviewController::class, 'reviewStore'])->name('review.store');
 
-
 Route::get('get-browser-info', function (Request $request) {
     dd($request->userAgent());
 });

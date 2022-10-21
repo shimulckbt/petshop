@@ -41,7 +41,7 @@
                                                         @endforeach
                                                     </select>
                                                     @error('product_category_id')
-                                                        <span class="invalid-feedback" role="alert">
+                                                        <span class="text-danger font-weight-light" role="alert">
                                                             <strong>{{ $message }}</strong>
                                                         </span>
                                                     @enderror
@@ -53,7 +53,7 @@
                                                         <option selected disabled>Select Category</option>
                                                     </select>
                                                     @error('product_sub_category_id')
-                                                        <span class="invalid-feedback" role="alert">
+                                                        <span class="text-danger font-weight-light" role="alert">
                                                             <strong>{{ $message }}</strong>
                                                         </span>
                                                     @enderror
@@ -65,7 +65,7 @@
                                                         <option selected disabled>Select Brand/Breed</option>
                                                     </select>
                                                     @error('product_sub_sub_category_id')
-                                                        <span class="invalid-feedback" role="alert">
+                                                        <span class="text-danger font-weight-light" role="alert">
                                                             <strong>{{ $message }}</strong>
                                                         </span>
                                                     @enderror
@@ -75,8 +75,8 @@
                                                     <input type="text" name="name" class="form-control"
                                                         id="exampleProductName" placeholder="Product Name"
                                                         value="{{ old('name', $product->name) }}">
-                                                        @error('name')
-                                                        <span class="invalid-feedback" role="alert">
+                                                    @error('name')
+                                                        <span class="text-danger font-weight-light" role="alert">
                                                             <strong>{{ $message }}</strong>
                                                         </span>
                                                     @enderror
@@ -86,8 +86,8 @@
                                                     <input type="text" name="slug" class="form-control"
                                                         id="exampleProductNameSlug" placeholder="product-name"
                                                         value="{{ old('slug', $product->slug) }}">
-                                                        @error('slug')
-                                                        <span class="invalid-feedback" role="alert">
+                                                    @error('slug')
+                                                        <span class="text-danger font-weight-light" role="alert">
                                                             <strong>{{ $message }}</strong>
                                                         </span>
                                                     @enderror
@@ -96,8 +96,8 @@
                                                     <label for="exampleShortDesc">Short Description</label>
                                                     <textarea class="form-control" id="exampleShortDesc" placeholder="Short Description" name="short_description"
                                                         rows="2">{{ old('short_description', $product->short_description) }}</textarea>
-                                                        @error('short_description')
-                                                        <span class="invalid-feedback" role="alert">
+                                                    @error('short_description')
+                                                        <span class="text-danger font-weight-light" role="alert">
                                                             <strong>{{ $message }}</strong>
                                                         </span>
                                                     @enderror
@@ -106,8 +106,8 @@
                                                     <label for="exampleLongDesc">Long Description</label>
                                                     <textarea class="form-control" id="exampleLongDesc" placeholder="Long Description" name="long_description"
                                                         rows="3">{{ old('long_description', $product->long_description) }}</textarea>
-                                                        @error('long_description')
-                                                        <span class="invalid-feedback" role="alert">
+                                                    @error('long_description')
+                                                        <span class="text-danger font-weight-light" role="alert">
                                                             <strong>{{ $message }}</strong>
                                                         </span>
                                                     @enderror
@@ -117,8 +117,8 @@
                                                     <input type="text" name="sku" class="form-control"
                                                         id="exampleSKU" placeholder="SKU"
                                                         value="{{ old('sku', $product->sku) }}">
-                                                        @error('sku')
-                                                        <span class="invalid-feedback" role="alert">
+                                                    @error('sku')
+                                                        <span class="text-danger font-weight-light" role="alert">
                                                             <strong>{{ $message }}</strong>
                                                         </span>
                                                     @enderror
@@ -128,8 +128,8 @@
                                                     <input type="number" name="stock" class="form-control"
                                                         id="exampleStock" placeholder="0"
                                                         value="{{ old('stock', $product->stock) }}">
-                                                        @error('stock')
-                                                        <span class="invalid-feedback" role="alert">
+                                                    @error('stock')
+                                                        <span class="text-danger font-weight-light" role="alert">
                                                             <strong>{{ $message }}</strong>
                                                         </span>
                                                     @enderror
@@ -139,8 +139,8 @@
                                                     <input type="number" name="unit_price_buying" class="form-control"
                                                         id="exampleUnitPriceBuying" placeholder="0"
                                                         value="{{ old('unit_price_buying', $product->unit_price_buying) }}">
-                                                        @error('unit_price_buying')
-                                                        <span class="invalid-feedback" role="alert">
+                                                    @error('unit_price_buying')
+                                                        <span class="text-danger font-weight-light" role="alert">
                                                             <strong>{{ $message }}</strong>
                                                         </span>
                                                     @enderror
@@ -150,8 +150,8 @@
                                                     <input type="number" name="unit_price_selling" class="form-control"
                                                         id="exampleUnitPriceSelling" placeholder="0"
                                                         value="{{ old('unit_price_selling', $product->unit_price_selling) }}">
-                                                        @error('unit_price_selling')
-                                                        <span class="invalid-feedback" role="alert">
+                                                    @error('unit_price_selling')
+                                                        <span class="text-danger font-weight-light" role="alert">
                                                             <strong>{{ $message }}</strong>
                                                         </span>
                                                     @enderror
@@ -160,8 +160,8 @@
                                                     <label for="exampleImage">Upload Image</label>
                                                     <input type="file" class="form-control-file" id="exampleImage"
                                                         name="image" value="{{ old('image', $product->image) }}">
-                                                        @error('image')
-                                                        <span class="invalid-feedback" role="alert">
+                                                    @error('image')
+                                                        <span class="text-danger font-weight-light" role="alert">
                                                             <strong>{{ $message }}</strong>
                                                         </span>
                                                     @enderror

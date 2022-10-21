@@ -48,8 +48,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="exampleSubSubCategory">Enter Description</label>
-                                            <input type="text" name="description" class="form-control"
-                                                id="exampleSubSubCategory" placeholder="Description">
+                                            <textarea type="text" name="description" class="form-control" id="exampleSubSubCategory" placeholder="Description"></textarea>
                                         </div>
                                         <button type="submit" class="btn btn-primary">Submit</button>
                                     </form>
@@ -101,10 +100,11 @@
                                                                     {{ $subSubCategory->name }}
                                                                 </td>
                                                                 <td class="text-center">
-                                                                    {{ \Str::limit($subSubCategory->description, 10 )}}
+                                                                    {{ \Str::limit($subSubCategory->description, 10) }}
                                                                 </td>
                                                                 <td class="text-center">
-                                                                    <img src="{{ asset('storage/' . $subSubCategory->image) }}" class="img-fluid" width=30px alt="">
+                                                                    <img src="{{ asset('storage/' . $subSubCategory->image) }}"
+                                                                        class="img-fluid" width=30px alt="">
                                                                 </td>
 
                                                                 <td class="text-center">

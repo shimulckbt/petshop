@@ -19,17 +19,20 @@
                                             <div class="flipper">
                                                 <div class="front"><a href="#"><img
                                                             src="{{ asset('storage/' . $product->image->image) }}"
-                                                            alt="" class="img-fluid"></a></div>
+                                                            alt="" class="img-fluid"></a>
+                                                </div>
                                                 <div class="back"><a href="#"><img
                                                             src="{{ asset('storage/' . $product->image->image) }}"
-                                                            alt="" class="img-fluid"></a></div>
+                                                            alt="" class="img-fluid"></a>
+                                                </div>
                                             </div>
                                         </div><a href="#" class="invisible"><img
                                                 src="{{ asset('storage/' . $product->image->image) }}" alt=""
                                                 class="img-fluid"></a>
-                                        <div class="text">
-                                            <h3><a href="#">{{ $product->name }}</a></h3>
-                                            <p class="price">
+                                        <div class="text-center">
+                                            <h3 class="p-0"><a class="text-decoration-none"
+                                                    href="{{ route('detail', $product) }}">{{ $product->name }}</a></h3>
+                                            <p class="p-0 mb-0">
                                                 <del></del>TK {{ $product->unit_price_selling }}
                                             </p>
                                             <p class="buttons"><a href="{{ route('detail', $product) }}"
@@ -52,7 +55,6 @@
                             @endforeach
                             <!-- /.products-->
                         </div>
-
                         <div class="pages">
                             <nav aria-label="Page navigation example" class="d-flex justify-content-center">
                                 <ul class="pagination">

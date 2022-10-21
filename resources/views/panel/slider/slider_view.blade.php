@@ -24,7 +24,7 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($sliders as $item)
-                                            <tr>
+                                            <tr class="text-center">
                                                 <td class="align-middle"><img src="{{ asset($item->slider_img) }}"
                                                         style="width: 70px; height: 40px;"> </td>
                                                 <td class="align-middle">
@@ -34,7 +34,7 @@
                                                         {{ $item->title }}
                                                     @endif
                                                 </td>
-                                                <td class="align-middle">
+                                                <td class="text-center align-middle">
                                                     @if ($item->status == 1)
                                                         <span class="badge badge-pill badge-success"> Active </span>
                                                     @else

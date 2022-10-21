@@ -46,11 +46,12 @@ class OrderController extends Controller
         ];
 
         session(['order_info' => $orderInfo]);
-        
+
         return view('guest.products.checkout-delivery-method');
     }
 
-    public function checkoutDeliveryMethod(Request $request){
+    public function checkoutDeliveryMethod(Request $request)
+    {
         $request->validate([
             'delivery_method' => ['required', 'string'],
         ]);
@@ -61,11 +62,12 @@ class OrderController extends Controller
         ];
 
         session(['order_info' => $orderInfo]);
-        
+
         return view('guest.products.checkout-payment-method');
     }
 
-    public function checkoutPaymentMethod(Request $request){
+    public function checkoutPaymentMethod(Request $request)
+    {
         $request->validate([
             'payment_method' => ['required', 'string'],
         ]);
@@ -82,16 +84,17 @@ class OrderController extends Controller
         $subTotalPrice = 0;
         $shippingPrice = 100;
 
-        foreach ($productsInCart as $cart){
+        foreach ($productsInCart as $cart) {
             $subTotalPrice += $cart->total_price;
         }
 
         $totalPrice = $subTotalPrice + $shippingPrice;
-        
-        return view('guest.products.confirm-order', compact('productsInCart', 'subTotalPrice' , 'shippingPrice', 'totalPrice'));
+
+        return view('guest.products.confirm-order', compact('productsInCart', 'subTotalPrice', 'shippingPrice', 'totalPrice'));
     }
 
-    public function mapOrderData($cart, $orderInfo){
+    public function mapOrderData($cart, $orderInfo)
+    {
         return [
             'order_no' => $orderInfo['order_no'],
             'product_id' => $cart->product_id,
@@ -101,15 +104,17 @@ class OrderController extends Controller
             'customer_id' => $cart->customer_id,
             'created_at' => now(),
             'updated_at' => now(),
+            'seller_id' => $cart->product->user_id
         ];
     }
 
-    public function productsFromCart(array $orderInfo){
+    public function productsFromCart(array $orderInfo)
+    {
         $productsInCart = Cart::with('product')->where('customer_id', auth()->id())->get();
 
         $cartToOrder = [];
 
-        foreach ($productsInCart as $cart){
+        foreach ($productsInCart as $cart) {
             $cartToOrder[] = $this->mapOrderData($cart, $orderInfo);
             $product = Product::where('id', $cart->product_id)->first();
             $product->stock = $product->stock - $cart->qty;
@@ -119,7 +124,8 @@ class OrderController extends Controller
         return $cartToOrder;
     }
 
-    public function confirmOrder(){
+    public function confirmOrder()
+    {
         $orderInfo = session('order_info');
         DB::transaction(function () use ($orderInfo) {
             Order::insert($this->productsFromCart($orderInfo));
@@ -130,7 +136,8 @@ class OrderController extends Controller
         return view('guest.index')->with('orderSuccess', 'Successfully placed order.');
     }
 
-    public function checkYourOrders(){
+    public function checkYourOrders()
+    {
         $orders = Order::where('customer_id', auth()->id())->with(['orderInfo'])->latest()->get();
         // dd($orders);
 

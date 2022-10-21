@@ -27,8 +27,7 @@
                                             <div id="message" class="d-none"></div>
                                             <form id="addProduct"
                                                 action="{{ route('subSubCategory.update', $productSubSubCategory) }}"
-                                                method="POST"
-                                                enctype="multipart/form-data">
+                                                method="POST" enctype="multipart/form-data">
                                                 @csrf
                                                 <div class="form-group">
                                                     <label for="exampleProductName">Brand/Breed Name</label>
@@ -36,28 +35,27 @@
                                                         id="exampleProductName" placeholder="Category Name"
                                                         value="{{ old('name', $productSubSubCategory->name) }}">
                                                     @error('name')
-                                                        <span class="invalid-feedback" role="alert">
+                                                        <span class="text-danger font-weight-light" role="alert">
                                                             <strong>{{ $message }}</strong>
                                                         </span>
                                                     @enderror
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="exampleProductName">Description</label>
-                                                    <textarea name="description" class="form-control"
-                                                    id="exampleProductName" placeholder="Description"
-                                                    value="{{ old('description', $productSubSubCategory->description) }}" rows="3"></textarea>
+                                                    <textarea name="description" class="form-control" id="exampleProductName" placeholder="Description"
+                                                        value="{{ old('description', $productSubSubCategory->description) }}" rows="3">{{ old('description', $productSubSubCategory->description) }}</textarea>
                                                     @error('description')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
+                                                        <span class="text-danger font-weight-light" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
                                                     @enderror
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="exampleProductName">Image</label>
                                                     <input type="file" name="image" class="form-control"
-                                                        id="exampleProductimage" >
+                                                        id="exampleProductimage">
                                                     @error('image')
-                                                        <span class="invalid-feedback" role="alert">
+                                                        <span class="text-danger font-weight-light" role="alert">
                                                             <strong>{{ $message }}</strong>
                                                         </span>
                                                     @enderror

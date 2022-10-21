@@ -93,7 +93,7 @@ class ProductController extends Controller
                     'stock' => $request->stock,
                     'unit_price_buying' => $request->unit_price_buying,
                     'unit_price_selling' => $request->unit_price_selling,
-                    'status' => 0,
+                    'status' => auth()->user()->role->name == 'Admin' ? 1 : 0,
                     'user_id' => auth()->id(),
                 ]);
 
@@ -187,8 +187,6 @@ class ProductController extends Controller
             'product_sub_sub_category_id.exists' => 'Selected sub-category does not exist',
         ]);
 
-        dd($request->all());
-
 
         DB::transaction(function () use ($request, $product) {
             $product->update([
@@ -211,7 +209,7 @@ class ProductController extends Controller
             //     mkdir(public_path('images/product'));
             // }
 
-            if ($request->image != NULL){
+            if ($request->image != NULL) {
                 $imageName = 'prod-img-' . $product->id . '.' . $request->image->extension();
                 // $request->file('image')->move(public_path('images/products'), $imageName);
                 $request->file('image')->storeAs('public/images/products', $imageName);

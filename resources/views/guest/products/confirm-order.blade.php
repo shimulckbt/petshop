@@ -10,20 +10,22 @@
                             <form method="POST" action="{{ route('confirm-order') }}">
                                 @csrf
                                 <h1>Checkout - Order review</h1>
-                                <div class="nav flex-column flex-sm-row nav-pills"><a href="checkout1.html"
+                                <div class="nav flex-column flex-sm-row nav-pills"><a href="#"
                                         class="nav-link flex-sm-fill text-sm-center"> <i class="fa fa-map-marker">
-                                        </i>Address</a><a href="checkout2.html"
-                                        class="nav-link flex-sm-fill text-sm-center"> <i class="fa fa-truck"> </i>Delivery
-                                        Method</a><a href="checkout3.html" class="nav-link flex-sm-fill text-sm-center"> <i
+                                        </i>Address</a><a href="#" class="nav-link flex-sm-fill text-sm-center"> <i
+                                            class="fa fa-truck"> </i>Delivery
+                                        Method</a><a href="#" class="nav-link flex-sm-fill text-sm-center"> <i
                                             class="fa fa-money"> </i>Payment Method</a><a href="#"
                                         class="nav-link flex-sm-fill text-sm-center active"> <i class="fa fa-eye"> </i>Order
-                                        Review</a></div>
+                                        Review</a>
+                                </div>
                                 <div class="content">
                                     <div class="table-responsive">
                                         <table class="table">
                                             <thead>
                                                 <tr>
-                                                    <th colspan="2">Product</th>
+                                                    <th>Image</th>
+                                                    <th>Name</th>
                                                     <th>Quantity</th>
                                                     <th>Unit price</th>
                                                     <th>Total</th>
@@ -46,7 +48,7 @@
                                             </tbody>
                                             <tfoot>
                                                 <tr>
-                                                    <th colspan="5">Total</th>
+                                                    <th colspan="4">Gross Total</th>
                                                     <th>{{ $subTotalPrice }} BDT</th>
                                                 </tr>
                                             </tfoot>

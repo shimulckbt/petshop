@@ -11,7 +11,7 @@ class ProductController extends Controller
 {
     public function index(Request $request)
     {
-        $perPage = $request->input('per_page');
+        $perPage = $request->input('per_page') ?: 10;
         $pageNumber = $request->input('page_number');
         $filter = $request->input('filter');
 
