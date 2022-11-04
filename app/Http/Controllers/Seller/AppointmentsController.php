@@ -18,7 +18,7 @@ class AppointmentsController extends Controller
      */
     public function index()
     {
-        $myappointments = Appointment::with(['user', 'times'])->where('user_id', auth()->user()->id)->orderBy('date', 'DESC')->get();
+        $myappointments = Appointment::with(['user', 'times'])->where('user_id', auth()->user()->id)->orderBy('date')->get();
         return view('panel.seller.appointment.index', compact('myappointments'));
     }
 
