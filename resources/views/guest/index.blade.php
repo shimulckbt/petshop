@@ -16,9 +16,9 @@
                 </div>
             </div>
             <!--
-                                            *** ADVANTAGES HOMEPAGE ***
-                                            _________________________________________________________
-                                            -->
+                                                                                                                                                                *** ADVANTAGES HOMEPAGE ***
+                                                                                                                                                                _________________________________________________________
+                                                                                                                                                                -->
             <div id="advantages">
                 <div class="container">
                     <div class="row mb-4">
@@ -52,9 +52,9 @@
             <!-- /#advantages-->
             <!-- *** ADVANTAGES END ***-->
             <!--
-                                            *** HOT PRODUCT SLIDESHOW ***
-                                            _________________________________________________________
-                                            -->
+                                                                                                                                                                *** HOT PRODUCT SLIDESHOW ***
+                                                                                                                                                                _________________________________________________________
+                                                                                                                                                                -->
             <div id="hot">
                 <div class="box py-4">
                     <div class="container">
@@ -84,8 +84,8 @@
                                             class=" img-fluid"></a>
                                     <div class="text">
                                         <h3><a href="{{ route('detail', $product) }}">{{ $product->name }}</a></h3>
-                                        <p class="price">
-                                            {{ $product->unit_price_selling }}
+                                        <p class="price text-danger font-weight-bold tex-sm" style="font-size: 1rem;">
+                                            Price: {{ $product->unit_price_selling }} BDT
                                         </p>
                                     </div>
                                 </div>
@@ -129,8 +129,8 @@
                                             class=" img-fluid"></a>
                                     <div class="text">
                                         <h3><a href="{{ route('detail', $product) }}">{{ $product->name }}</a></h3>
-                                        <p class="price">
-                                            {{ $product->unit_price_selling }}
+                                        <p class="price text-danger font-weight-bold tex-sm" style="font-size: 1rem;">
+                                            Price: {{ $product->unit_price_selling }} BDT
                                         </p>
                                     </div>
                                 </div>
@@ -174,8 +174,8 @@
                                             class=" img-fluid"></a>
                                     <div class="text">
                                         <h3><a href="{{ route('detail', $product) }}">{{ $product->name }}</a></h3>
-                                        <p class="price">
-                                            {{ $product->unit_price_selling }}
+                                        <p class="price text-danger font-weight-bold tex-sm" style="font-size: 1rem;">
+                                            Price: {{ $product->unit_price_selling }} BDT
                                         </p>
                                     </div>
                                 </div>
@@ -190,15 +190,15 @@
                 <!-- *** HOT END ***-->
             </div>
             <!--
-                                            *** GET INSPIRED ***
-                                            _________________________________________________________
-                                            -->
+                                                                                                                                                                *** GET INSPIRED ***
+                                                                                                                                                                _________________________________________________________
+                                                                                                                                                                -->
 
             <!-- *** GET INSPIRED END ***-->
             <!--
-                                            *** BLOG HOMEPAGE ***
-                                            _________________________________________________________
-                                            -->
+                                                                                                                                                                *** BLOG HOMEPAGE ***
+                                                                                                                                                                _________________________________________________________
+                                                                                                                                                                -->
 
 
             <!-- /.container-->
