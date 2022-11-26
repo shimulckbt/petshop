@@ -23,6 +23,7 @@ class User extends Authenticatable
         'last_name',
         'email',
         'password',
+        'profile_photo',
     ];
 
     /**
@@ -52,5 +53,10 @@ class User extends Authenticatable
     public function sellerDetail()
     {
         return $this->hasOne(SellerDetail::class);
+    }
+
+    public function appointments()
+    {
+        return $this->hasMany(Appointment::class);
     }
 }

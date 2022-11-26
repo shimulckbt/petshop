@@ -27,11 +27,11 @@ class RedirectIfAuthenticated
             // }
 
             if (Auth::guard($guard)->check() && Auth::user()->role_id == 1) {
-                return redirect()->route('admin.dashboard');
+                return redirect()->route('dashboard');
             } elseif (Auth::guard($guard)->check() && Auth::user()->role_id == 2) {
-                return redirect()->route('seller.dashboard');
+                return redirect()->route('welcome');
             } elseif (Auth::guard($guard)->check() && Auth::user()->role_id == 3) {
-                return redirect()->route('client.dashboard');
+                return redirect()->route('welcome');
             }
         }
 

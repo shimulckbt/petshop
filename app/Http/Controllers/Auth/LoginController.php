@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Models\Cart;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 
-use Illuminate\Http\Request;
+use App\Providers\RouteServiceProvider;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
 {
@@ -34,9 +35,9 @@ class LoginController extends Controller
     protected function redirectTo()
     {
         if (Auth()->user()->role_id == 1) {
-            return route('admin.dashboard');
+            return route('dashboard');
         } elseif (Auth()->user()->role_id == 2) {
-            return route('seller.dashboard');
+            return route('dashboard');
         } elseif (Auth()->user()->role_id == 3) {
             return route('welcome');
         }
@@ -69,12 +70,15 @@ class LoginController extends Controller
         if (auth()->attempt(array('email' => $input['email'], 'password' => $input['password']))) {
             if (auth()->user()->role_id == 1) {
                 // dd($request->all());
-                return redirect()->route('admin.dashboard');
+                return redirect()->route('dashboard');
             } elseif (auth()->user()->role_id == 2) {
                 // dd($request->all());
-                return redirect()->route('seller.dashboard');
+                return redirect()->route('dashboard');
             } elseif (auth()->user()->role_id == 3) {
                 // dd($request->all());
+                $cartCount = Cart::where('customer_id', auth()->id())->count();
+                session(['cartCount' => $cartCount]);
+                
                 return redirect()->route('welcome');
             } else {
                 // dd($request->all());
