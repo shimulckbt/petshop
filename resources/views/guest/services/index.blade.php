@@ -2,16 +2,9 @@
 @section('content')
     <div class="container">
         <div class="row">
-            {{-- <div class="col-md-2">
-                @foreach ($sellers as $skill)
-                    <a href="# ">
-                        <button class="btn btn-primary mb-2 w-100" style="cursor: pointer">
-                            {{ $skill->user->sellerDetail->skill_type }}</button></a>
-                @endforeach
-            </div>
-            <hr> --}}
             <!--Search seller-->
-            <div class="col-md-12">
+            @include('guest.services.sidebar')
+            <div class="col-md-9">
                 <form action="{{ route('services.index') }}" method="GET">
                     <div class="card">
                         <div class="card-body">
@@ -90,7 +83,7 @@
                                                     <th>Name</th>
                                                     <th>Expertise</th>
                                                     <th>Date</th>
-                                                    <th>Book Appointment</th>
+                                                    <th>Action</th>
                                                 </tr>
                                             </thead>
 
@@ -111,6 +104,10 @@
                                                             {{ $seller->date }}
                                                         </td>
                                                         <td class="align-middle">
+                                                            <a
+                                                                href="{{ route('create.appointment', [$seller->user_id, $seller->date]) }}">
+                                                                <button class="btn btn-success">View</button>
+                                                            </a>
                                                             <a
                                                                 href="{{ route('create.appointment', [$seller->user_id, $seller->date]) }}">
                                                                 <button class="btn btn-primary">Book Appointment</button>
@@ -161,6 +158,7 @@
 
 @section('csslink')
     <link href="{{ asset('panel/css/sb-admin-2.min.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('guest/css/style.default.css') }}" id="theme-stylesheet">
     <link href="{{ asset('panel/vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('panel/css/bootstrap-datepicker.min.css') }}" rel="stylesheet">
 @endsection

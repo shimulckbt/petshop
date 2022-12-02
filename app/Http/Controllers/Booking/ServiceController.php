@@ -12,16 +12,19 @@ use Illuminate\Http\Request;
 
 class ServiceController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        // date_default_timezone_set('Asia/Dhaka');
         if (request('date')) {
             $sellers = $this->findServiceSellersBasedOnDate(request('date'));
             return view('guest.services.index', compact('sellers'));
         }
-        // $date = Carbon::now();
-        $sellers = Appointment::with('user')->where('date', '>=', date('Y-m-d'))->orderBy('date')->get();
-        // dd($sellers[0]->date);
+
+        $sellers = Appointment::where('date', '>=', date('Y-m-d'))
+            ->when($request->input('user_id') != NULL, function ($q) use ($request) {
+                $q->where('user_id', $request->input('user_id'));
+            })
+            ->with('user')
+            ->orderBy('date')->get();
 
         return view('guest.services.index', compact('sellers'));
     }
@@ -32,7 +35,6 @@ class ServiceController extends Controller
         $times = Time::where('appointment_id', $appointment->id)->where('status', 0)->get();
         $user = User::where('id', $sellerId)->with('sellerDetail')->first();
         $seller_id = $sellerId;
-        // dd($times);
 
         return view('guest.services.appointment', compact('times', 'date', 'user', 'seller_id'));
     }
@@ -80,12 +82,6 @@ class ServiceController extends Controller
         $appointments = Booking::latest()->with('seller', 'customer')->where('customer_id', auth()->user()->id)->get();
         return view('panel.appointments.my-appointments', compact('appointments'));
     }
-
-    // public function myPrescription()
-    // {
-    //     $prescriptions = Prescription::where('user_id', auth()->user()->id)->get();
-    //     return view('my-prescription', compact('prescriptions'));
-    // }
 
     public function sellerToday(Request $request)
     {

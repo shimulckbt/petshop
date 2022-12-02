@@ -33,11 +33,6 @@ use App\Http\Controllers\WishListController;
 |
 */
 
-// Route::get('/', function () {
-//     $sliders = Slider::where('status', 1)->orderBy('id', 'DESC')->limit(3)->get();
-//     return view('guest.index', compact('sliders'));
-// })->name('welcome');
-
 Route::get('/', function () {
     return view('guest.index');
 })->name('welcome');
