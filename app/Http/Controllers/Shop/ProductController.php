@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Shop;
 
-use App\Http\Controllers\Controller;
-use App\Models\Product\Category\ProductSubSubCategory;
-use App\Models\Product\Product;
 use Illuminate\Http\Request;
+use App\Models\Product\Product;
+use App\Http\Controllers\Controller;
+use App\Models\Product\Category\ProductCategory;
 
 class ProductController extends Controller
 {
@@ -18,7 +18,10 @@ class ProductController extends Controller
         $allActiveProducts = Product::where('status', true)
             ->when($request->input('product_category_id') != NULL, function ($query) use ($request) {
                 $query->where('product_category_id', $request->input('product_category_id'));
-            })->where(function ($query) use ($filter) {
+            })->when($request->input('product_sub_category_id') != NULL, function ($query) use ($request) {
+                $query->where('product_sub_category_id', $request->input('product_sub_category_id'));
+            })
+            ->where(function ($query) use ($filter) {
                 $query->Where('name', 'LIKE', '%' . $filter . '%')
                     ->orWhere('sku', 'LIKE', '%' . $filter . '%');
             })
@@ -26,12 +29,20 @@ class ProductController extends Controller
             ->paginate($perPage, ['*'], 'page', $pageNumber)
             ->withQueryString();
 
-        return view('guest.products.index', compact('allActiveProducts'));
+        $allCategoriesWithSubCategories = $this->getAllSubCategories();
+
+        return view('guest.products.index', compact('allCategoriesWithSubCategories', 'allActiveProducts'));
     }
 
     public function detail(Request $request, Product $product)
     {
+        $allCategoriesWithSubCategories = $this->getAllSubCategories();
         // dd($product);
-        return view('guest.products.detail', compact('product'));
+        return view('guest.products.detail', compact('allCategoriesWithSubCategories', 'product'));
+    }
+
+    private function getAllSubCategories()
+    {
+        return $allCategoriesWithSubCategories = ProductCategory::with(['productSubCategory'])->get();
     }
 }
