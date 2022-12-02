@@ -9,7 +9,7 @@
                         class="nav-link {{ \Request::getRequestUri() == '/shop' ? 'active' : '' }}">All</a>
                 </li>
                 <li><a href="{{ route('shop', 'product_category_id=' . 1) }}"
-                        class="nav-link {{ \Request::getRequestUri() == '/shop?product_category_id=1' ? 'active' : '' }}">Pets</a>
+                        class="nav-link {{ str_contains(\Request::getRequestUri(), '/shop?product_category_id=1') ? 'active' : '' }}">Pets</a>
                     @if ($allCategoriesWithSubCategories[0]->productSubCategory != null)
                         <ul class="list-unstyled">
                             @foreach ($allCategoriesWithSubCategories[0]->productSubCategory as $productSubCategory)
@@ -20,7 +20,7 @@
                     @endif
                 </li>
                 <li><a href="{{ route('shop', 'product_category_id=' . 2) }}"
-                        class="nav-link {{ \Request::getRequestUri() == '/shop?product_category_id=2' ? 'active' : '' }}">Pet
+                        class="nav-link {{ str_contains(\Request::getRequestUri(), '/shop?product_category_id=2') ? 'active' : '' }}">Pet
                         Foods</a>
                         @if ($allCategoriesWithSubCategories[1]->productSubCategory != null)
                         <ul class="list-unstyled">
@@ -32,7 +32,7 @@
                     @endif
                 </li>
                 <li><a href="{{ route('shop', 'product_category_id=' . 3) }}"
-                        class="nav-link {{ \Request::getRequestUri() == '/shop?product_category_id=3' ? 'active' : '' }}">Pet
+                        class="nav-link {{ str_contains(\Request::getRequestUri(), '/shop?product_category_id=3') ? 'active' : '' }}">Pet
                         Accessories</a>
                         @if ($allCategoriesWithSubCategories[2]->productSubCategory != null)
                         <ul class="list-unstyled">
