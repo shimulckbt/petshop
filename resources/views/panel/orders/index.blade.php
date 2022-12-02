@@ -42,7 +42,7 @@
                                                 <td class="text-center sorting_1">{{ $loop->index + 1 }}</td>
                                                 <td class="text-center">{{ $order->order_no }}</td>
                                                 <td class="text-center">
-                                                    {{ $order->product->name }}
+                                                    {{ $order->product?->name  }}
                                                 </td>
                                                 <td class="text-center">
                                                     {{ $order->qty }}

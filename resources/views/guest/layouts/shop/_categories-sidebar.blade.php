@@ -14,7 +14,7 @@
                         <ul class="list-unstyled">
                             @foreach ($allCategoriesWithSubCategories[0]->productSubCategory as $productSubCategory)
                                 <li><a href="{{ route('shop', 'product_category_id=1&product_sub_category_id=' . $productSubCategory->id) }}"
-                                        class="nav-link">{{ $productSubCategory->name }}</a></li>
+                                        class="nav-link {{ str_contains(\Request::getRequestUri(), '/shop?product_category_id=1&product_sub_category_id=' . $productSubCategory->id) ? 'text-primary' : '' }}">{{ $productSubCategory->name }}</a></li>
                             @endforeach
                         </ul>
                     @endif
@@ -26,7 +26,7 @@
                         <ul class="list-unstyled">
                             @foreach ($allCategoriesWithSubCategories[1]->productSubCategory as $productSubCategory)
                                 <li><a href="{{ route('shop', 'product_category_id=2&product_sub_category_id=' . $productSubCategory->id) }}"
-                                        class="nav-link">{{ $productSubCategory->name }}</a></li>
+                                        class="nav-link {{ str_contains(\Request::getRequestUri(), '/shop?product_category_id=2&product_sub_category_id=' . $productSubCategory->id) ? 'text-primary' : '' }}">{{ $productSubCategory->name }}</a></li>
                             @endforeach
                         </ul>
                     @endif
@@ -38,7 +38,7 @@
                         <ul class="list-unstyled">
                             @foreach ($allCategoriesWithSubCategories[2]->productSubCategory as $productSubCategory)
                                 <li><a href="{{ route('shop', 'product_category_id=3&product_sub_category_id=' . $productSubCategory->id) }}"
-                                        class="nav-link">{{ $productSubCategory->name }}</a></li>
+                                        class="nav-link {{ str_contains(\Request::getRequestUri(), '/shop?product_category_id=3&product_sub_category_id=' . $productSubCategory->id) ? 'text-primary' : '' }}">{{ $productSubCategory->name }}</a></li>
                             @endforeach
                         </ul>
                     @endif
