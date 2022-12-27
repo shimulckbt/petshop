@@ -126,7 +126,7 @@
                         href="{{ route('all-orders') }}">All Orders</a>
                 @else
                     <a class="collapse-item {{ request()->is('orders') ? 'active' : '' }}"
-                        href="{{ route('your-orders') }}">Your Orders</a>
+                        href="{{ route('your-orders') }}">My Orders</a>
                 @endif
             </div>
         </div>
@@ -147,7 +147,7 @@
             <div id="collapseWishList" class="collapse {{ request()->is('wish-list*') ? 'show' : '' }}"
                 aria-labelledby="headingProducts" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="{{ route('viewWish') }}">Your Wish List</a>
+                    <a class="collapse-item" href="{{ route('viewWish') }}">My Wish List</a>
                 </div>
             </div>
         </li>

@@ -19,14 +19,15 @@
                                     aria-describedby="dataTable_info" style="width: 100%;" width="100%" cellspacing="0">
                                     <thead>
                                         <tr role="row">
-                                            <th class="text-center" scope="col">#</th>
-                                            <th class="text-center" scope="col">Order No.</th>
-                                            <th class="text-center" scope="col">Product</th>
-                                            <th class="text-center" scope="col">Qty</th>
-                                            <th class="text-center" scope="col">Unit Price</th>
-                                            <th class="text-center" scope="col">Total Price</th>
-                                            <th class="text-center" scope="col">Approved</th>
-                                            <th class="text-center" scope="col">Delivered</th>
+                                            <th class="text-center" width="5%" scope="col">#</th>
+                                            <th class="text-center" width="10%" scope="col">Order No.</th>
+                                            <th class="text-center" width="20%" scope="col">Product</th>
+                                            <th class="text-center" width="5%" scope="col">Qty</th>
+                                            <th class="text-center" width="5%" scope="col">Unit Price</th>
+                                            <th class="text-center" width="5%" scope="col">Total Price</th>
+                                            <th class="text-center" width="30%" scope="col">Date Time</th>
+                                            <th class="text-center" width="10%" scope="col">Approved</th>
+                                            <th class="text-center" width="10%" scope="col">Delivered</th>
                                             @if (auth()->user()->role->name == 'Admin' ||
                                                 (auth()->user()->role->name === 'Seller' &&
                                                     isset(Auth::user()->sellerDetail) &&
@@ -42,7 +43,7 @@
                                                 <td class="text-center sorting_1">{{ $loop->index + 1 }}</td>
                                                 <td class="text-center">{{ $order->order_no }}</td>
                                                 <td class="text-center">
-                                                    {{ $order->product?->name  }}
+                                                    {{ $order->product?->name }}
                                                 </td>
                                                 <td class="text-center">
                                                     {{ $order->qty }}
@@ -52,6 +53,9 @@
                                                 </td>
                                                 <td class="text-center">
                                                     {{ $order->total_price + 100 }}
+                                                </td>
+                                                <td class="text-center">
+                                                    {{ date('d-m-Y h:i A', strtotime($order->created_at)) }}
                                                 </td>
                                                 <td class="text-center">
                                                     @if ($order->is_aproved == true)
